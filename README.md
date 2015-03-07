@@ -21,7 +21,9 @@ The initial pattern constitutes the seed of the system. The first generation is 
 
 
 ## Implementation:
-socket.io
+HTML5, CSS/SASS/Foundation, JavaScript, socket.io
 
 ## Resources:
 http://en.wikipedia.org/wiki/Conway's_Game_of_Life
+
+### Instructions
