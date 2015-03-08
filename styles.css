@@ -2,6 +2,46 @@ html {
   background-color: papayaWhip;
 }
 
-.cell {
-  background-color: ping;
+h1 {
+  text-align: left;
+  margin-left: 100px;
 }
+
+#grid_div {
+  display: table;
+  border: 1px solid black;
+  background-color: white;
+  display: inline-block;
+  margin-left: 100px;
+}
+
+/*.cell {
+  background-color: pink;
+}
+*/
+
+.grid_cell.row {
+  display: table-row;
+  height: 20px;
+  border: 1px solid black;
+  background-color: white;
+}
+
+.grid_cell.col {
+  display: table-cell;
+  border: 1px solid black;
+  background-color: white;
+  height: inherit;
+  width: 20px;
+}
+
+/*#controls_div {
+  text-align: center;
+}
+
+#controls {
+  border: 1px solid black;
+  background-color: white;
+  display: inline-block;
+  margin-left: 100px;
+}*/
