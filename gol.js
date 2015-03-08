@@ -65,6 +65,87 @@ $(document).ready(function() {
     cells.push(row);
   }
 
-  console.log(cells);
+  // console.log(cells);
+
+  // generate random seed
+  for(var ROW=0; ROW<cells.length; ROW++) {
+
+    for(var COL=0; COL<cells[ROW].length; COL++) {
+      var randomValue = Math.floor(Math.random() * 2);
+      // console.log(randomValue);
+      var randomColor = "white";
+      if(randomValue === 0) {
+        randomColor = "white";
+        cells[ROW][COL].alive = false;
+      } else if(randomValue === 1){
+        randomColor = "black";
+        cells[ROW][COL].alive = true;
+      }
+      cells[ROW][COL].domDiv.style.backgroundColor = randomColor;
+    }
+  }
+
+  // count live neighbors for cell at (x,y)
+  for(var x=0; x<cells.length; x++) {
+
+
+    for(var y=0; y<cells[x].length; y++) {
+        
+      var neighbor_count = 0;
+  
+      if(x !== 0 && y !== 0) {
+        if(cells[x-1][y-1].alive === true) {
+          neighbor_count++;
+        }
+      }
+
+      if(y !== 0) {
+        if(cells[x][y-1].alive === true) {
+          neighbor_count++;
+        }
+      }
+
+      if(x !== cells.length-1 && y !== 0) {
+        if(cells[x+1][y-1].alive === true) {
+          neighbor_count++;
+        }
+      }
+
+      if(x !== 0) {
+        if(cells[x-1][y].alive === true) {
+          neighbor_count++;
+        }
+      }
+
+      if(x !== cells.length-1) {
+        if(cells[x+1][y].alive === true) {
+          neighbor_count++;
+        }
+      }
+
+      if(x !== 0 && y !== cells[x].length-1) {
+        if(cells[x-1][y+1].alive === true) {
+          neighbor_count++;
+        }
+      }
+
+      if(y !== cells[x].length-1) {
+        if(cells[x][y+1].alive === true) {
+          neighbor_count++;
+        }
+      }
+
+      if(x !== cells.length-1 && y !== cells[x].length-1) {
+        if(cells[x+1][y+1].alive === true) {
+          neighbor_count++;
+        }
+      }
+
+      console.log("neighbor_count for (" + x + "," + y + ") = " + neighbor_count);
+
+    }
+
+  }  
+
 
 });
