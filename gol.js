@@ -53,31 +53,31 @@ $(document).ready(function() {
   // console.log(cells);
 
   // generate random seed
-  for(var ROW=0; ROW<cells.length; ROW++) {
+  for(var row1=0; row1<cells.length; row1++) {
 
-    for(var COL=0; COL<cells[ROW].length; COL++) {
+    for(var col1=0; col1<cells[row1].length; col1++) {
       var randomValue = Math.floor(Math.random() * 2);
       // console.log(randomValue);
       var randomColor = "white";
       if(randomValue === 0) {
         randomColor = "white";
-        cells[ROW][COL].alive = false;
+        cells[row1][col1].alive = false;
       } else if(randomValue === 1){
         randomColor = "black";
-        cells[ROW][COL].alive = true;
+        cells[row1][col1].alive = true;
       }
-      cells[ROW][COL].domDiv.style.backgroundColor = randomColor;
+      cells[row1][col1].domDiv.style.backgroundColor = randomColor;
     }
   }
 
   // count live neighbors for cell at (x,y)
-  for(var ROWS1=0; ROWS1<cells.length; ROWS1++) {
+  for(var row2=0; row2<cells.length; row2++) {
 
 
-    for(var COLS1=0; COLS1<cells[ROWS1].length; COLS1++) {
+    for(var col2=0; col2<cells[row2].length; col2++) {
         
-      var number_of_neighbors = countNeighbors(ROWS1,COLS1);
-      console.log("neighbor_count for (" + ROWS1 + "," + COLS1 + ") = " + number_of_neighbors);
+      var number_of_neighbors = countNeighbors(row2,col2);
+      console.log("neighbor_count for (" + row2 + "," + col2 + ") = " + number_of_neighbors);
 
     }
 
