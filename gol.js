@@ -3,25 +3,10 @@ var cells = []; // contains rows []
 $(document).ready(function() {
 
   var cell = {
-    // cell_no: 0,
     alive: false,
-    domDiv: ""
-    // location: {
-    //   x: 0,       // row
-    //   y: 0        // col
-    // },
-    // live_neighbors = {
-    //   n1:,
-    //   n2:,
-    //   n3:,
-    //   n4:,
-    //   n5:,
-    //   n6:,
-    //   n7:,
-    //   n8:
-    // },
-    // num_of_live_neighbors: function() { return ... },
-    // next_gen: function() { return ...; }
+    domDiv: "",
+    num_of_live_neighbors: 0,
+    next_gen: false
   };
 
   // grid dimensions - to be specified by user input
@@ -86,66 +71,77 @@ $(document).ready(function() {
   }
 
   // count live neighbors for cell at (x,y)
-  for(var x=0; x<cells.length; x++) {
+  for(var ROWS1=0; ROWS1<cells.length; ROWS1++) {
 
 
-    for(var y=0; y<cells[x].length; y++) {
+    for(var COLS1=0; COLS1<cells[ROWS1].length; COLS1++) {
         
-      var neighbor_count = 0;
-  
-      if(x !== 0 && y !== 0) {
-        if(cells[x-1][y-1].alive === true) {
-          neighbor_count++;
-        }
-      }
-
-      if(y !== 0) {
-        if(cells[x][y-1].alive === true) {
-          neighbor_count++;
-        }
-      }
-
-      if(x !== cells.length-1 && y !== 0) {
-        if(cells[x+1][y-1].alive === true) {
-          neighbor_count++;
-        }
-      }
-
-      if(x !== 0) {
-        if(cells[x-1][y].alive === true) {
-          neighbor_count++;
-        }
-      }
-
-      if(x !== cells.length-1) {
-        if(cells[x+1][y].alive === true) {
-          neighbor_count++;
-        }
-      }
-
-      if(x !== 0 && y !== cells[x].length-1) {
-        if(cells[x-1][y+1].alive === true) {
-          neighbor_count++;
-        }
-      }
-
-      if(y !== cells[x].length-1) {
-        if(cells[x][y+1].alive === true) {
-          neighbor_count++;
-        }
-      }
-
-      if(x !== cells.length-1 && y !== cells[x].length-1) {
-        if(cells[x+1][y+1].alive === true) {
-          neighbor_count++;
-        }
-      }
-
-      console.log("neighbor_count for (" + x + "," + y + ") = " + neighbor_count);
+      var number_of_neighbors = countNeighbors(ROWS1,COLS1);
+      console.log("neighbor_count for (" + ROWS1 + "," + COLS1 + ") = " + number_of_neighbors);
 
     }
 
-  }  
+  }
+
+
+function countNeighbors(r,c) {
+
+  var neighbor_count = 0;
+  var x = r;
+  var y = c;
+
+  if(x !== 0 && y !== 0) {
+    if(cells[x-1][y-1].alive === true) {
+      neighbor_count++;
+    }
+  }
+
+  if(y !== 0) {
+    if(cells[x][y-1].alive === true) {
+      neighbor_count++;
+    }
+  }
+
+  if(x !== cells.length-1 && y !== 0) {
+    if(cells[x+1][y-1].alive === true) {
+      neighbor_count++;
+    }
+  }
+
+  if(x !== 0) {
+    if(cells[x-1][y].alive === true) {
+      neighbor_count++;
+    }
+  }
+
+  if(x !== cells.length-1) {
+    if(cells[x+1][y].alive === true) {
+      neighbor_count++;
+    }
+  }
+
+  if(x !== 0 && y !== cells[x].length-1) {
+    if(cells[x-1][y+1].alive === true) {
+      neighbor_count++;
+    }
+  }
+
+  if(y !== cells[x].length-1) {
+    if(cells[x][y+1].alive === true) {
+      neighbor_count++;
+    }
+  }
+
+  if(x !== cells.length-1 && y !== cells[x].length-1) {
+    if(cells[x+1][y+1].alive === true) {
+      neighbor_count++;
+    }
+  }
+
+  // console.log("neighbor_count for (" + x + "," + y + ") = " + neighbor_count);
+  return neighbor_count;
+
+}
 
 
 });
