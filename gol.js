@@ -35,7 +35,6 @@ $(document).ready(function() {
     var row = [];   // creates a new row each iteration, contains cells {}
 
     for(var j=0; j<height; j++) {
-      // [ {}, {}, {}, {},...]
       var gridColCell = $('<div>', {
         class: "grid_cell col"
       });
@@ -50,11 +49,8 @@ $(document).ready(function() {
     cells.push(row);
   }
 
-  // console.log(cells);
-
   // generate random seed
   for(var row1=0; row1<cells.length; row1++) {
-
     for(var col1=0; col1<cells[row1].length; col1++) {
       var randomValue = Math.floor(Math.random() * 2);
       // console.log(randomValue);
@@ -72,15 +68,10 @@ $(document).ready(function() {
 
   // count live neighbors for cell at (x,y)
   for(var row2=0; row2<cells.length; row2++) {
-
-
     for(var col2=0; col2<cells[row2].length; col2++) {
-        
       var number_of_neighbors = countNeighbors(row2,col2);
       console.log("neighbor_count for (" + row2 + "," + col2 + ") = " + number_of_neighbors);
-
     }
-
   }
 
 
@@ -138,7 +129,6 @@ function countNeighbors(r,c) {
     }
   }
 
-  // console.log("neighbor_count for (" + x + "," + y + ") = " + neighbor_count);
   return neighbor_count;
 
 }
