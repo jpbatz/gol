@@ -1,106 +1,143 @@
-// var cells = []; // contains rows []
+// var grid_data = []; // contains rows []
 
 $(document).ready(function() {
   
-  var cells = []; // contains rows []
-
-  var cell = {
-    cell_num: 0,
-    alive: false,
-    domDiv: "",
-    num_of_live_neighbors: 0,
-    next_gen: false
-  };
-
-  // grid dimensions - to be specified by user input
-  var height = 12;  // height = rows = y
-  var width = 12;   // width = cols = x
-
-  // bind 'grid_div' as a property
-  var grid = $('#grid_div');
+  // bind 'grid_view' as a property
+  var grid_view = $('#grid_div');
+  
   // bind 'controls' as a property
   // this.controls = $('<div id="controls_div">');
 
-  // build grid with dimensions provided by arguments height and width
+
+  // build grid and data with dimensions provided by arguments height and width
   //  [
   //    [ {cell}, {cell}, {cell}, {cell},...],
   //    [ {cell}, {cell}, {cell}, {cell},...],
   //            ...
   //    [ {cell}, {cell}, {cell}, {cell},...]
   //  ]
+
+  // grid dimensions - to be specified by user input
+  var height = 4;  // height = rows = y
+  var width = 6;   // width = cols = x
+
+  var grid_data = [];   // data: contains rows []
+
+  // var cell = {      // data: rows contains cells
+  //   cell_num: 0,
+  //   alive: false,
+  //   domDiv: "",
+  //   num_of_live_neighbors: 0,
+  //   next_gen: false
+  // };
+
   var cellNum = 1;
+
   for(var i=0; i<height; i++) {
-    // [                    ]
-    var gridRowCell = $('<div>', {
-      class: "grid_cell row"
+
+    // view: creates a new row
+    var gridRow = $('<div>', {
+      class: "grid_row"
     });
 
-    var row = [];   // creates a new row each iteration, contains cells {}
+    // data: creates a new row
+    var row = [];   
 
     for(var j=0; j<width; j++) {
+
+      // view: creates a new cell in current row
       var gridColCell = $('<div>', {
-        class: "grid_cell col"
+        class: "grid_col_cell"
       });
-      gridRowCell.append(gridColCell);
-      row.push(
-        {
-          cell_num: cellNum,
-          alive: false,
-          domDiv: gridColCell.get(0)
-        });
+      gridRow.append(gridColCell);
+
+      // data: creates a new cell in current row
+      var newCell = {
+        cell_num: cellNum,
+        alive: false,
+        domDiv: gridColCell.get(0),
+        num_of_live_neighbors: 0,
+        next_gen: false
+      };
+
+      console.log("[create grid] new cell: " + newCell);
+      row.push(newCell);
+      // row.push({
+      //     cell_num: cellNum,
+      //     alive: false,
+      //     domDiv: gridColCell.get(0),
+      //     num_of_live_neighbors: 0,
+      //     next_gen: false
+      // });
+      
+      console.log("[create grid] new cell number: " + cellNum + " at (" + j + "," + i + ")");
       cellNum++;
+
     }
-    grid.append(gridRowCell);
-    cells.push(row);
+
+    // view: attach row to grid
+    grid_view.append(gridRow);
+
+    // data: attach row to grid
+    grid_data.push(row);
   }
 
   console.log("***** " + Number(cellNum-1) + " CELLS *****");
 
   // generate random seed
-  for(var row1=0; row1<cells.length; row1++) {
-    for(var col1=0; col1<cells[row1].length; col1++) {
+  // for(var row1=0; row1<grid_data.length; row1++) {
+  //   for(var col1=0; col1<grid_data[row1].length; col1++) {  
+  for(var col1=0; col1<height; col1++) {
+    for(var row1=0; row1<width; row1++) {
       var randomValue = Math.floor(Math.random() * 2);
       var randomColor = "white";
       if(randomValue === 0) {
         randomColor = "white";
-        cells[col1][row1].alive = false;
+        grid_data[col1][row1].alive = false;
       } else if(randomValue === 1){
         randomColor = "purple";
-        cells[col1][row1].alive = true;
+        grid_data[col1][row1].alive = true;
       }
-      cells[col1][row1].domDiv.style.backgroundColor = randomColor;
-      cells[col1][row1].domDiv.innerHTML = cells[col1][row1].cell_num;
+      grid_data[col1][row1].domDiv.style.backgroundColor = randomColor;
+      grid_data[col1][row1].domDiv.innerHTML = grid_data[col1][row1].cell_num;
+      console.log("[generate random seed] CELL NUMBER = " + grid_data[col1][row1].cell_num + " for (" + row1 + "," + col1 + ")");
     }
   }
 
   // count live neighbors for cell at (x,y)
-  for(var row2=0; row2<cells.length; row2++) {
-    for(var col2=0; col2<cells[row2].length; col2++) {
+  // for(var row2=0; row2<grid_data.length; row2++) {
+  //   for(var col2=0; col2<grid_data[row2].length; col2++) {  
+  for(var col2=0; col2<height; col2++) {
+    for(var row2=0; row2<width; row2++) {
       var number_of_live_neighbors = countNeighbors(col2,row2);
-      console.log("live neighbor count for (" + col2 + "," + row2 + ") = " + number_of_live_neighbors);
-      cells[col2][row2].num_of_live_neighbors = number_of_live_neighbors;
+      console.log("[count neighbors] live neighbor count for: cell_num [" + grid_data[col2][row2].cell_num + "] => (" + row2 + "," + col2 + ") = " + number_of_live_neighbors);
+      grid_data[col2][row2].num_of_live_neighbors = number_of_live_neighbors;
 
-      // determine next generation status and set
+  //     // determine next generation status and set
       var nextGenStatus;
 
-      if(cells[col2][row2].alive === true) {
+      if(grid_data[col2][row2].alive === true) {
+        console.log("[current status] CELL IS ALIVE");
         if(number_of_live_neighbors < 2) {
           nextGenStatus = false;
-          console.log("alive cell will die from isolation");
+          console.log("[next gen status] alive cell will die from isolation");
         } else if(number_of_live_neighbors === 2 || number_of_live_neighbors === 3) {
           nextGenStatus = true;
-          console.log("alive cell will survive");
+          console.log("[next gen status] alive cell will survive");
         } else if(number_of_live_neighbors > 3) {
           nextGenStatus = false;
-          console.log("alive cell will die from overcrowding");
+          console.log("[next gen status] alive cell will die from overcrowding");
         }
-      } else if(cells[col2][row2].alive === false) {
+      } else if(grid_data[col2][row2].alive === false) {
+        console.log("[current status] CELL IS DEAD");
         if(number_of_live_neighbors === 3) {
           nextGenStatus = true;
-          console.log("dead cell will regenerate");
+          console.log("[next gen status] dead cell will regenerate");
+        } else {
+          console.log("[next gen status] dead cell will remain dead");
         }
       }
-      cells[col2][row2].next_gen = nextGenStatus;
+      grid_data[col2][row2].next_gen = nextGenStatus;
     }
 
   }
@@ -114,49 +151,49 @@ $(document).ready(function() {
     var y = r;
 
     if(x !== 0 && y !== 0) {
-      if(cells[x-1][y-1].alive === true) {
+      if(grid_data[x-1][y-1].alive === true) {
         neighbor_count++;
       }
     }
 
     if(y !== 0) {
-      if(cells[x][y-1].alive === true) {
+      if(grid_data[x][y-1].alive === true) {
         neighbor_count++;
       }
     }
 
-    if(x !== cells.length-1 && y !== 0) {
-      if(cells[x+1][y-1].alive === true) {
+    if(x !== grid_data.length-1 && y !== 0) {
+      if(grid_data[x+1][y-1].alive === true) {
         neighbor_count++;
       }
     }
 
     if(x !== 0) {
-      if(cells[x-1][y].alive === true) {
+      if(grid_data[x-1][y].alive === true) {
         neighbor_count++;
       }
     }
 
-    if(x !== cells.length-1) {
-      if(cells[x+1][y].alive === true) {
+    if(x !== grid_data.length-1) {
+      if(grid_data[x+1][y].alive === true) {
         neighbor_count++;
       }
     }
 
-    if(x !== 0 && y !== cells[x].length-1) {
-      if(cells[x-1][y+1].alive === true) {
+    if(x !== 0 && y !== grid_data[x].length-1) {
+      if(grid_data[x-1][y+1].alive === true) {
         neighbor_count++;
       }
     }
 
-    if(y !== cells[x].length-1) {
-      if(cells[x][y+1].alive === true) {
+    if(y !== grid_data[x].length-1) {
+      if(grid_data[x][y+1].alive === true) {
         neighbor_count++;
       }
     }
 
-    if(x !== cells.length-1 && y !== cells[x].length-1) {
-      if(cells[x+1][y+1].alive === true) {
+    if(x !== grid_data.length-1 && y !== grid_data[x].length-1) {
+      if(grid_data[x+1][y+1].alive === true) {
         neighbor_count++;
       }
     }
