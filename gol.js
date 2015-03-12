@@ -18,8 +18,8 @@ $(document).ready(function() {
   //  ]
 
   // grid dimensions - to be specified by user input
-  var height = 4;  // height = rows = y
-  var width = 6;   // width = cols = x
+  var height = 6;  // height = rows = y
+  var width = 4;   // width = cols = x
 
   var grid_data = [];   // data: contains rows []
 
@@ -113,7 +113,7 @@ $(document).ready(function() {
       console.log("[count neighbors] live neighbor count for: cell_num [" + grid_data[col2][row2].cell_num + "] => (" + row2 + "," + col2 + ") = " + number_of_live_neighbors);
       grid_data[col2][row2].num_of_live_neighbors = number_of_live_neighbors;
 
-  //     // determine next generation status and set
+      // determine next generation status and set
       var nextGenStatus;
 
       if(grid_data[col2][row2].alive === true) {
@@ -141,8 +141,22 @@ $(document).ready(function() {
     }
 
   }
- 
 
+  console.log("Population = " + getPopulation(grid_data));
+
+// HELPER FUNCTIONS
+
+  function getPopulation(grid_array) {
+    var popCount = 0;
+    for(var i=0; i<grid_array.length; i++) {
+      for(var j=0; j<width; j++) {
+        if(grid_array[i][j].alive === true) {
+          popCount++;
+        }
+      }
+    }
+    return popCount;
+  }
 
   function countNeighbors(c,r) {
 
