@@ -1,4 +1,4 @@
-# CGoL Cellular Automaton
+# CGoL Cellular Automata
 
 For Lazy Gamers...
 
