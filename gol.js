@@ -8,7 +8,6 @@ $(document).ready(function() {
   // bind 'controls' as a property
   // this.controls = $('<div id="controls_div">');
 
-
   // build grid and data with dimensions provided by arguments height and width
   //  [
   //    [ {cell}, {cell}, {cell}, {cell},...],
@@ -18,71 +17,16 @@ $(document).ready(function() {
   //  ]
 
   // grid dimensions - to be specified by user input
-  var height = 6;  // height = rows = y
-  var width = 4;   // width = cols = x
+  var height = 8;  // height = rows = y
+  var width = 6;   // width = cols = x
 
   var grid_data = [];   // data: contains rows []
 
-  // var cell = {      // data: rows contains cells
-  //   cell_num: 0,
-  //   alive: false,
-  //   domDiv: "",
-  //   num_of_live_neighbors: 0,
-  //   next_gen: false
-  // };
+  createGrid(height, width);
 
-  var cellNum = 1;
+  // enter seed values
 
-  for(var i=0; i<height; i++) {
-
-    // view: creates a new row
-    var gridRow = $('<div>', {
-      class: "grid_row"
-    });
-
-    // data: creates a new row
-    var row = [];   
-
-    for(var j=0; j<width; j++) {
-
-      // view: creates a new cell in current row
-      var gridColCell = $('<div>', {
-        class: "grid_col_cell"
-      });
-      gridRow.append(gridColCell);
-
-      // data: creates a new cell in current row
-      var newCell = {
-        cell_num: cellNum,
-        alive: false,
-        domDiv: gridColCell.get(0),
-        num_of_live_neighbors: 0,
-        next_gen: false
-      };
-
-      console.log("[create grid] new cell: " + newCell);
-      row.push(newCell);
-      // row.push({
-      //     cell_num: cellNum,
-      //     alive: false,
-      //     domDiv: gridColCell.get(0),
-      //     num_of_live_neighbors: 0,
-      //     next_gen: false
-      // });
-      
-      console.log("[create grid] new cell number: " + cellNum + " at (" + j + "," + i + ")");
-      cellNum++;
-
-    }
-
-    // view: attach row to grid
-    grid_view.append(gridRow);
-
-    // data: attach row to grid
-    grid_data.push(row);
-  }
-
-  console.log("***** " + Number(cellNum-1) + " CELLS *****");
+  // load seed from catalog (files)
 
   // generate random seed
   // for(var row1=0; row1<grid_data.length; row1++) {
@@ -142,9 +86,54 @@ $(document).ready(function() {
 
   }
 
-  console.log("Population = " + getPopulation(grid_data));
+  console.log("Live Population = " + getPopulation(grid_data));
 
 // HELPER FUNCTIONS
+
+  function createGrid(gridHeight, gridWidth) {
+
+    var cellNum = 1;
+
+    for(var i=0; i<gridHeight; i++) {
+
+      // view: creates a new row
+      var gridRow = $('<div>', {
+        class: "grid_row"
+      });
+
+      // data: creates a new row
+      var row = [];   
+
+      for(var j=0; j<gridWidth; j++) {
+
+        // view: creates a new cell in current row
+        var gridColCell = $('<div>', {
+          class: "grid_col_cell"
+        });
+        gridRow.append(gridColCell);
+
+        row.push({
+            cell_num: cellNum,
+            alive: false,
+            domDiv: gridColCell.get(0),
+            num_of_live_neighbors: 0,
+            next_gen: false
+        });
+        
+        console.log("[create grid] new cell number: " + cellNum + " at (" + j + "," + i + ")");
+        cellNum++;
+
+      }
+
+      // view: attach row to grid
+      grid_view.append(gridRow);
+
+      // data: attach row to grid
+      grid_data.push(row);
+    }
+
+    console.log("***** " + Number(cellNum-1) + " CELLS *****");
+  }
 
   function getPopulation(grid_array) {
     var popCount = 0;
