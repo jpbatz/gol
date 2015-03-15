@@ -19,18 +19,18 @@ $(document).ready(function() {
   //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   // ];
 
-  var seed_glider = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 1, 1, 0, 0, 0, 0, 0, 0, 0],
-    [1, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
-  ];
+  // var seed_glider = [
+  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  //   [0, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+  //   [1, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+  //   [0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
+  // ];
 
   // var seed = [
   //   [0, 0, 0, 0, 0, 0],
@@ -55,7 +55,7 @@ $(document).ready(function() {
   // grid dimension defaults
   var height = 5;  // height = rows = y
   var width = 5;   // width = cols = x
-  var speed = 1;  // simulation speed
+  var speed = 50;  // simulation speed
 
   var grid_data = [];   // data: contains rows []
 
@@ -69,55 +69,58 @@ $(document).ready(function() {
     runMode = "catalog";
   }
 
+  speed = prompt("Enter speed (in msec):");
+
   console.log("Mode: " + runMode);
 
+
   if(runMode === "random") {
-    height = 3;  // height = rows = y
-    width = 3;   // width = cols = x
+
+    height = prompt("Enter grid height:");  // height = rows = y
+    width = prompt("Enter grid width:");   // width = cols = x
+
     console.log("Creating a grid with dimensions = " + height + "x" + width + " (height x width)");
+
     // createGrid(height, width, grid);
     createGrid(height, width);
     // create random seed
     generateRandomSeed();
     // display grid
     displayGrid();
-    // setTimeout(updateNextGen, speed);
-    // updateNextGen();
 
-    console.log("***** Live Population = " + getPopulation(grid_data) + " *****");
-
-    console.log("[updateNextGen]");
-    setInterval(function() {
-      if(getPopulation(grid_data) > 0) {
-        calcNextGeneration();
-        // displayNextGeneration();
-        setNextGenLifeStatus();
-        displayGrid();
-      }
-    }, speed);
+    // process subsequent generations
+    updateNextGen();
 
   } else if(runMode === "manual") {
-    height = prompt("Enter height: ");
-    width = prompt("Enter width: ");
+
+    height = prompt("Enter grid height:");  // height = rows = y
+    width = prompt("Enter grid width:");   // width = cols = x
+
     console.log("Creating a grid with dimensions = " + height + "x" + width + " (height x width)");
+
     // createGrid(height, width, grid);
     createGrid(height, width);
 
-    // manually click to enter seed values
+    // manually click cells to enter seed values
+
+
 
     // display grid()
-    // displayGrid();
+    displayGrid();
 
-    // setTimeout(updateNextGen, speed);
-    // updateNextGen();
+    // process subsequent generations
+    updateNextGen();
 
   } else if(runMode === "catalog") {
+
     // seed_file = prompt("Select File...");
-    seed_file = seed_glider;
+    seed_file = seed_fig8;
     height = seed_file.length;
     width = seed_file[0].length;
+    // console.log(seed_file);
+
     console.log("Creating a grid with dimensions = " + height + "x" + width + " (height x width)");
-    console.log(seed_file);
+
     // createGrid(height, width, grid);
     createGrid(height, width);
 
@@ -127,20 +130,8 @@ $(document).ready(function() {
     // display grid
     displayGrid();
 
-    // setTimeout(updateNextGen, speed);
-    // updateNextGen();
-
-    console.log("***** Live Population = " + getPopulation(grid_data) + " *****");
-
-    console.log("[updateNextGen]");
-    setInterval(function() {
-      if(getPopulation(grid_data) > 0) {
-        calcNextGeneration();
-        // displayNextGeneration();
-        setNextGenLifeStatus();
-        displayGrid();
-      }
-    }, speed);
+    // process subsequent generations
+    updateNextGen();
 
   } else {
     console.log("Invalid selection");
@@ -380,29 +371,6 @@ $(document).ready(function() {
   }
 
 
-  /**
-   * displayNextGeneration()
-   * @return {[type]} [description]
-   */
-  // function displayNextGeneration() {
-  //   console.log("[displayNextGeneration]");
-  //   for(var row3=0; row3<height; row3++) {
-  //     for(var col3=0; col3<width; col3++) {
-  //       console.log("cell " + grid_data[row3][col3].cell_num + " at (" + row3 + "," + col3 + ") is " + grid_data[row3][col3].next_gen);
-  //       var nextGenVal = grid_data[row3][col3].next_gen;
-  //       var nextGenColor = "white";
-  //       if(nextGenVal === false) {
-  //           nextGenColor = "white";
-  //         } else if(nextGenVal === true){
-  //           nextGenColor = "purple";
-  //         }
-  //       grid_data[row3][col3].domDiv.style.backgroundColor = nextGenColor;        
-  //       grid_data[row3][col3].domDiv.innerHTML = grid_data[row3][col3].cell_num;
-  //     }
-  //   }
-  // } 
-
-
 /**
  * setNextGenLifeStatus()
  */
@@ -420,17 +388,18 @@ $(document).ready(function() {
  * updateNextGen()
  * @return {[type]} [description]
  */
-  // function updateNextGen() {
-  //   console.log("[updateNextGen]");
-  //   calcNextGeneration();
-  //   // displayNextGeneration();
-  //   setNextGenLifeStatus();
-  //   displayGrid();
-  //   if(getPopulation(grid_data) > 0) {
-  //     console.log("***** Live Population = " + getPopulation(grid_data) + " *****");
-  //     setTimeout(updateNextGen, speed);
-  //   }
-  // }
+  function updateNextGen() {
 
+    console.log("***** Live Population = " + getPopulation(grid_data) + " *****");
+
+    console.log("[updateNextGen]");
+    setInterval(function() {
+      if(getPopulation(grid_data) > 0) {
+        calcNextGeneration();
+        setNextGenLifeStatus();
+        displayGrid();
+      }
+    }, speed);
+  }
 
 });
