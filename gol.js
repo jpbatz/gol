@@ -1,5 +1,3 @@
-// var grid_data = []; // contains rows []
-
 $(document).ready(function() {
   
   // bind 'grid_view' as a property
@@ -8,41 +6,153 @@ $(document).ready(function() {
   // bind 'controls' as a property
   // this.controls = $('<div id="controls_div">');
 
-  // build grid and data with dimensions provided by arguments height and width
-  //  [
-  //    [ {cell}, {cell}, {cell}, {cell},...],
-  //    [ {cell}, {cell}, {cell}, {cell},...],
-  //            ...
-  //    [ {cell}, {cell}, {cell}, {cell},...]
-  //  ]
+  // var seed_template = [
+  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  // ];
 
-  // grid dimensions - to be specified by user input
-  var height = 16;  // height = rows = y
-  var width = 14;   // width = cols = x
-  var speed = 500;  // simulation speed
+  var seed_glider = [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+    [1, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
+  ];
+
+  // var seed = [
+  //   [0, 0, 0, 0, 0, 0],
+  //   [0, 0, 1, 1, 0, 0],
+  //   [0, 1, 1, 1, 1, 0],
+  //   [1, 1, 1, 1, 1, 1],
+  //   [0, 1, 1, 1, 1, 0],
+  //   [0, 0, 1, 1, 0, 0],
+  //   [0, 0, 0, 0, 0, 0]
+  // ];
+
+  // var seed_test = [
+  //   [0, 0, 0, 0, 0],
+  //   [0, 0, 0, 0, 0],
+  //   [0, 1, 1, 0, 0],
+  //   [0, 0, 1, 0, 0],
+  //   [0, 0, 0, 0, 0],
+  //   [0, 0, 0, 0, 0]
+  // ];
+
+
+  // grid dimension defaults
+  var height = 5;  // height = rows = y
+  var width = 5;   // width = cols = x
+  var speed = 1;  // simulation speed
 
   var grid_data = [];   // data: contains rows []
 
-  // createGrid(height, width, grid);
-  createGrid(height, width);
+  var runMode = prompt("Enter seed method (R)andom, (M)anual, or (F)ile: ");
 
-  // create random seed
-  generateRandomSeed();
+  if(runMode.toUpperCase() === "R") {
+    runMode = "random";
+  } else if(runMode.toUpperCase() === "M") {
+    runMode = "manual";
+  } else if(runMode.toUpperCase() === "F") {
+    runMode = "catalog";
+  }
 
-  // manually click to enter seed values
+  console.log("Mode: " + runMode);
 
-  // load seed from catalog (files)
+  if(runMode === "random") {
+    height = 3;  // height = rows = y
+    width = 3;   // width = cols = x
+    console.log("Creating a grid with dimensions = " + height + "x" + width + " (height x width)");
+    // createGrid(height, width, grid);
+    createGrid(height, width);
+    // create random seed
+    generateRandomSeed();
+    // display grid
+    displayGrid();
+    // setTimeout(updateNextGen, speed);
+    // updateNextGen();
 
-  // console.log("***** Live Population = " + getPopulation(grid_data) + " *****");
+    console.log("***** Live Population = " + getPopulation(grid_data) + " *****");
 
-  setTimeout(updateNextGen, speed);
+    console.log("[updateNextGen]");
+    setInterval(function() {
+      if(getPopulation(grid_data) > 0) {
+        calcNextGeneration();
+        // displayNextGeneration();
+        setNextGenLifeStatus();
+        displayGrid();
+      }
+    }, speed);
+
+  } else if(runMode === "manual") {
+    height = prompt("Enter height: ");
+    width = prompt("Enter width: ");
+    console.log("Creating a grid with dimensions = " + height + "x" + width + " (height x width)");
+    // createGrid(height, width, grid);
+    createGrid(height, width);
+
+    // manually click to enter seed values
+
+    // display grid()
+    // displayGrid();
+
+    // setTimeout(updateNextGen, speed);
+    // updateNextGen();
+
+  } else if(runMode === "catalog") {
+    // seed_file = prompt("Select File...");
+    seed_file = seed_glider;
+    height = seed_file.length;
+    width = seed_file[0].length;
+    console.log("Creating a grid with dimensions = " + height + "x" + width + " (height x width)");
+    console.log(seed_file);
+    // createGrid(height, width, grid);
+    createGrid(height, width);
+
+    // load seed from catalog (files)
+    loadFileSeed();
+
+    // display grid
+    displayGrid();
+
+    // setTimeout(updateNextGen, speed);
+    // updateNextGen();
+
+    console.log("***** Live Population = " + getPopulation(grid_data) + " *****");
+
+    console.log("[updateNextGen]");
+    setInterval(function() {
+      if(getPopulation(grid_data) > 0) {
+        calcNextGeneration();
+        // displayNextGeneration();
+        setNextGenLifeStatus();
+        displayGrid();
+      }
+    }, speed);
+
+  } else {
+    console.log("Invalid selection");
+  }
+
  
 
 
 // ========================== HELPER FUNCTIONS ==========================
 
   /**
-   * [createGrid]
+   * createGrid()
    * @param  {[Integer]} gridHeight [number of rows to be created]
    * @param  {[Integer]} gridWidth  [number if columns to be created]
    * @return {[type]}               [description]
@@ -75,11 +185,11 @@ $(document).ready(function() {
             cell_num: cellNum,
             alive: false,
             domDiv: gridColCell.get(0),
-            num_of_live_neighbors: 0,
+            num_live_neighbors: 0,
             next_gen: false
         });
         
-        console.log("[create grid] new cell number: " + cellNum + " at (" + j + "," + i + ")");
+        console.log("[create grid] new cell number: " + cellNum + " at (" + i + "," + j + ")");
         cellNum++;
 
       }
@@ -100,26 +210,59 @@ $(document).ready(function() {
    * @return {[type]} [description]
    */
   function generateRandomSeed() {
-    // for(var row1=0; row1<grid_data.length; row1++) {
-    //   for(var col1=0; col1<grid_data[row1].length; col1++) {  
-    for(var col1=0; col1<height; col1++) {
-      for(var row1=0; row1<width; row1++) {
+    for(var row1=0; row1<height; row1++) {
+      for(var col1=0; col1<width; col1++) {
         var randomValue = Math.floor(Math.random() * 2);
-        var randomColor = "white";
         if(randomValue === 0) {
-          randomColor = "white";
-          grid_data[col1][row1].alive = false;
+          grid_data[row1][col1].alive = false;
         } else if(randomValue === 1){
-          randomColor = "purple";
-          grid_data[col1][row1].alive = true;
+          grid_data[row1][col1].alive = true;
         }
-        grid_data[col1][row1].domDiv.style.backgroundColor = randomColor;
-        grid_data[col1][row1].domDiv.innerHTML = grid_data[col1][row1].cell_num;
-        console.log("[generate random seed] CELL NUMBER = " + grid_data[col1][row1].cell_num + " for (" + row1 + "," + col1 + ")");
+        console.log("[generate random seed] CELL NUMBER = " + grid_data[row1][col1].cell_num + " for (" + col1 + "," + row1 + ") alive = " + grid_data[row1][col1].alive);
       }
     }
   }
 
+
+  /**
+   * loadFileSeed()
+   * @return {[type]} [description]
+   */
+  function loadFileSeed() {
+    // load seed from catalog (files)
+    for(var row5=0; row5<height; row5++) {
+      for(var col5=0; col5<width; col5++) {
+        var fileCellValue = seed_file[row5][col5];
+        if(fileCellValue === 0) {
+          grid_data[row5][col5].alive = false;
+        } else if(fileCellValue === 1){
+          grid_data[row5][col5].alive = true;
+        }
+        console.log("[load file seed] CELL NUMBER = " + grid_data[row5][col5].cell_num + " for (" + row5 + "," + col5 + ") alive = " + grid_data[row5][col5].alive);
+      }
+    }
+  }
+
+
+  /**
+   * displayGrid()
+   * @return {[type]} [description]
+   */
+  function displayGrid() {
+    for(var row1a=0; row1a<height; row1a++) {
+      for(var col1a=0; col1a<width; col1a++) {
+        var cellColor = "white";
+        if(grid_data[row1a][col1a].alive === false) {
+          cellColor = "white";
+        } else if(grid_data[row1a][col1a].alive === true){
+          cellColor = "purple";
+        }
+        grid_data[row1a][col1a].domDiv.style.backgroundColor = cellColor;
+        grid_data[row1a][col1a].domDiv.innerHTML = grid_data[row1a][col1a].cell_num;
+        console.log("[display grid] CELL NUMBER = " + grid_data[row1a][col1a].cell_num + " for (" + row1a + "," + col1a + ") alive = " + grid_data[row1a][col1a].alive);
+      }
+    }
+  }
 
   /**
    * [getPopulation]
@@ -140,98 +283,96 @@ $(document).ready(function() {
 
 
   /**
-   * calcNextGeneration
+   * calcNextGeneration()
    * @return {[type]} [description]
    */
   function calcNextGeneration() {
     // count live neighbors for cell at (x,y)
-    // for(var row2=0; row2<grid_data.length; row2++) {
-    //   for(var col2=0; col2<grid_data[row2].length; col2++) {  
-    for(var col2=0; col2<height; col2++) {
-      for(var row2=0; row2<width; row2++) {
-        var number_of_live_neighbors = countNeighbors(col2,row2);
-        console.log("[count neighbors] live neighbor count for: cell_num [" + grid_data[col2][row2].cell_num + "] => (" + row2 + "," + col2 + ") = " + number_of_live_neighbors);
-        grid_data[col2][row2].num_of_live_neighbors = number_of_live_neighbors;
+    for(var row2=0; row2<height; row2++) {
+      for(var col2=0; col2<width; col2++) {
+        var numLiveNeighbors = countNeighbors(row2,col2);
+        grid_data[row2][col2].num_live_neighbors = numLiveNeighbors;
+        console.log("[calc next gen] live neighbor count for: cell_num [" + grid_data[row2][col2].cell_num + "] => (" + row2 + "," + col2 + ") = " + grid_data[row2][col2].num_live_neighbors);
 
         // determine next generation status and set
         var nextGenStatus;
 
-        if(grid_data[col2][row2].alive === true) {
-          // console.log("[current status] CELL IS ALIVE");
-          if(number_of_live_neighbors < 2) {
+        if(grid_data[row2][col2].alive === true) {
+          if(numLiveNeighbors < 2) {
             nextGenStatus = false;
             console.log("[next gen status] alive cell will die from isolation");
-          } else if(number_of_live_neighbors === 2 || number_of_live_neighbors === 3) {
+          } else if(numLiveNeighbors === 2 || numLiveNeighbors === 3) {
             nextGenStatus = true;
             console.log("[next gen status] alive cell will survive");
-          } else if(number_of_live_neighbors > 3) {
+          } else if(numLiveNeighbors > 3) {
             nextGenStatus = false;
             console.log("[next gen status] alive cell will die from overcrowding");
           }
-        } else if(grid_data[col2][row2].alive === false) {
-          // console.log("[current status] CELL IS DEAD");
-          if(number_of_live_neighbors === 3) {
+        } else if(grid_data[row2][col2].alive === false) {
+          if(numLiveNeighbors === 3) {
             nextGenStatus = true;
             console.log("[next gen status] dead cell will regenerate");
           } else {
+            nextGenStatus = false;
             console.log("[next gen status] dead cell will remain dead");
           }
         }
-        grid_data[col2][row2].next_gen = nextGenStatus;
+        grid_data[row2][col2].next_gen = nextGenStatus;
+        console.log("next gen status: " + grid_data[row2][col2].next_gen);
       }
     }
   }
 
 
   /**
-   * [countNeighbors]
+   * countNeighbors()
    * @param  {[Integer]} c [column index]
    * @param  {[Integer]} r [row index]
    * @return {[type]}      [description]
    */
-  function countNeighbors(c,r) {
+  function countNeighbors(r,c) {
 
     var neighbor_count = 0;
-    var x = c;
     var y = r;
+    var x = c;
 
-    if(x !== 0 && y !== 0) {
-      if(grid_data[x-1][y-1].alive === true) {
+    if(y !== 0 && x !== 0) {
+      if(grid_data[y-1][x-1].alive === true) {
         neighbor_count++;
       }
     }
     if(y !== 0) {
-      if(grid_data[x][y-1].alive === true) {
+      if(grid_data[y-1][x].alive === true) {
         neighbor_count++;
       }
     }
-    if(x !== grid_data.length-1 && y !== 0) {
-      if(grid_data[x+1][y-1].alive === true) {
+    if(y !== 0 && x !== width-1) {
+      if(grid_data[y-1][x+1].alive === true) {
         neighbor_count++;
       }
     }
     if(x !== 0) {
-      if(grid_data[x-1][y].alive === true) {
+      if(grid_data[y][x-1].alive === true) {
         neighbor_count++;
       }
     }
-    if(x !== grid_data.length-1) {
-      if(grid_data[x+1][y].alive === true) {
+    if(x !== width-1) {
+      if(grid_data[y][x+1].alive === true) {
         neighbor_count++;
       }
     }
-    if(x !== 0 && y !== grid_data[x].length-1) {
-      if(grid_data[x-1][y+1].alive === true) {
+    if(y !== height-1 && x !== 0) {
+      if(grid_data[y+1][x-1].alive === true) {
         neighbor_count++;
       }
     }
-    if(y !== grid_data[x].length-1) {
-      if(grid_data[x][y+1].alive === true) {
+    if(y !== height-1) {
+      if(grid_data[y+1][x].alive === true) {
         neighbor_count++;
       }
     }
-    if(x !== grid_data.length-1 && y !== grid_data[x].length-1) {
-      if(grid_data[x+1][y+1].alive === true) {
+    if(y !== height-1 && x !== width-1) {
+      if(grid_data[y+1][x+1].alive === true) {
         neighbor_count++;
       }
     }
@@ -240,53 +381,56 @@ $(document).ready(function() {
 
 
   /**
-   * displayNextGeneration
+   * displayNextGeneration()
    * @return {[type]} [description]
    */
-  function displayNextGeneration() {
-    console.log("[displayNextGeneration]");
-    for(var col3=0; col3<height; col3++) {
-      for(var row3=0; row3<width; row3++) {
-        console.log("cell " + grid_data[col3][row3].cell_num + " at (" + col3 + "," + row3 + ") is " + grid_data[col3][row3].next_gen);
-        var nextGenVal = grid_data[col3][row3].next_gen;
-        var nextGenColor = "white";
-        if(nextGenVal === false) {
-            nextGenColor = "white";
-          } else if(nextGenVal === true){
-            nextGenColor = "purple";
-          }
-        grid_data[col3][row3].domDiv.style.backgroundColor = nextGenColor;        
-        grid_data[col3][row3].domDiv.innerHTML = grid_data[col3][row3].cell_num;
+  // function displayNextGeneration() {
+  //   console.log("[displayNextGeneration]");
+  //   for(var row3=0; row3<height; row3++) {
+  //     for(var col3=0; col3<width; col3++) {
+  //       console.log("cell " + grid_data[row3][col3].cell_num + " at (" + row3 + "," + col3 + ") is " + grid_data[row3][col3].next_gen);
+  //       var nextGenVal = grid_data[row3][col3].next_gen;
+  //       var nextGenColor = "white";
+  //       if(nextGenVal === false) {
+  //           nextGenColor = "white";
+  //         } else if(nextGenVal === true){
+  //           nextGenColor = "purple";
+  //         }
+  //       grid_data[row3][col3].domDiv.style.backgroundColor = nextGenColor;        
+  //       grid_data[row3][col3].domDiv.innerHTML = grid_data[row3][col3].cell_num;
+  //     }
+  //   }
+  // } 
+
+
+/**
+ * setNextGenLifeStatus()
+ */
+  function setNextGenLifeStatus() {
+    for(var row4=0; row4<height; row4++) {
+      for(var col4=0; col4<width; col4++) {
+        grid_data[row4][col4].alive = grid_data[row4][col4].next_gen;
+        grid_data[row4][col4].next_gen = false;
       }
     }
-  } 
+  }
 
 
 /**
  * updateNextGen()
  * @return {[type]} [description]
  */
-  function updateNextGen() {
-    console.log("[updateNextGen]");
-      calcNextGeneration();
-      displayNextGeneration();
-      setNextGenLifeStatus();
-      if(getPopulation(grid_data) > 0) {
-        console.log("***** Live Population = " + getPopulation(grid_data) + " *****");
-        setTimeout(updateNextGen, 250);
-      }
-  }
+  // function updateNextGen() {
+  //   console.log("[updateNextGen]");
+  //   calcNextGeneration();
+  //   // displayNextGeneration();
+  //   setNextGenLifeStatus();
+  //   displayGrid();
+  //   if(getPopulation(grid_data) > 0) {
+  //     console.log("***** Live Population = " + getPopulation(grid_data) + " *****");
+  //     setTimeout(updateNextGen, speed);
+  //   }
+  // }
 
-
-/**
- * setNextGenLifeStatus
- */
-  function setNextGenLifeStatus() {
-    for(var col4=0; col4<height; col4++) {
-      for(var row4=0; row4<width; row4++) {
-        grid_data[col4][row4].alive = grid_data[col4][row4].next_gen;
-      }
-    }
-  }
 
 });
