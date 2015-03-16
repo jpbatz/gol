@@ -101,15 +101,31 @@ $(document).ready(function() {
     // createGrid(height, width, grid);
     createGrid(height, width);
 
-    // manually click cells to enter seed values
-
-
-
     // display grid()
     displayGrid();
 
-    // process subsequent generations
-    updateNextGen();
+
+    var controlsDiv = $('#controls-div');
+    var runManualButton = '<button id="run-manual">Run Manual Mode</button>';
+
+    controlsDiv.append(runManualButton);
+
+    // manually click cells to enter seed values
+    $('.cell').on('click', function() {
+      // console.log("click in cell " + this.innerHTML + " detected");
+      if(this.style.backgroundColor === "white") {
+        this.style.backgroundColor = "purple";
+      } else if(this.style.backgroundColor === "purple") {
+        this.style.backgroundColor = "white";
+      }
+    });
+
+    $('#run-manual').on('click', function() {
+      setManualSeed();
+
+      // process subsequent generations
+      updateNextGen();
+    });
 
   } else if(runMode === "catalog") {
 
@@ -167,7 +183,7 @@ $(document).ready(function() {
 
         // view: creates a new cell in current row
         var gridColCell = $('<div>', {
-          class: "grid_col_cell"
+          class: "grid_col_cell cell"
         });
         gridRow.append(gridColCell);
 
@@ -400,6 +416,20 @@ $(document).ready(function() {
         displayGrid();
       }
     }, speed);
+  }
+
+
+  /**
+   * setManualSeed()
+   */
+  function setManualSeed() {
+    for(var row6=0; row6<height; row6++) {
+      for(var col6=0; col6<width; col6++) {
+        if(grid_data[row6][col6].domDiv.style.backgroundColor === "purple") {
+          grid_data[row6][col6].alive = true;
+        }
+      }
+    }
   }
 
 });
