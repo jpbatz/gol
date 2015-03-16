@@ -44,12 +44,25 @@ $(document).ready(function() {
 
   // var seed_test = [
   //   [0, 0, 0, 0, 0],
-  //   [0, 0, 0, 0, 0],
+  //   [0, 0, 1, 1, 0],
   //   [0, 1, 1, 0, 0],
   //   [0, 0, 1, 0, 0],
   //   [0, 0, 0, 0, 0],
   //   [0, 0, 0, 0, 0]
   // ];
+
+  var seed_test = [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
+    [0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  ];
 
 
   // grid dimension defaults
@@ -114,7 +127,7 @@ $(document).ready(function() {
   } else if(runMode === "catalog") {
 
     // seed_file = prompt("Select File...");
-    seed_file = seed_fig8;
+    seed_file = seed_test;
     height = seed_file.length;
     width = seed_file[0].length;
     // console.log(seed_file);
