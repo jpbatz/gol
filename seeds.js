@@ -1,173 +1,68 @@
-var seed = 
-  [
-    [
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false }
-    ],
-    [
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false }
-    ],
-    [
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false }
-    ],
-    [
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false }
-    ],
-    [
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false }
-    ],
-    [
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false }
-    ],
-    [
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false }
-    ],
-    [
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false }
-    ],
-    [
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false }
-    ],
-    [
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false }
-    ],
-    [
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false }
-    ],
-    [
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false },
-      { "alive": false }
-    ]      
-  ];
+var seed_glider = [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+    [1, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
+];
 
-module.exports = seed;
+
+var seed_fig8 = [
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 1, 0, 0, 0, 0, 0],
+    [0, 1, 1, 0, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 0, 0],
+    [0, 0, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 0, 1, 1, 0],
+    [0, 0, 0, 0, 0, 1, 1, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0]
+];
+
+var seed_octagon = [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0, 1, 0, 0, 0],
+    [0, 0, 1, 0, 0, 0, 0, 1, 0, 0],
+    [0, 1, 0, 0, 0, 0, 0, 0, 1, 0],
+    [0, 1, 0, 0, 0, 0, 0, 0, 1, 0],
+    [0, 0, 1, 0, 0, 0, 0, 1, 0, 0],
+    [0, 0, 0, 1, 0, 0, 1, 0, 0, 0],
+    [0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+];
+
+var seed_spinner = [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+    [0, 1, 1, 1, 0, 0, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0, 0, 1, 1, 1, 0],
+    [0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+];
+
+var seed_pulsar = [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0],
+    [0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0],
+    [0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0],
+    [0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+    [0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0],
+    [0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0],
+    [0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+];
