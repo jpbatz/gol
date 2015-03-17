@@ -3,18 +3,35 @@
 <html>
 
   <head>
-    <title>CGol Worlds</title>
+    <title>CGoL Connect</title>
     <link rel="stylesheet" href="./styles.css">
   </head>
 
   <body>
 
-    <h1>CGol Worlds</h1>
-    <div id="grid_div"></div><br>
-    <div id="controls-div"></div>
+    <header>
+      <h1>CGoL Connect</h1>
+    </header>
 
-    <!-- <br> -->
-   <!--  <button id="run-manual">Run Manual Mode</button> -->
+    <div id="setup-div">
+      <ul id="setup">
+        <li id="height-setup">Height: <input type="text" placeholder="Enter Height"></li>
+        <li id="width-setup">Width: <input type="text" placeholder="Enter Width"></li>
+        <li id="speed-setup">Speed: <input type="text" placeholder="Enter Speed (ms)"></li>
+        <li id="run-setup"><button id="run-button">Run</button></li>
+      </ul>
+    </div>
+
+    <div id="stats-div">
+      <ul id="stats">
+        <li id="generation-stats">Generation: <input type="text"></li>
+        <li id="live-cells-stats">Live Cells: <input type="text"></li>
+        <li id="time-elapsed-stats">Time Elapsed: <input type="text"></li>
+      </ul>
+    </div>
+
+    <div id="grid_div"></div>
+    <!-- <div id="controls_div"></div> -->
 
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.12/angular.min.js"></script> -->
