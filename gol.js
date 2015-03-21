@@ -6,65 +6,6 @@ $(document).ready(function() {
   // bind 'controls' as a property
   // this.controls = $('<div id="controls_div">');
 
-  // var seed_template = [
-  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-  // ];
-
-  // var seed_glider = [
-  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   [0, 1, 1, 0, 0, 0, 0, 0, 0, 0],
-  //   [1, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-  //   [0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
-  // ];
-
-  // var seed = [
-  //   [0, 0, 0, 0, 0, 0],
-  //   [0, 0, 1, 1, 0, 0],
-  //   [0, 1, 1, 1, 1, 0],
-  //   [1, 1, 1, 1, 1, 1],
-  //   [0, 1, 1, 1, 1, 0],
-  //   [0, 0, 1, 1, 0, 0],
-  //   [0, 0, 0, 0, 0, 0]
-  // ];
-
-  // var seed_test = [
-  //   [0, 0, 0, 0, 0],
-  //   [0, 0, 1, 1, 0],
-  //   [0, 1, 1, 0, 0],
-  //   [0, 0, 1, 0, 0],
-  //   [0, 0, 0, 0, 0],
-  //   [0, 0, 0, 0, 0]
-  // ];
-
-  var seed_test = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
-    [0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-  ];
-
-
   // grid dimension defaults
   var height = 5;  // height = rows = y
   var width = 5;   // width = cols = x
@@ -114,15 +55,31 @@ $(document).ready(function() {
     // createGrid(height, width, grid);
     createGrid(height, width);
 
-    // manually click cells to enter seed values
-
-
-
     // display grid()
     displayGrid();
 
-    // process subsequent generations
-    updateNextGen();
+
+    var controlsDiv = $('#controls-div');
+    var runManualButton = '<button id="run-manual">Run Manual Mode</button>';
+
+    controlsDiv.append(runManualButton);
+
+    // manually click cells to enter seed values
+    $('.cell').on('click', function() {
+      // console.log("click in cell " + this.innerHTML + " detected");
+      if(this.style.backgroundColor === "white") {
+        this.style.backgroundColor = "purple";
+      } else if(this.style.backgroundColor === "purple") {
+        this.style.backgroundColor = "white";
+      }
+    });
+
+    $('#run-manual').on('click', function() {
+      setManualSeed();
+
+      // process subsequent generations
+      updateNextGen();
+    });
 
   } else if(runMode === "catalog") {
 
@@ -149,8 +106,6 @@ $(document).ready(function() {
   } else {
     console.log("Invalid selection");
   }
-
- 
 
 
 // ========================== HELPER FUNCTIONS ==========================
@@ -180,7 +135,7 @@ $(document).ready(function() {
 
         // view: creates a new cell in current row
         var gridColCell = $('<div>', {
-          class: "grid_col_cell"
+          class: "grid_col_cell cell"
         });
         gridRow.append(gridColCell);
 
@@ -223,6 +178,20 @@ $(document).ready(function() {
           grid_data[row1][col1].alive = true;
         }
         console.log("[generate random seed] CELL NUMBER = " + grid_data[row1][col1].cell_num + " for (" + col1 + "," + row1 + ") alive = " + grid_data[row1][col1].alive);
+      }
+    }
+  }
+
+
+  /**
+   * setManualSeed()
+   */
+  function setManualSeed() {
+    for(var row6=0; row6<height; row6++) {
+      for(var col6=0; col6<width; col6++) {
+        if(grid_data[row6][col6].domDiv.style.backgroundColor === "purple") {
+          grid_data[row6][col6].alive = true;
+        }
       }
     }
   }
