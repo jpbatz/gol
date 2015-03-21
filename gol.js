@@ -84,7 +84,7 @@ $(document).ready(function() {
   } else if(runMode === "catalog") {
 
     // seed_file = prompt("Select File...");
-    seed_file = seed_test;
+    seed_file = seed_fig8;
     height = seed_file.length;
     width = seed_file[0].length;
     // console.log(seed_file);
