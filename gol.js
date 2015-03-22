@@ -82,9 +82,9 @@ function simulate() {
 
 
     var controlsDiv = $('#controls-div');
-    var setManualButton = '<button id="set-manual-seed">Set Seed</button>';
+    var setSeedButton = '<button id="set-seed-button">Set Seed</button>';
 
-    controlsDiv.append(setManualButton);
+    $('set-seed-div').append(setSeedButton);
 
     // manually click cells to enter seed values
     $('.cell').on('click', function() {
@@ -397,11 +397,7 @@ function setNextGenLifeStatus() {
 function updateNextGen() {
 
   console.log("***** Live Population = " + getPopulation(grid_data) + " *****");
-
   console.log("[updateNextGen]");
-
-  // var setIntervalID;
-  // var count = 2;
 
   $("#start-pause-button").on('click', function() {
     count++;
