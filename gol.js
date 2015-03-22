@@ -4,6 +4,8 @@ var speed = 250;      // simulation speed
 var runMode = "R";    // default run mode is random
 var grid_view;        // view: to be assigned once after document ready
 var grid_data = [];   // data: contains rows []
+var setIntervalID;
+var count = 2;
 
 $(document).ready(function() {
   
@@ -80,9 +82,9 @@ function simulate() {
 
 
     var controlsDiv = $('#controls-div');
-    var runManualButton = '<button id="run-manual">Run Manual Mode</button>';
+    var setManualButton = '<button id="set-manual-seed">Set Seed</button>';
 
-    controlsDiv.append(runManualButton);
+    controlsDiv.append(setManualButton);
 
     // manually click cells to enter seed values
     $('.cell').on('click', function() {
@@ -94,7 +96,7 @@ function simulate() {
       }
     });
 
-    $('#run-manual').on('click', function() {
+    $('#set-manual-seed').on('click', function() {
       setManualSeed();
 
       // process subsequent generations
@@ -208,10 +210,11 @@ function generateRandomSeed() {
  * setManualSeed()
  */
 function setManualSeed() {
-  for(var row6=0; row6<height; row6++) {
-    for(var col6=0; col6<width; col6++) {
-      if(grid_data[row6][col6].domDiv.style.backgroundColor === "purple") {
-        grid_data[row6][col6].alive = true;
+  console.log("[setManualSeed]");
+  for(var row2=0; row2<height; row2++) {
+    for(var col2=0; col2<width; col2++) {
+      if(grid_data[row2][col2].domDiv.style.backgroundColor === "purple") {
+        grid_data[row2][col2].alive = true;
       }
     }
   }
@@ -224,15 +227,15 @@ function setManualSeed() {
  */
 function loadFileSeed() {
   // load seed from catalog (files)
-  for(var row5=0; row5<height; row5++) {
-    for(var col5=0; col5<width; col5++) {
-      var fileCellValue = seed_file[row5][col5];
+  for(var row3=0; row3<height; row3++) {
+    for(var col3=0; col3<width; col3++) {
+      var fileCellValue = seed_file[row3][col3];
       if(fileCellValue === 0) {
-        grid_data[row5][col5].alive = false;
+        grid_data[row3][col3].alive = false;
       } else if(fileCellValue === 1){
-        grid_data[row5][col5].alive = true;
+        grid_data[row3][col3].alive = true;
       }
-      console.log("[load file seed] CELL NUMBER = " + grid_data[row5][col5].cell_num + " for (" + row5 + "," + col5 + ") alive = " + grid_data[row5][col5].alive);
+      console.log("[load file seed] CELL NUMBER = " + grid_data[row3][col3].cell_num + " for (" + row3 + "," + col3 + ") alive = " + grid_data[row3][col3].alive);
     }
   }
 }
@@ -243,17 +246,17 @@ function loadFileSeed() {
  * @return {[type]} [description]
  */
 function displayGrid() {
-  for(var row1a=0; row1a<height; row1a++) {
-    for(var col1a=0; col1a<width; col1a++) {
+  for(var row4=0; row4<height; row4++) {
+    for(var col4=0; col4<width; col4++) {
       var cellColor = "white";
-      if(grid_data[row1a][col1a].alive === false) {
+      if(grid_data[row4][col4].alive === false) {
         cellColor = "white";
-      } else if(grid_data[row1a][col1a].alive === true){
+      } else if(grid_data[row4][col4].alive === true){
         cellColor = "purple";
       }
-      grid_data[row1a][col1a].domDiv.style.backgroundColor = cellColor;
-      grid_data[row1a][col1a].domDiv.innerHTML = grid_data[row1a][col1a].cell_num;
-      console.log("[display grid] CELL NUMBER = " + grid_data[row1a][col1a].cell_num + " for (" + row1a + "," + col1a + ") alive = " + grid_data[row1a][col1a].alive);
+      grid_data[row4][col4].domDiv.style.backgroundColor = cellColor;
+      grid_data[row4][col4].domDiv.innerHTML = grid_data[row4][col4].cell_num;
+      console.log("[display grid] CELL NUMBER = " + grid_data[row4][col4].cell_num + " for (" + row4 + "," + col4 + ") alive = " + grid_data[row4][col4].alive);
     }
   }
 }
@@ -282,16 +285,16 @@ function getPopulation(grid_array) {
  */
 function calcNextGeneration() {
   // count live neighbors for cell at (x,y)
-  for(var row2=0; row2<height; row2++) {
-    for(var col2=0; col2<width; col2++) {
-      var numLiveNeighbors = countNeighbors(row2,col2);
-      grid_data[row2][col2].num_live_neighbors = numLiveNeighbors;
-      console.log("[calc next gen] live neighbor count for: cell_num [" + grid_data[row2][col2].cell_num + "] => (" + row2 + "," + col2 + ") = " + grid_data[row2][col2].num_live_neighbors);
+  for(var row5=0; row5<height; row5++) {
+    for(var col5=0; col5<width; col5++) {
+      var numLiveNeighbors = countNeighbors(row5,col5);
+      grid_data[row5][col5].num_live_neighbors = numLiveNeighbors;
+      console.log("[calc next gen] live neighbor count for: cell_num [" + grid_data[row5][col5].cell_num + "] => (" + row5 + "," + col5 + ") = " + grid_data[row5][col5].num_live_neighbors);
 
       // determine next generation status and set
       var nextGenStatus;
 
-      if(grid_data[row2][col2].alive === true) {
+      if(grid_data[row5][col5].alive === true) {
         if(numLiveNeighbors < 2) {
           nextGenStatus = false;
           console.log("[next gen status] alive cell will die from isolation");
@@ -302,7 +305,7 @@ function calcNextGeneration() {
           nextGenStatus = false;
           console.log("[next gen status] alive cell will die from overcrowding");
         }
-      } else if(grid_data[row2][col2].alive === false) {
+      } else if(grid_data[row5][col5].alive === false) {
         if(numLiveNeighbors === 3) {
           nextGenStatus = true;
           console.log("[next gen status] dead cell will regenerate");
@@ -311,8 +314,8 @@ function calcNextGeneration() {
           console.log("[next gen status] dead cell will remain dead");
         }
       }
-      grid_data[row2][col2].next_gen = nextGenStatus;
-      console.log("next gen status: " + grid_data[row2][col2].next_gen);
+      grid_data[row5][col5].next_gen = nextGenStatus;
+      console.log("next gen status: " + grid_data[row5][col5].next_gen);
     }
   }
 }
@@ -378,10 +381,10 @@ function countNeighbors(r,c) {
  * setNextGenLifeStatus()
  */
 function setNextGenLifeStatus() {
-  for(var row4=0; row4<height; row4++) {
-    for(var col4=0; col4<width; col4++) {
-      grid_data[row4][col4].alive = grid_data[row4][col4].next_gen;
-      grid_data[row4][col4].next_gen = false;
+  for(var row6=0; row6<height; row6++) {
+    for(var col6=0; col6<width; col6++) {
+      grid_data[row6][col6].alive = grid_data[row6][col6].next_gen;
+      grid_data[row6][col6].next_gen = false;
     }
   }
 }
@@ -396,12 +399,45 @@ function updateNextGen() {
   console.log("***** Live Population = " + getPopulation(grid_data) + " *****");
 
   console.log("[updateNextGen]");
-  setInterval(function() {
-    if(getPopulation(grid_data) > 0) {
-      calcNextGeneration();
-      setNextGenLifeStatus();
-      displayGrid();
+
+  // var setIntervalID;
+  // var count = 2;
+
+  $("#start-pause-button").on('click', function() {
+    count++;
+    if(count % 2 !== 0) {
+      console.log("***** PLAY *****");
+      $("#start-pause-button").html("Pause");
+      setIntervalID = setInterval(function(){
+        // console.log("*****" + getPopulation(grid_data));
+        if(getPopulation(grid_data) > 0) {
+          calcNextGeneration();
+          setNextGenLifeStatus();
+          displayGrid();
+        }
+      }, speed);
+      // console.log("setIntervalID " + setIntervalID);
+    } else {
+      clearInterval(setIntervalID);
+      $("#start-pause-button").html("Play");
+      console.log("***** PAUSED *****");
     }
-  }, speed);
+  });
+
+  $("#done").on('click', function() {
+      clearInterval(setIntervalID);
+      console.log("***** DONE *****");
+      $("#start-pause-button").html("Play");
+      resetGrid();
+  });
+
 }
 
+function resetGrid() {
+  for(var row7=0; row7<height; row7++) {
+    for(var col7=0; col7<width; col7++) {
+      grid_data[row7][col7].alive = false;
+      grid_data[row7][col7].next_gen = false;
+    }
+  }  
+}
