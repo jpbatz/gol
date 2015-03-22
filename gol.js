@@ -84,7 +84,7 @@ function simulate() {
     var controlsDiv = $('#controls-div');
     var setSeedButton = '<button id="set-seed-button">Set Seed</button>';
 
-    $('set-seed-div').append(setSeedButton);
+    $('#set-seed-div').append(setSeedButton);
 
     // manually click cells to enter seed values
     $('.cell').on('click', function() {
@@ -96,7 +96,7 @@ function simulate() {
       }
     });
 
-    $('#set-manual-seed').on('click', function() {
+    $('#set-seed-button').on('click', function() {
       setManualSeed();
 
       // process subsequent generations
