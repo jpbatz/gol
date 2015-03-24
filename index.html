@@ -13,21 +13,22 @@
       <h1>CGoL Connect</h1>
     </header>
 
-    <div id="selection-div">
-      <div>
-        <em>Mode: </em>
-          <a href="#" class="run-mode-selection"><input type="radio" name="mode-selection" value="random" checked>Random</a>
-          <input type="radio" class="run-mode-selection" name="mode-selection" value="manual"><a href="#" class="run-mode-selection">Manual</a>
-          <a href="#" class="run-mode-selection"><input type="radio" class="run-mode-selection" name="mode-selection" value="catalog">Catalog</a>
+    <div id="setup-div">
+      <div id="mode-div">
+        <!-- <em>Mode: </em> -->
+          <a href="#" id="random" class="run-mode-selection">Random</a>
+          <a href="#" id="manual" class="run-mode-selection">Manual</a>
+          <a href="#" id="catalog" class="run-mode-selection">Catalog</a>
+      </div> <!-- end #mode-div -->
+      <div id="selection-div">
+        <ul id="selection">
+          <li>Height: <input type="text" id="height-selection" placeholder="5, Max = 30"></li>
+          <li>Width: <input type="text"  id="width-selection" placeholder="5, Max = 30"></li>
+          <li>Speed: <input type="text"  id="speed-selection"placeholder="250 ms"></li>
+          <li><button id="create-button">Create</button></li>
+        </ul>
       </div>
-      <ul id="selection">
-<!--         <li>Mode: <input type="text" id="run-mode-selection" placeholder="(R)andom, (M)anual, (F)ile"></li> -->
-        <li>Height: <input type="text" id="height-selection" placeholder="Max Height = 30"></li>
-        <li>Width: <input type="text"  id="width-selection" placeholder="Max Width = 30"></li>
-        <li>Speed: <input type="text"  id="speed-selection"placeholder="Speed (ms)"></li>
-        <li><button id="create-button">Create</button></li>
-      </ul>
-    </div>
+    <div> <!-- end #selection-div -->
 
     <div id="stats-div">
       <ul id="stats">
@@ -40,9 +41,9 @@
     <div id="grid_div"></div>
     <div id="controls-div">
       <div id="set-seed-div"></div>
-      <div>
-        <button id="run-pause-button">Start</button>
-        <button id="done">Done</button>
+      <div id="show-start-run-pause-div hide-start-run-pause-div">
+        <button id="start-run-pause-button">Start</button>
+        <button id="done-button">Done</button>
       </div>
 
     </div>

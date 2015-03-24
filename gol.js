@@ -23,7 +23,25 @@ $(document).ready(function() {
 
   console.log("*** Run Mode = ", + runMode);
 
-  $('input[name="mode-selection"]').change(logger);
+  $('#random').on('click', function() {
+    runMode = "random";
+  });
+  $('#manual').on('click', function() {
+    runMode = "manual";
+  });
+  $('#catalog').on('click', function() {
+    runMode = "catalog";
+    $('#selection').remove();
+    var seed_list = '<input type="radio" name="seed-selection" value="fig8" checked />';
+      // <input type="radio" name="seed-selection" value="octagon" />Octagon
+      // <input type="radio" name="seed-selection" value="pulsar" />Pulsar
+      // <input type="radio" name="seed-selection" value="spinner" />Spinner";
+
+    // var newListItem = $('#selection').append('seed_list').html("Fig8");
+    $('#selection-div').append(seed_list);
+  });
+
+  // $('input[name="mode-selection"]').change(logger);
 
   $('#create-button').on('click', simulate);
 
@@ -31,11 +49,17 @@ $(document).ready(function() {
 
 // ========================== MAIN FUNCTION ==========================
 
-  function logger(e) {
-    var $input = $(this);
-    console.log($input.val());
-    runMode = $(this).val();
-  }
+
+/**
+ * logger()
+ * @param  {[type]} e [description]
+ * @return {[type]}   [description]
+ */
+function logger(e) {
+  var $input = $(this);
+  console.log($input.val());
+  runMode = $(this).val();
+}
 
 /**
  * simulate()
@@ -264,6 +288,7 @@ function displayGrid() {
       console.log("[display grid] CELL NUMBER = " + grid_data[row4][col4].cell_num + " for (" + row4 + "," + col4 + ") alive = " + grid_data[row4][col4].alive);
     }
   }
+  // show Start and Done buttons (remove from html)
 }
 
 /**
@@ -404,11 +429,11 @@ function updateNextGen() {
   console.log("***** Live Population = " + getPopulation(grid_data) + " *****");
   console.log("[updateNextGen]");
 
-  $("#run-pause-button").on('click', function() {
+  $("#start-run-pause-button").on('click', function() {
     count++;
     if(count % 2 !== 0) {
       console.log("***** PLAY *****");
-      $("#run-pause-button").html("Pause");
+      $("#start-run-pause-button").html("Pause");
       setIntervalID = setInterval(function(){
         // console.log("*****" + getPopulation(grid_data));
         if(getPopulation(grid_data) > 0) {
@@ -420,15 +445,15 @@ function updateNextGen() {
       // console.log("setIntervalID " + setIntervalID);
     } else {
       clearInterval(setIntervalID);
-      $("#run-pause-button").html("Run");
+      $("#start-run-pause-button").html("Run");
       console.log("***** PAUSED *****");
     }
   });
 
-  $("#done").on('click', function() {
+  $("#done-button").on('click', function() {
       clearInterval(setIntervalID);
       console.log("***** DONE *****");
-      $("#run-pause-button").html("Run");
+      $("#start-run-pause-button").html("Run");
       resetGrid();
   });
 
