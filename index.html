@@ -14,8 +14,14 @@
     </header>
 
     <div id="selection-div">
+      <div>
+        <em>Mode: </em>
+          <a href="#" class="run-mode-selection"><input type="radio" name="mode-selection" value="r" checked>Random</a>
+          <input type="radio" class="run-mode-selection" name="mode-selection" value="m"><a href="#" class="run-mode-selection">Manual</a>
+          <a href="#" class="run-mode-selection"><input type="radio" class="run-mode-selection" name="mode-selection" value="f">Catalog</a>
+      </div>
       <ul id="selection">
-        <li>Mode: <input type="text" id="run-mode-selection" placeholder="(R)andom, (M)anual, (F)ile"></li>
+<!--         <li>Mode: <input type="text" id="run-mode-selection" placeholder="(R)andom, (M)anual, (F)ile"></li> -->
         <li>Height: <input type="text" id="height-selection" placeholder="Max Height = 30"></li>
         <li>Width: <input type="text"  id="width-selection" placeholder="Max Width = 30"></li>
         <li>Speed: <input type="text"  id="speed-selection"placeholder="Speed (ms)"></li>
