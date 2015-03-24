@@ -16,16 +16,16 @@
     <div id="selection-div">
       <div>
         <em>Mode: </em>
-          <a href="#" class="run-mode-selection"><input type="radio" name="mode-selection" value="r" checked>Random</a>
-          <input type="radio" class="run-mode-selection" name="mode-selection" value="m"><a href="#" class="run-mode-selection">Manual</a>
-          <a href="#" class="run-mode-selection"><input type="radio" class="run-mode-selection" name="mode-selection" value="f">Catalog</a>
+          <a href="#" class="run-mode-selection"><input type="radio" name="mode-selection" value="random" checked>Random</a>
+          <input type="radio" class="run-mode-selection" name="mode-selection" value="manual"><a href="#" class="run-mode-selection">Manual</a>
+          <a href="#" class="run-mode-selection"><input type="radio" class="run-mode-selection" name="mode-selection" value="catalog">Catalog</a>
       </div>
       <ul id="selection">
 <!--         <li>Mode: <input type="text" id="run-mode-selection" placeholder="(R)andom, (M)anual, (F)ile"></li> -->
         <li>Height: <input type="text" id="height-selection" placeholder="Max Height = 30"></li>
         <li>Width: <input type="text"  id="width-selection" placeholder="Max Width = 30"></li>
         <li>Speed: <input type="text"  id="speed-selection"placeholder="Speed (ms)"></li>
-        <li><button id="submit-selections-button">Submit</button></li>
+        <li><button id="create-button">Create</button></li>
       </ul>
     </div>
 
@@ -41,7 +41,7 @@
     <div id="controls-div">
       <div id="set-seed-div"></div>
       <div>
-        <button id="start-pause-button">Start</button>
+        <button id="run-pause-button">Start</button>
         <button id="done">Done</button>
       </div>
 

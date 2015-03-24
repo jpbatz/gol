@@ -1,7 +1,7 @@
 var height = 5;       // height = rows = y
 var width = 5;        // width = cols = x
 var speed = 250;      // simulation speed
-var runMode = "R";    // default run mode is random
+var runMode = "random";    // default run mode is random
 var grid_view;        // view: to be assigned once after document ready
 var grid_data = [];   // data: contains rows []
 var setIntervalID;
@@ -21,9 +21,11 @@ $(document).ready(function() {
   console.log("speed = " + speed);
   console.log("mode = " + runMode);
 
+  console.log("*** Run Mode = ", + runMode);
+
   $('input[name="mode-selection"]').change(logger);
 
-  $('#submit-selections-button').on('click', simulate);
+  $('#create-button').on('click', simulate);
 
 });
 
@@ -48,15 +50,6 @@ function simulate() {
   speed = $('#speed-selection').val() || speed;
   // runMode = $('#run-mode-selection').val() || runMode;
 
-  console.log("*** Run Mode = ", + runMode);
-
-  if(runMode.toUpperCase() === "R") {
-    runMode = "random";
-  } else if(runMode.toUpperCase() === "M") {
-    runMode = "manual";
-  } else if(runMode.toUpperCase() === "F") {
-    runMode = "catalog";
-  }
 
   console.log("*** SUBMITTED VALUES ***");
   console.log("** height = " + height);
@@ -411,11 +404,11 @@ function updateNextGen() {
   console.log("***** Live Population = " + getPopulation(grid_data) + " *****");
   console.log("[updateNextGen]");
 
-  $("#start-pause-button").on('click', function() {
+  $("#run-pause-button").on('click', function() {
     count++;
     if(count % 2 !== 0) {
       console.log("***** PLAY *****");
-      $("#start-pause-button").html("Pause");
+      $("#run-pause-button").html("Pause");
       setIntervalID = setInterval(function(){
         // console.log("*****" + getPopulation(grid_data));
         if(getPopulation(grid_data) > 0) {
@@ -427,7 +420,7 @@ function updateNextGen() {
       // console.log("setIntervalID " + setIntervalID);
     } else {
       clearInterval(setIntervalID);
-      $("#start-pause-button").html("Play");
+      $("#run-pause-button").html("Run");
       console.log("***** PAUSED *****");
     }
   });
@@ -435,7 +428,7 @@ function updateNextGen() {
   $("#done").on('click', function() {
       clearInterval(setIntervalID);
       console.log("***** DONE *****");
-      $("#start-pause-button").html("Play");
+      $("#run-pause-button").html("Run");
       resetGrid();
   });
 
