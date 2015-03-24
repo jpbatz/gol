@@ -416,7 +416,7 @@ function updateNextGen() {
       // console.log("setIntervalID " + setIntervalID);
     } else {
       clearInterval(setIntervalID);
-      $("#start-pause-button").html("Play");
+      $("#start-pause-button").html("Run");
       console.log("***** PAUSED *****");
     }
   });
@@ -424,7 +424,7 @@ function updateNextGen() {
   $("#done").on('click', function() {
       clearInterval(setIntervalID);
       console.log("***** DONE *****");
-      $("#start-pause-button").html("Play");
+      $("#start-pause-button").html("Run");
       resetGrid();
   });
 
