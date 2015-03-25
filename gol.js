@@ -75,7 +75,7 @@ $(document).ready(function() {
     $('#selection').append('<li class="seed-selection"><input type="radio" name="seed-selection" value="octagon" />Octagon</li>');
     $('#selection').append('<li class="seed-selection"><input type="radio" name="seed-selection" value="pulsar" />Pulsar</li>');
     $('#selection').append('<li class="seed-selection"><input type="radio" name="seed-selection" value="spinner" />Spinner</li>');
-    // $('#selection').append('<li id="speed-selection">Speed: <input type="text" placeholder="250 ms" size="5" maxlength="4"></li>');
+    $('#selection').append('<li id="speed-selection">Speed: <input type="text" placeholder="250 ms" size="5" maxlength="4"></li>');
     $('#selection').append('<li class="seed-selection"><button id="create-button">Create</button></li>');
     $('input[name="seed-selection"]').change(seed_logger);
     console.log("MAIN " + selected_seed_file);
@@ -349,7 +349,7 @@ function displayGrid() {
         cellColor = "purple";
       }
       grid_data[row4][col4].domDiv.style.backgroundColor = cellColor;
-      grid_data[row4][col4].domDiv.innerHTML = grid_data[row4][col4].cell_num;
+      // grid_data[row4][col4].domDiv.innerHTML = grid_data[row4][col4].cell_num;
       console.log("[display grid] CELL NUMBER = " + grid_data[row4][col4].cell_num + " for (" + row4 + "," + col4 + ") alive = " + grid_data[row4][col4].alive);
     }
   }
