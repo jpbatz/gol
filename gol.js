@@ -9,8 +9,8 @@ var seed_file = seed_glider;
 var selected_seed_file = seed_file;
 var setIntervalID;
 var count = 2;
-// var "colorOfLife" = "purple";
-// var colorOfDeath = "papayaWhip";
+var colorOfLife = "purple";
+var colorOfDeath = "#FFEFD5"; // papayawhip
 
 $(document).ready(function() {
 
@@ -28,7 +28,6 @@ $(document).ready(function() {
   // console.log("seed file = " + seed_file);
 
   $('#random').on('click', function() {
-    console.log("[RANDOM MODE]");
     runMode = "random";
     $('#random').css({
       "background-color": "orange"
@@ -43,7 +42,6 @@ $(document).ready(function() {
   });
   
   $('#manual').on('click', function() {
-    console.log("[MANUAL MODE]");
     runMode = "manual";
     $('#random').css({
       "background-color": "yellow"
@@ -58,13 +56,14 @@ $(document).ready(function() {
   });
   
   $('#catalog').on('click', function() {
-    console.log("[CATALOG MODE])");
     runMode = "catalog";
     $('#random').css({
       "background-color": "yellow"
+
     });
     $('#manual').css({
       "background-color": "yellow"
+
     });
     $('#catalog').css({
       "background-color": "orange"
@@ -75,10 +74,10 @@ $(document).ready(function() {
     $('#selection').append('<li class="seed-selection"><input type="radio" name="seed-selection" value="octagon" />Octagon</li>');
     $('#selection').append('<li class="seed-selection"><input type="radio" name="seed-selection" value="pulsar" />Pulsar</li>');
     $('#selection').append('<li class="seed-selection"><input type="radio" name="seed-selection" value="spinner" />Spinner</li>');
-    $('#selection').append('<li id="speed-selection">Speed: <input type="text" placeholder="250 ms" size="5" maxlength="4"></li>');
+    $('#selection').append('<li id="speed-selection">Speed: <input type="text" placeholder="250ms" size="5" maxlength="4"></li>');
     $('#selection').append('<li class="seed-selection"><button id="create-button">Create</button></li>');
     $('input[name="seed-selection"]').change(seed_logger);
-    console.log("MAIN " + selected_seed_file);
+    // console.log("MAIN " + selected_seed_file);
     $('#create-button').on('click', simulate);
   });
 
@@ -143,10 +142,10 @@ function simulate() {
     // manually click cells to enter seed values
     $('.cell').on('click', function() {
       console.log("click in cell " + this.innerHTML + " detected");
-      if(this.style.backgroundColor === "white") {
-        this.style.backgroundColor = "purple";
-      } else if(this.style.backgroundColor === "purple") {
-        this.style.backgroundColor = "white";
+      if(this.style.backgroundColor === colorOfDeath) {
+        this.style.backgroundColor = colorOfLife;
+      } else if(this.style.backgroundColor === colorOfLife) {
+        this.style.backgroundColor = colorOfDeath;
       }
     });
 
@@ -306,7 +305,7 @@ function setManualSeed() {
   console.log("[setManualSeed]");
   for(var row2=0; row2<height; row2++) {
     for(var col2=0; col2<width; col2++) {
-      if(grid_data[row2][col2].domDiv.style.backgroundColor === "purple") {
+      if(grid_data[row2][col2].domDiv.style.backgroundColor === colorOfLife) {
         grid_data[row2][col2].alive = true;
       }
     }
@@ -342,11 +341,11 @@ function displayGrid() {
 
   for(var row4=0; row4<height; row4++) {
     for(var col4=0; col4<width; col4++) {
-      var cellColor = "white";
+      var cellColor = colorOfDeath;
       if(grid_data[row4][col4].alive === false) {
-        cellColor = "white";
+        cellColor = colorOfDeath;
       } else if(grid_data[row4][col4].alive === true){
-        cellColor = "purple";
+        cellColor = colorOfLife;
       }
       grid_data[row4][col4].domDiv.style.backgroundColor = cellColor;
       // grid_data[row4][col4].domDiv.innerHTML = grid_data[row4][col4].cell_num;
