@@ -17,6 +17,11 @@ h1 {
   /*margin-left: 100px;*/
 }
 
+a.run-mode-selection {
+  text-decoration: none;
+  color: black;
+}
+
 ul {
   border: 1px solid black;
 }

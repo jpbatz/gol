@@ -21,11 +21,19 @@ $(document).ready(function() {
   console.log("speed = " + speed);
   console.log("mode = " + runMode);
 
+  $('input[name="mode-selection"]').change(logger);
+
   $('#submit-selections-button').on('click', simulate);
 
 });
 
 // ========================== MAIN FUNCTION ==========================
+
+  function logger(e) {
+    var $input = $(this);
+    console.log($input.val());
+    runMode = $(this).val();
+  }
 
 /**
  * simulate()
@@ -38,8 +46,9 @@ function simulate() {
   height = $('#height-selection').val() || height;
   width = $('#width-selection').val() || width;
   speed = $('#speed-selection').val() || speed;
-  runMode = $('#run-mode-selection').val() || runMode;
+  // runMode = $('#run-mode-selection').val() || runMode;
 
+  console.log("*** Run Mode = ", + runMode);
 
   if(runMode.toUpperCase() === "R") {
     runMode = "random";
@@ -107,7 +116,10 @@ function simulate() {
   } else if(runMode === "catalog") {
 
     // seed_file = prompt("Select File...");
-    seed_file = seed_fig8;
+    // seed_file = seed_fig8;
+    // seed_file = seed_octagon;
+    // seed_file = seed_pulsar;
+    seed_file = seed_spinner;
     height = seed_file.length;
     width = seed_file[0].length;
     // console.log(seed_file);
@@ -431,6 +443,7 @@ function updateNextGen() {
 }
 
 function resetGrid() {
+  // delete grid
   for(var row7=0; row7<height; row7++) {
     for(var col7=0; col7<width; col7++) {
       grid_data[row7][col7].alive = false;
