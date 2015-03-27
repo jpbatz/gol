@@ -135,6 +135,7 @@ function simulate() {
     createGrid(height, width);
     displayGrid();
 
+    $('#start-run-pause-done-div').css({"visibility": "hidden"});
     $('#set-seed-div').append('<button id="set-seed-button">Set Seed</button>');
 
     // manually click cells to enter seed values
@@ -149,7 +150,7 @@ function simulate() {
 
     $('#set-seed-button').on('click', function() {
       setManualSeed();
-
+      $('#start-run-pause-done-div').css({"visibility": "visible"});
       updateNextGen();
     });
   
