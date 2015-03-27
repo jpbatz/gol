@@ -10,7 +10,8 @@ var selected_seed_file = seed_file;
 var setIntervalID;
 var count = 2;
 var colorOfLife = "purple";
-var colorOfDeath = "#FFEFD5"; // papayawhip
+// var colorOfDeath = "#FFEFD5"; // papayawhip
+var colorOfDeath = "white";
 
 $(document).ready(function() {
 
@@ -38,6 +39,8 @@ $(document).ready(function() {
     $('#catalog').css({
       "background-color": "yellow"
     });
+    $('.selection-item').css({"visibility": "visible"});
+    $('#stats-div').css({"visibility": "visible"});
     $('#create-button').on('click', simulate);
   });
   
@@ -52,6 +55,8 @@ $(document).ready(function() {
     $('#catalog').css({
       "background-color": "yellow"
     });
+    $('.selection-item').css({"visibility": "visible"});
+    $('#stats-div').css({"visibility": "visible"});
     $('#create-button').on('click', simulate);
   });
   
@@ -59,26 +64,35 @@ $(document).ready(function() {
     runMode = "catalog";
     $('#random').css({
       "background-color": "yellow"
-
     });
     $('#manual').css({
       "background-color": "yellow"
-
     });
     $('#catalog').css({
       "background-color": "orange"
     });
-    $('#selection').remove();
-    $('#selection-div').append('<ul id="selection">');
-    $('#selection').append('<li class="seed-selection"><input type="radio" name="seed-selection" value="figure8"  />Figure 8</li>');
-    $('#selection').append('<li class="seed-selection"><input type="radio" name="seed-selection" value="octagon" />Octagon</li>');
-    $('#selection').append('<li class="seed-selection"><input type="radio" name="seed-selection" value="pulsar" />Pulsar</li>');
-    $('#selection').append('<li class="seed-selection"><input type="radio" name="seed-selection" value="spinner" />Spinner</li>');
-    $('#selection').append('<li id="speed-selection">Speed: <input type="text" placeholder="250ms" size="5" maxlength="4"></li>');
-    $('#selection').append('<li class="seed-selection"><button id="create-button">Create</button></li>');
-    $('input[name="seed-selection"]').change(seed_logger);
-    // console.log("MAIN " + selected_seed_file);
+
+    $('.selection').remove();
+    $('#selection-div').html("Select Sample: ");
+    $('#selection-div').append('<select id="select-sample" name="seed-sample">');
+    $('#select-sample').append('<option value="glider">Samples:</option>');
+    $('#select-sample').append('<optgroup id="nonterminal-group" label="Oscillators (Non-Terminal)">');
+    $('#nonterminal-group').append('<option value="fig8">Figure 8</option>');
+    $('#nonterminal-group').append('<option value="octagon">Octagon</option>');
+    $('#nonterminal-group').append('<option value="pulsar">Pulsar</option>');
+    $('#nonterminal-group').append('<option value="spinner">Spinner</option>');
+    $('#select-sample').append('<optgroup id="terminal-group" label="Terminals">');
+    $('#terminal-group').append('<option value="terminal1">Terminal 1</option>');
+    $('#terminal-group').append('<option value="terminal2">Terminal 2</option>');
+    $('#select-sample').append('<optgroup id="glider-group" label="Gliders">');
+    $('#glider-group').append('<option value="glider1">Glider 1</option>');
+    $('#glider-group').append('<option value="glider2">Glider 2</option>');
+    $('#selection-div').append('Speed: <input id="speed-selection" type="text" placeholder="250ms" size="5" maxlength="4">');
+    $('#selection-div').append('<button id="create-button">Create</button>');
+    $('select[name="seed-sample"]').change(seed_logger);
+    $('#stats-div').css({"visibility": "visible"});
     $('#create-button').on('click', simulate);
+
   });
 
 });
@@ -133,11 +147,7 @@ function simulate() {
     // display grid()
     displayGrid();
 
-
-    var controlsDiv = $('#controls-div');
-    var setSeedButton = '<button id="set-seed-button">Set Seed</button>';
-
-    $('#set-seed-div').append(setSeedButton);
+    $('#set-seed-div').append('<button id="set-seed-button">Set Seed</button>');
 
     // manually click cells to enter seed values
     $('.cell').on('click', function() {
