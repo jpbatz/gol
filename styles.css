@@ -31,7 +31,18 @@ h1 {
   padding: 5px;
 }
 
-#selection li {
+#selection-div {
+  margin-top: 10px;
+  display: inline-block;
+  text-decoration: none;
+}
+
+#select-sample {
+  margin-right: 10px;
+}
+
+.selection-item {
+  visibility: hidden;
   margin-right: 10px;
   font-size: 14px;
   display: inline-block;
@@ -44,9 +55,17 @@ h1 {
   margin-right: 20px;
   padding-left: 5px;
   padding-right: 5px;
+  font-size: 14px;
+  display: inline-block;
+  text-decoration: none;
+}
+
+#speed-selection {
+  margin-right: 10px;
 }
 
 #stats-div {
+  visibility: hidden;
   background-color: white;
 }
 

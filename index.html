@@ -15,16 +15,16 @@
 
     <div id="setup-div">
       <div id="mode-div">
-          <a href="#" id="random" class="run-mode-selection">Random</a>
-          <a href="#" id="manual" class="run-mode-selection">Manual</a>
-          <a href="#" id="catalog" class="run-mode-selection">Catalog</a>
+          <a href="javascript:console.log('[RANDOM MODE]');" id="random" class="run-mode-selection">Random</a>
+          <a href="javascript:console.log('[MANUAL MODE]');" id="manual" class="run-mode-selection">Manual</a>
+          <a href="javascript:console.log('[CATALOG MODE]');" id="catalog" class="run-mode-selection">Catalog</a>
       </div> <!-- end #mode-div -->
       <div id="selection-div">
         <ul id="selection">
-          <li>Height: <input type="text" id="height-selection" placeholder="5, Max = 30"></li>
-          <li>Width: <input type="text"  id="width-selection" placeholder="5, Max = 30"></li>
-          <li>Speed: <input type="text"  id="speed-selection"placeholder="250 ms"></li>
-          <li><button id="create-button">Create</button></li>
+          <li class="selection-item">Height: <input type="text" id="height-selection" placeholder="5" size="4" maxlength="3"></li>
+          <li class="selection-item">Width: <input type="text"  id="width-selection" placeholder="5" size="4" maxlength="3"></li>
+          <li class="selection-item">Speed: <input type="text"  id="speed-selection"placeholder="250ms" size="5" maxlength="4"></li>
+          <li class="selection-item"><button id="create-button">Create</button></li>
         </ul>
       </div>  <!-- end #selection-div -->
     </div> <!-- end #setup-div -->
