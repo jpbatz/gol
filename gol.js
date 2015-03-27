@@ -1,17 +1,17 @@
-var height = 5;       // height = rows = y
-var width = 5;        // width = cols = x
-var speed = 250;      // simulation speed
-var runMode = "random";    // default run mode is random
-var grid_view;        // view: to be assigned once after document ready
-var grid_data = [];   // data: contains rows []
-var generation = 1;
+var height = 5;             // height = rows = y
+var width = 5;              // width = cols = x
+var speed = 250;            // simulation speed
+var runMode = "random";     // default run mode is random
+var grid_view;              // view: to be assigned once after document ready
+var grid_data = [];         // data: contains rows []
+var generation = 1;         // generation count
 var seed_file = seed_glider;
 var selected_seed_file = seed_file;
-var setIntervalID;
-var count = 2;
-var colorOfLife = "purple";
-// var colorOfDeath = "#FFEFD5"; // papayawhip
-var colorOfDeath = "white";
+var setIntervalID;          // for setInterval termination
+var count = 2;              // determines Run or Pause
+var liveCellColor = "purple";
+var deadCellColor = "white";
+// var deadCellColor = "#FFEFD5"; // papayawhip does not work
 
 $(document).ready(function() {
 
@@ -99,7 +99,6 @@ $(document).ready(function() {
 
 // ========================== MAIN FUNCTION ==========================
 
-
 /**
  * simulate()
  * @return {[type]} [description]
@@ -114,37 +113,26 @@ function simulate() {
   speed = $('#speed-selection').val() || speed;
   // runMode = $('#run-mode-selection').val() || runMode;
 
-
   console.log("*** SUBMITTED VALUES ***");
   console.log("** height = " + height);
   console.log("** width = " + width);
   console.log("** speed = " + speed);
   console.log("** mode = " + runMode);
 
-
   if(runMode === "random") {
 
     console.log("Creating a grid with dimensions = " + height + "x" + width + " (height x width)");
 
-    // createGrid(height, width, grid);
     createGrid(height, width);
-    // create random seed
     generateRandomSeed();
-    // display grid
     displayGrid();
-
-    // process subsequent generations
     updateNextGen();
-  // });
   
   } else if(runMode === "manual") {
 
     console.log("Creating a grid with dimensions = " + height + "x" + width + " (height x width)");
 
-    // createGrid(height, width, grid);
     createGrid(height, width);
-
-    // display grid()
     displayGrid();
 
     $('#set-seed-div').append('<button id="set-seed-button">Set Seed</button>');
@@ -152,17 +140,16 @@ function simulate() {
     // manually click cells to enter seed values
     $('.cell').on('click', function() {
       console.log("click in cell " + this.innerHTML + " detected");
-      if(this.style.backgroundColor === colorOfDeath) {
-        this.style.backgroundColor = colorOfLife;
-      } else if(this.style.backgroundColor === colorOfLife) {
-        this.style.backgroundColor = colorOfDeath;
+      if(this.style.backgroundColor === deadCellColor) {
+        this.style.backgroundColor = liveCellColor;
+      } else if(this.style.backgroundColor === liveCellColor) {
+        this.style.backgroundColor = deadCellColor;
       }
     });
 
     $('#set-seed-button').on('click', function() {
       setManualSeed();
 
-      // process subsequent generations
       updateNextGen();
     });
   
@@ -199,16 +186,9 @@ function simulate() {
 
     console.log("Creating a grid with dimensions = " + height + "x" + width + " (height x width)");
 
-    // createGrid(height, width, grid);
     createGrid(height, width);
-
-    // load seed from catalog (files)
     loadFileSeed();
-
-    // display grid
     displayGrid();
-
-    // process subsequent generations
     updateNextGen();
 
   } else {
@@ -218,7 +198,6 @@ function simulate() {
 } // end simulate()
 
 // ========================== HELPER FUNCTIONS ==========================
-
 
 /**
  * seed_logger()
@@ -288,7 +267,6 @@ function createGrid(gridHeight, gridWidth) {
 
 }
 
-
 /**
  * generateRandomSeed()
  * @return {[type]} [description]
@@ -307,7 +285,6 @@ function generateRandomSeed() {
   }
 }
 
-
 /**
  * setManualSeed()
  */
@@ -315,13 +292,12 @@ function setManualSeed() {
   console.log("[setManualSeed]");
   for(var row2=0; row2<height; row2++) {
     for(var col2=0; col2<width; col2++) {
-      if(grid_data[row2][col2].domDiv.style.backgroundColor === colorOfLife) {
+      if(grid_data[row2][col2].domDiv.style.backgroundColor === liveCellColor) {
         grid_data[row2][col2].alive = true;
       }
     }
   }
 }
-
 
 /**
  * loadFileSeed() - load seed from catalog (files)
@@ -342,7 +318,6 @@ function loadFileSeed() {
   }
 }
 
-
 /**
  * displayGrid()
  * @return {[type]} [description]
@@ -351,11 +326,11 @@ function displayGrid() {
 
   for(var row4=0; row4<height; row4++) {
     for(var col4=0; col4<width; col4++) {
-      var cellColor = colorOfDeath;
+      var cellColor = deadCellColor;
       if(grid_data[row4][col4].alive === false) {
-        cellColor = colorOfDeath;
+        cellColor = deadCellColor;
       } else if(grid_data[row4][col4].alive === true){
-        cellColor = colorOfLife;
+        cellColor = liveCellColor;
       }
       grid_data[row4][col4].domDiv.style.backgroundColor = cellColor;
       // grid_data[row4][col4].domDiv.innerHTML = grid_data[row4][col4].cell_num;
@@ -380,7 +355,6 @@ function getPopulation(grid_array) {
   }
   return popCount;
 }
-
 
 /**
  * calcNextGeneration()
@@ -422,7 +396,6 @@ function calcNextGeneration() {
     }
   }
 }
-
 
 /**
  * countNeighbors()
@@ -479,7 +452,6 @@ function countNeighbors(r,c) {
   return neighbor_count;
 }
 
-
 /**
  * setNextGenLifeStatus()
  */
@@ -491,7 +463,6 @@ function setNextGenLifeStatus() {
     }
   }
 }
-
 
 /**
  * updateNextGen()

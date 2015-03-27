@@ -13,10 +13,16 @@ body {
 
 header {
   /*border: 1px solid black;*/
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 h1 {
-  /*margin-left: 100px;*/
+  margin: 0px;
+}
+
+h4 {
+  margin: 0px;
 }
 
 .run-mode-selection {
@@ -32,7 +38,8 @@ h1 {
 }
 
 #selection-div {
-  margin-top: 10px;
+  margin-top: 20px;
+  margin-bottom: 10px;
   display: inline-block;
   text-decoration: none;
 }
@@ -67,6 +74,7 @@ h1 {
 #stats-div {
   visibility: hidden;
   background-color: white;
+/*  margin-bottom: 20px;*/
 }
 
 .stats-item {
@@ -89,6 +97,7 @@ h1 {
   /*border: 1px solid black;*/
   /*background-color: white;*/
   display: inline-block;
+  margin-top: 20px;
   margin-bottom: 10px;
 }
 
