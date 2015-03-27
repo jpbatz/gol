@@ -135,3 +135,19 @@ h4 {
   display: inline-block;
   margin-left: 100px;
 }*/
+
+/*#create-button {
+
+}*/
+
+#set-seed-button {
+  margin-bottom: 5px;
+}
+
+#start-run-pause-button {
+  margin-right: 5px;
+}
+
+#done-button {
+  margin-left: 5px;
+}
