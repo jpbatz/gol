@@ -11,6 +11,14 @@ body {
   font-family: sans-serif;
 }
 
+.bold {
+  font-weight: bold;
+}
+
+.underline {
+  text-decoration: underline
+}
+
 header {
   /*border: 1px solid black;*/
   margin-top: 20px;
