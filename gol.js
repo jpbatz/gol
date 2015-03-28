@@ -1,6 +1,6 @@
 var height = 5;             // height = rows = y
 var width = 5;              // width = cols = x
-var speed = 250;            // simulation speed
+var speed = 100;            // simulation speed
 var runMode = "random";     // default run mode is random
 var grid_view;              // view: to be assigned once after document ready
 var grid_data = [];         // data: contains rows []
@@ -79,15 +79,15 @@ $(document).ready(function() {
     $('#select-sample').append('<optgroup id="nonterminal-group" label="Oscillators (Non-Terminal)">');
     $('#nonterminal-group').append('<option value="fig8">Figure 8</option>');
     $('#nonterminal-group').append('<option value="octagon">Octagon</option>');
-    $('#nonterminal-group').append('<option value="pulsar">Pulsar</option>');
-    $('#nonterminal-group').append('<option value="spinner">Spinner</option>');
-    $('#select-sample').append('<optgroup id="terminal-group" label="Terminals">');
-    $('#terminal-group').append('<option value="terminal1">Terminal 1</option>');
-    $('#terminal-group').append('<option value="terminal2">Terminal 2</option>');
-    $('#select-sample').append('<optgroup id="glider-group" label="Gliders">');
-    $('#glider-group').append('<option value="glider1">Glider 1</option>');
-    $('#glider-group').append('<option value="glider2">Glider 2</option>');
-    $('#selection-div').append('Speed: <input id="speed-selection" type="text" placeholder="250ms" size="5" maxlength="4">');
+    $('#nonterminal-group').append('<option value="pulsar">Pulsar (Period 3)</option>');
+    $('#nonterminal-group').append('<option value="spinner">Spinner (Period 2)</option>');
+    $('#select-sample').append('<optgroup id="terminal-group" label="Terminals (TBD)">');
+    $('#terminal-group').append('<option value="diehard">Diehard (7 cells, 130 generations)</option>');
+    $('#terminal-group').append('<option value="terminal2">Terminal 2 (TBD)</option>');
+    $('#select-sample').append('<optgroup id="glider-group" label="Gliders (TBD)">');
+    $('#glider-group').append('<option value="glider1">Glider 1 (TBD)</option>');
+    $('#glider-group').append('<option value="glider2">Glider 2 (TBD)</option>');
+    $('#selection-div').append('Speed: <input id="speed-selection" type="text" placeholder="100ms" size="5" maxlength="4">');
     $('#selection-div').append('<button id="create-button">Create</button>');
     $('select[name="seed-sample"]').change(seed_logger);
     $('#stats-div').css({"visibility": "visible"});
@@ -173,6 +173,10 @@ function simulate() {
       }
       case "spinner": {
         seed_file = seed_spinner;
+        break;
+      }
+      case "diehard": {
+        seed_file = seed_diehard;
         break;
       }
       default: {
@@ -505,7 +509,9 @@ function updateNextGen() {
       $("#start-run-pause-button").hide();
       $("#set-seed-button").hide();
       $("#done-button").hide();
-      clearGridData();
+      $('#reload').html('Please Reload Page to Restart');
+      // clearGridData();
+      reloadGame();
   });
 
 }
@@ -528,10 +534,10 @@ function clearGridData() {
  * clearGrid() - removes grid
  * @return {[type]} [description]
  */
-function resetGrid() {
+function reloadGame() {
   height = 5;           // height = rows = y
   width = 5;            // width = cols = x
-  speed = 250;          // simulation speed
+  speed = 100;          // simulation speed
   runMode = "random";   // default run mode is random
   grid_view.remove();   // view: to be assigned once after document ready
   grid_data = [];       // data: contains rows []
@@ -539,4 +545,6 @@ function resetGrid() {
   selected_seed_file = seed_file;
   setIntervalID = 0;
   count = 2;
+
+  location.reload(true);
 }
