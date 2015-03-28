@@ -23,6 +23,7 @@ h1 {
 
 h4 {
   margin: 0px;
+  font-style: italic;
 }
 
 .run-mode-selection {
@@ -150,4 +151,13 @@ h4 {
 
 #done-button {
   margin-left: 5px;
+}
+
+#intro {
+  background-color: white;
+  margin: auto;
+  margin-top: 20px;
+  max-width: 60%;
+  text-align: left;
+  padding: 10px;
 }
