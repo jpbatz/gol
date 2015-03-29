@@ -53,14 +53,27 @@ h4 {
   text-decoration: none;
 }
 
-#select-sample {
-  margin-right: 10px;
+.selected {
+  background-color: orange;
+}
+
+#selection-list {
+  visibility: hidden;
+}
+
+#select-sample-list {
+  visibility: hidden;
 }
 
 .selection-item {
-  visibility: hidden;
   margin-right: 10px;
   font-size: 14px;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.select-sample-item {
+  margin-right: 10px;
   display: inline-block;
   text-decoration: none;
 }

@@ -28,73 +28,35 @@ $(document).ready(function() {
   console.log("mode = " + runMode);
   // console.log("seed file = " + seed_file);
 
-  $('#random').on('click', function() {
-    runMode = "random";
-    $('#random').css({
-      "background-color": "orange"
-    });
-    $('#manual').css({
-      "background-color": "yellow"
-    });
-    $('#catalog').css({
-      "background-color": "yellow"
-    });
-    $('.selection-item').css({"visibility": "visible"});
-    $('#stats-div').css({"visibility": "visible"});
-    $('#create-button').on('click', simulate);
-  });
-  
-  $('#manual').on('click', function() {
-    runMode = "manual";
-    $('#random').css({
-      "background-color": "yellow"
-    });
-    $('#manual').css({
-      "background-color": "orange"
-    });
-    $('#catalog').css({
-      "background-color": "yellow"
-    });
-    $('.selection-item').css({"visibility": "visible"});
-    $('#stats-div').css({"visibility": "visible"});
-    $('#create-button').on('click', simulate);
-  });
-  
-  $('#catalog').on('click', function() {
-    runMode = "catalog";
-    $('#random').css({
-      "background-color": "yellow"
-    });
-    $('#manual').css({
-      "background-color": "yellow"
-    });
-    $('#catalog').css({
-      "background-color": "orange"
-    });
+  $('#mode-div a').on('click', function() {
+    $("a.selected").removeClass("selected");
+    $(this).addClass("selected");
 
-    $('.selection').remove();
-    $('#selection-div').html("Select Sample: ");
-    $('#selection-div').append('<select id="select-sample" name="seed-sample">');
-    $('#select-sample').append('<option value="glider">Samples:</option>');
-    $('#select-sample').append('<optgroup id="nonterminal-group" label="Oscillators (Non-Terminal)">');
-    $('#nonterminal-group').append('<option value="fig8">Figure 8</option>');
-    $('#nonterminal-group').append('<option value="octagon">Octagon</option>');
-    $('#nonterminal-group').append('<option value="pulsar">Pulsar (Period 3)</option>');
-    $('#nonterminal-group').append('<option value="spinner">Spinner (Period 2)</option>');
-    $('#select-sample').append('<optgroup id="terminal-group" label="Terminals (TBD)">');
-    $('#terminal-group').append('<option value="diehard">Diehard (7 cells, 130 generations)</option>');
-    $('#terminal-group').append('<option value="terminal2">Terminal 2 (TBD)</option>');
-    $('#select-sample').append('<optgroup id="glider-group" label="Gliders (TBD)">');
-    $('#glider-group').append('<option value="glider1">Glider 1 (TBD)</option>');
-    $('#glider-group').append('<option value="glider2">Glider 2 (TBD)</option>');
-    $('#selection-div').append('Speed: <input id="speed-selection" type="text" placeholder="100ms" size="5" maxlength="4">');
-    $('#selection-div').append('<button id="create-button">Create</button>');
-    $('select[name="seed-sample"]').change(seed_logger);
-    $('#stats-div').css({"visibility": "visible"});
-    $('#create-button').on('click', simulate);
+    console.log(this);
+    if($(this).html() === "Random") {
+      runMode = "random";
+      $('#select-sample-list').css({"visibility": "hidden"});
+      $('#selection-list').css({"visibility": "visible"});
+    }
+    
+    if($(this).html() === "Manual") {
+      runMode = "manual";
+      $('#select-sample-list').css({"visibility": "hidden"});
+      $('#selection-list').css({"visibility": "visible"});
+    }
+
+    if($(this).html() === "Catalog") {
+      runMode = "catalog";
+
+      // $('#selection-list').remove();
+      $('#selection-list').css({"visibility": "hidden"});
+      $('#select-sample-list').css({"visibility": "visible"});
+      $('select[name="seed-sample"]').change(seed_logger);
+    }
 
   });
 
+  $('.create-button').on('click', simulate);
 });
 
 // ========================== MAIN FUNCTION ==========================
@@ -107,7 +69,7 @@ function simulate() {
 
   console.log("click");
   console.log("*** Run Mode = " + runMode);
-  
+
   height = $('#height-selection').val() || height;
   width = $('#width-selection').val() || width;
   speed = $('#speed-selection').val() || speed;
@@ -118,6 +80,8 @@ function simulate() {
   console.log("** width = " + width);
   console.log("** speed = " + speed);
   console.log("** mode = " + runMode);
+
+  $('#stats-div').css({"visibility": "visible"});
 
   if(runMode === "random") {
 
