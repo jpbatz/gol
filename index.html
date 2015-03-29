@@ -25,8 +25,8 @@
         <ul id="selection-list">
           <li class="selection-item">Height: <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="height-selection" placeholder="5" size="4" maxlength="3"></li>
           <li class="selection-item">Width: <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="width-selection" placeholder="5" size="4" maxlength="3"></li>
-          <li class="selection-item">Speed: <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="speed-selection"placeholder="250ms" size="5" maxlength="4"></li>
-          <li class="selection-item"><button class="create-button">Create</button></li>
+          <li class="selection-item">Speed: <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="selection-speed" placeholder="250ms" size="5" maxlength="4"></li>
+          <li class="selection-item"><button id="select-create-button" class="create-button">Create</button></li>
         </ul>
 
         <ul id="select-sample-list">
@@ -34,23 +34,23 @@
             <select id="select-sample" name="seed-sample">
               <option value="glider">Select Sample:</option>
               <optgroup id="nonterminal-group" label="Oscillators (Non-Terminal)">
-                <option value="fig8">Figure 8</option>
-                <option value="octagon">Octagon</option>
+                <option value="fig8">Figure 8 (Period 8)</option>
+                <option value="octagon">Octagon (Period 5)</option>
                 <option value="pulsar">Pulsar (Period 3)</option>
                 <option value="spinner">Spinner (Period 2)</option>
+              </optgroup>
               <optgroup id="terminal-group" label="Terminals (TBD)">
                 <option value="diehard">Diehard (7 cells, 130 generations)</option>
                 <option value="terminal2">Terminal 2 (TBD)</option>
+              </optgroup>
               <optgroup id="glider-group" label="Gliders (TBD)">
                 <option value="glider1">Glider 1 (TBD)</option>
                 <option value="glider2">Glider 2 (TBD)</option>
-            </li>
-            <li class="select-sample-item">
-              Speed: <input onkeypress="return event.charCode >= 48 && event.charCode <= 57" id="speed-selection" type="text" placeholder="100ms" size="5" maxlength="4">
-            </li>
-            <li class="select-sample-item">
-              <button class="create-button">Create</button>
-            </li>
+              </optgroup>
+            </select>
+          </li>
+          <li class="select-sample-item">Speed: <input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" id="sample-speed" placeholder="100ms" size="5" maxlength="4"></li>
+          <li class="select-sample-item"><button id="sample-create-button" class="create-button">Create</button></li>
         </ul>
 
       </div>  <!-- end #selection-div -->
@@ -69,8 +69,13 @@
     <div id="grid_div"></div>
 
     <div id="controls-div">
-      <div id="set-seed-div"></div>
-      <div id="start-run-pause-done-div"></div>
+      <div id="set-seed-div">
+        <button id="set-seed-button">Set Seed</button>
+      </div>
+      <div id="start-run-pause-done-div">
+        <button id="start-run-pause-button">Start</button>
+        <button id="done-button">Done</button>
+      </div>
       <p id="reload"></p>
     </div>  <!-- end #controls-div -->
 

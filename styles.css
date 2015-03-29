@@ -34,6 +34,10 @@ h4 {
   font-style: italic;
 }
 
+button {
+  visibility: hidden;
+}
+
 .run-mode-selection {
   background-color: yellow;
   text-decoration: none;
@@ -63,6 +67,10 @@ h4 {
 
 #select-sample-list {
   visibility: hidden;
+}
+
+.select-sample-item {
+  margin-right: 15px;
 }
 
 .selection-item {
