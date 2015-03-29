@@ -76,6 +76,12 @@ $(document).ready(function() {
   });
 
   $('.create-button').on('click', simulate);
+
+  $("#start-run-pause-button").on('click', function() {
+    run = !run;
+    updateNextGen();
+  });
+
 });
 
 // ========================== MAIN FUNCTION ==========================
@@ -480,16 +486,12 @@ function updateNextGen() {
   // console.log("***** [updateNextGen()] Live Population = " + getPopulation(grid_data) + " *****");
   console.log("[updateNextGen()]");
 
-  $('.create-button').on('click', function() {
-    console.log("dfgsdfbfkbjndf;lbnslfbnlsdkgp85hywo4iht8b[0wejt40wjhrg");
-  });
-
   // add step feature
 
-  $("#start-run-pause-button").on('click', function() {
-    // count++;
-    // if(count % 2 !== 0) {
-    run = !run;
+  // $("#start-run-pause-button").on('click', function() {
+  //   // count++;
+  //   // if(count % 2 !== 0) {
+  //   run = !run;
     if(run) {
       console.log("***** PLAY *****");
       $("#start-run-pause-button").html("Pause");
@@ -510,7 +512,7 @@ function updateNextGen() {
       $("#start-run-pause-button").html("Run");
       console.log("***** PAUSED *****");
     }
-  });
+  // });
 
   // should stop non-terminating simulation (but, it reloads, instead)
   $("#done-button").on('click', function() {
