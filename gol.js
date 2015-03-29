@@ -12,6 +12,7 @@ var count = 2;              // determines Run or Pause
 var liveCellColor = "purple";
 var deadCellColor = "white";
 // var deadCellColor = "#FFEFD5"; // papayawhip does not work
+var run = false;
 
 $(document).ready(function() {
 
@@ -28,73 +29,53 @@ $(document).ready(function() {
   console.log("mode = " + runMode);
   // console.log("seed file = " + seed_file);
 
-  $('#random').on('click', function() {
-    runMode = "random";
-    $('#random').css({
-      "background-color": "orange"
-    });
-    $('#manual').css({
-      "background-color": "yellow"
-    });
-    $('#catalog').css({
-      "background-color": "yellow"
-    });
-    $('.selection-item').css({"visibility": "visible"});
-    $('#stats-div').css({"visibility": "visible"});
-    $('#create-button').on('click', simulate);
-  });
-  
-  $('#manual').on('click', function() {
-    runMode = "manual";
-    $('#random').css({
-      "background-color": "yellow"
-    });
-    $('#manual').css({
-      "background-color": "orange"
-    });
-    $('#catalog').css({
-      "background-color": "yellow"
-    });
-    $('.selection-item').css({"visibility": "visible"});
-    $('#stats-div').css({"visibility": "visible"});
-    $('#create-button').on('click', simulate);
-  });
-  
-  $('#catalog').on('click', function() {
-    runMode = "catalog";
-    $('#random').css({
-      "background-color": "yellow"
-    });
-    $('#manual').css({
-      "background-color": "yellow"
-    });
-    $('#catalog').css({
-      "background-color": "orange"
-    });
+  // $('#set-seed-button').css({"visibility": "hidden"});
+  // $('#start-run-pause-button').css({"visibility": "hidden"});
+  // $('#done-button').css({"visibility": "hidden"});
 
-    $('.selection').remove();
-    $('#selection-div').html("Select Sample: ");
-    $('#selection-div').append('<select id="select-sample" name="seed-sample">');
-    $('#select-sample').append('<option value="glider">Samples:</option>');
-    $('#select-sample').append('<optgroup id="nonterminal-group" label="Oscillators (Non-Terminal)">');
-    $('#nonterminal-group').append('<option value="fig8">Figure 8</option>');
-    $('#nonterminal-group').append('<option value="octagon">Octagon</option>');
-    $('#nonterminal-group').append('<option value="pulsar">Pulsar (Period 3)</option>');
-    $('#nonterminal-group').append('<option value="spinner">Spinner (Period 2)</option>');
-    $('#select-sample').append('<optgroup id="terminal-group" label="Terminals (TBD)">');
-    $('#terminal-group').append('<option value="diehard">Diehard (7 cells, 130 generations)</option>');
-    $('#terminal-group').append('<option value="terminal2">Terminal 2 (TBD)</option>');
-    $('#select-sample').append('<optgroup id="glider-group" label="Gliders (TBD)">');
-    $('#glider-group').append('<option value="glider1">Glider 1 (TBD)</option>');
-    $('#glider-group').append('<option value="glider2">Glider 2 (TBD)</option>');
-    $('#selection-div').append('Speed: <input id="speed-selection" type="text" placeholder="100ms" size="5" maxlength="4">');
-    $('#selection-div').append('<button id="create-button">Create</button>');
-    $('select[name="seed-sample"]').change(seed_logger);
-    $('#stats-div').css({"visibility": "visible"});
-    $('#create-button').on('click', simulate);
+  $('#mode-div a').on('click', function() {
+    $("a.selected").removeClass("selected");
+    $(this).addClass("selected");
+
+    console.log(this);
+    if($(this).html() === "Random") {
+      runMode = "random";
+      $('#select-sample-list').css({"visibility": "hidden"});
+      $('#selection-list').css({"visibility": "visible"});
+      $('#sample-create-button').css({"visibility": "hidden"});
+      $('#select-create-button').css({"visibility": "visible"});
+      $('#set-seed-button').css({"visibility": "hidden"});
+      $('#start-run-pause-button').css({"visibility": "hidden"});
+      $('#done-button').css({"visibility": "hidden"});
+    }
+    
+    if($(this).html() === "Manual") {
+      runMode = "manual";
+      $('#select-sample-list').css({"visibility": "hidden"});
+      $('#selection-list').css({"visibility": "visible"});
+      $('#sample-create-button').css({"visibility": "hidden"});
+      $('#select-create-button').css({"visibility": "visible"});
+      $('#start-run-pause-button').css({"visibility": "hidden"});
+      $('#done-button').css({"visibility": "hidden"});
+    }
+
+    if($(this).html() === "Catalog") {
+      runMode = "catalog";
+
+      // $('#selection-list').remove();
+      $('#selection-list').css({"visibility": "hidden"});
+      $('#select-sample-list').css({"visibility": "visible"});
+      $('#select-create-button').css({"visibility": "hidden"});
+      $('#set-seed-button').css({"visibility": "hidden"});
+      $('#sample-create-button').css({"visibility": "visible"});
+      $('#start-run-pause-button').css({"visibility": "hidden"});
+      $('#done-button').css({"visibility": "hidden"});
+      $('select[name="seed-sample"]').change(seed_logger);
+    }
 
   });
 
+  $('.create-button').on('click', simulate);
 });
 
 // ========================== MAIN FUNCTION ==========================
@@ -105,13 +86,12 @@ $(document).ready(function() {
  */
 function simulate() {
 
-  console.log("click");
+  console.log("[simulate()]");
   console.log("*** Run Mode = " + runMode);
-  
+
   height = $('#height-selection').val() || height;
   width = $('#width-selection').val() || width;
-  speed = $('#speed-selection').val() || speed;
-  // runMode = $('#run-mode-selection').val() || runMode;
+  // speed = $('.speed-selection').val() || speed;
 
   console.log("*** SUBMITTED VALUES ***");
   console.log("** height = " + height);
@@ -119,7 +99,11 @@ function simulate() {
   console.log("** speed = " + speed);
   console.log("** mode = " + runMode);
 
+  $('#stats-div').css({"visibility": "visible"});
+
   if(runMode === "random") {
+
+    speed = $('#selection-speed').val() || speed;
 
     console.log("Creating a grid with dimensions = " + height + "x" + width + " (height x width)");
 
@@ -130,13 +114,17 @@ function simulate() {
   
   } else if(runMode === "manual") {
 
+    speed = $('#selection-speed').val() || speed;
+
     console.log("Creating a grid with dimensions = " + height + "x" + width + " (height x width)");
 
     createGrid(height, width);
     displayGrid();
 
-    $('#start-run-pause-done-div').css({"visibility": "hidden"});
-    $('#set-seed-div').append('<button id="set-seed-button">Set Seed</button>');
+    // $('#start-run-pause-done-div').css({"visibility": "hidden"});
+    // $('#start-run-pause-button').css({"visibility": "hidden"});
+    // $('#done-button').css({"visibility": "hidden"});
+    $('#set-seed-button').css({"visibility": "visible"});
 
     // manually click cells to enter seed values
     $('.cell').on('click', function() {
@@ -150,11 +138,13 @@ function simulate() {
 
     $('#set-seed-button').on('click', function() {
       setManualSeed();
-      $('#start-run-pause-done-div').css({"visibility": "visible"});
+      // $('#start-run-pause-done-div').css({"visibility": "visible"});
       updateNextGen();
     });
   
   } else if(runMode === "catalog") {
+
+    speed = $('#sample-speed').val() || speed;
 
     console.log("[simulate()] selected_seed_file: " + selected_seed_file);
     
@@ -224,6 +214,12 @@ function seed_logger(e) {
 // function createGrid(gridHeight, gridWidth, gridData) {
 function createGrid(gridHeight, gridWidth) {
 
+  if(grid_view) {
+    grid_view.html("");
+    grid_data = [];
+  }
+
+  console.log("[createGrid()]");
   var cellNum = 1;
 
   for(var i=0; i<gridHeight; i++) {
@@ -267,8 +263,8 @@ function createGrid(gridHeight, gridWidth) {
 
   console.log("***** CREATED " + Number(cellNum-1) + " CELLS *****");
 
-  $('#start-run-pause-done-div').append('<button id="start-run-pause-button">Start</button>');
-  $('#start-run-pause-done-div').append('<button id="done-button">Done</button>');
+  // $('#start-run-pause-button').css({"visibility": "visible"});
+  // $('#done-button').css({"visibility": "visible"});
 
 }
 
@@ -288,13 +284,15 @@ function generateRandomSeed() {
       console.log("[generateRandomSeed()] CELL NUMBER = " + grid_data[row1][col1].cell_num + " for (" + col1 + "," + row1 + ") alive = " + grid_data[row1][col1].alive);
     }
   }
+  $('#start-run-pause-button').css({"visibility": "visible"});
+  $('#done-button').css({"visibility": "visible"});
 }
 
 /**
  * setManualSeed()
  */
 function setManualSeed() {
-  console.log("[setManualSeed]");
+  console.log("[setManualSeed()]");
   for(var row2=0; row2<height; row2++) {
     for(var col2=0; col2<width; col2++) {
       if(grid_data[row2][col2].domDiv.style.backgroundColor === liveCellColor) {
@@ -302,6 +300,8 @@ function setManualSeed() {
       }
     }
   }
+  $('#start-run-pause-button').css({"visibility": "visible"});
+  $('#done-button').css({"visibility": "visible"});
 }
 
 /**
@@ -309,7 +309,7 @@ function setManualSeed() {
  * @return {[type]} [description]
  */
 function loadFileSeed() {
-  console.log("[loadFileSeed]");
+  console.log("[loadFileSeed()]");
   for(var row3=0; row3<height; row3++) {
     for(var col3=0; col3<width; col3++) {
       var fileCellValue = seed_file[row3][col3];
@@ -318,9 +318,11 @@ function loadFileSeed() {
       } else if(fileCellValue === 1){
         grid_data[row3][col3].alive = true;
       }
-      console.log("[load file seed] CELL NUMBER = " + grid_data[row3][col3].cell_num + " for (" + row3 + "," + col3 + ") alive = " + grid_data[row3][col3].alive);
+      console.log("[load file seed()] CELL NUMBER = " + grid_data[row3][col3].cell_num + " for (" + row3 + "," + col3 + ") alive = " + grid_data[row3][col3].alive);
     }
   }
+  $('#start-run-pause-button').css({"visibility": "visible"});
+  $('#done-button').css({"visibility": "visible"});
 }
 
 /**
@@ -328,7 +330,7 @@ function loadFileSeed() {
  * @return {[type]} [description]
  */
 function displayGrid() {
-
+  console.log("[displayGrid()]");
   for(var row4=0; row4<height; row4++) {
     for(var col4=0; col4<width; col4++) {
       var cellColor = deadCellColor;
@@ -478,10 +480,17 @@ function updateNextGen() {
   // console.log("***** [updateNextGen()] Live Population = " + getPopulation(grid_data) + " *****");
   console.log("[updateNextGen()]");
 
+  $('.create-button').on('click', function() {
+    console.log("dfgsdfbfkbjndf;lbnslfbnlsdkgp85hywo4iht8b[0wejt40wjhrg");
+  });
+
   // add step feature
+
   $("#start-run-pause-button").on('click', function() {
-    count++;
-    if(count % 2 !== 0) {
+    // count++;
+    // if(count % 2 !== 0) {
+    run = !run;
+    if(run) {
       console.log("***** PLAY *****");
       $("#start-run-pause-button").html("Pause");
       setIntervalID = setInterval(function(){
@@ -503,6 +512,7 @@ function updateNextGen() {
     }
   });
 
+  // should stop non-terminating simulation (but, it reloads, instead)
   $("#done-button").on('click', function() {
       clearInterval(setIntervalID);
       console.log("***** DONE *****");
@@ -514,6 +524,10 @@ function updateNextGen() {
       reloadGame();
   });
 
+  // Reload button - fresh start
+
+  // Replay button - re-run simulation
+
 }
 
 /**
@@ -521,7 +535,6 @@ function updateNextGen() {
  * @return {[type]} [description]
  */
 function clearGridData() {
-  // delete grid
   for(var row7=0; row7<height; row7++) {
     for(var col7=0; col7<width; col7++) {
       grid_data[row7][col7].alive = false;
@@ -535,13 +548,16 @@ function clearGridData() {
  * @return {[type]} [description]
  */
 function reloadGame() {
-  height = 5;           // height = rows = y
-  width = 5;            // width = cols = x
-  speed = 100;          // simulation speed
+
+  console.log("[reloadGame] " + grid_view);
+
+  height = 5;           // revert height
+  width = 5;            // revert width
+  speed = 100;          // simulation speed default
   runMode = "random";   // default run mode is random
-  grid_view.remove();   // view: to be assigned once after document ready
-  grid_data = [];       // data: contains rows []
-  seed_file = seed_glider;
+  grid_view.html("");   // view: clear grid on page
+  grid_data = [];       // data: clear grid data
+  seed_file = seed_glider;  // revert default seed
   selected_seed_file = seed_file;
   setIntervalID = 0;
   count = 2;

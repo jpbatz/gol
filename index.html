@@ -21,12 +21,38 @@
           <a href="javascript:console.log('[CATALOG MODE]');" id="catalog" class="run-mode-selection">Catalog</a>
       </div> <!-- end #mode-div -->
       <div id="selection-div">
-        <ul id="selection">
-          <li class="selection-item">Height: <input type="text" id="height-selection" placeholder="5" size="4" maxlength="3"></li>
-          <li class="selection-item">Width: <input type="text"  id="width-selection" placeholder="5" size="4" maxlength="3"></li>
-          <li class="selection-item">Speed: <input type="text"  id="speed-selection"placeholder="250ms" size="5" maxlength="4"></li>
-          <li class="selection-item"><button id="create-button">Create</button></li>
+
+        <ul id="selection-list">
+          <li class="selection-item">Height: <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="height-selection" placeholder="5" size="4" maxlength="3"></li>
+          <li class="selection-item">Width: <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="width-selection" placeholder="5" size="4" maxlength="3"></li>
+          <li class="selection-item">Speed: <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="selection-speed" placeholder="250ms" size="5" maxlength="4"></li>
+          <li class="selection-item"><button id="select-create-button" class="create-button">Create</button></li>
         </ul>
+
+        <ul id="select-sample-list">
+           <li class="select-sample-item"> <!-- Select Sample:  -->
+            <select id="select-sample" name="seed-sample">
+              <option value="glider">Select Sample:</option>
+              <optgroup id="nonterminal-group" label="Oscillators (Non-Terminal)">
+                <option value="fig8">Figure 8 (Period 8)</option>
+                <option value="octagon">Octagon (Period 5)</option>
+                <option value="pulsar">Pulsar (Period 3)</option>
+                <option value="spinner">Spinner (Period 2)</option>
+              </optgroup>
+              <optgroup id="terminal-group" label="Terminals (TBD)">
+                <option value="diehard">Diehard (7 cells, 130 generations)</option>
+                <option value="terminal2">Terminal 2 (TBD)</option>
+              </optgroup>
+              <optgroup id="glider-group" label="Gliders (TBD)">
+                <option value="glider1">Glider 1 (TBD)</option>
+                <option value="glider2">Glider 2 (TBD)</option>
+              </optgroup>
+            </select>
+          </li>
+          <li class="select-sample-item">Speed: <input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" id="sample-speed" placeholder="100ms" size="5" maxlength="4"></li>
+          <li class="select-sample-item"><button id="sample-create-button" class="create-button">Create</button></li>
+        </ul>
+
       </div>  <!-- end #selection-div -->
     </div> <!-- end #setup-div -->
 
@@ -43,8 +69,13 @@
     <div id="grid_div"></div>
 
     <div id="controls-div">
-      <div id="set-seed-div"></div>
-      <div id="start-run-pause-done-div"></div>
+      <div id="set-seed-div">
+        <button id="set-seed-button">Set Seed</button>
+      </div>
+      <div id="start-run-pause-done-div">
+        <button id="start-run-pause-button">Start</button>
+        <button id="done-button">Done</button>
+      </div>
       <p id="reload"></p>
     </div>  <!-- end #controls-div -->
 
@@ -56,6 +87,8 @@
 
       <p>CGol is a <a href="http://en.wikipedia.org/wiki/Cellular_automaton"><span class="bold">cellular automaton</span></a> - "one of a set of units in a mathematical model that have simple rules governing their replication and destruction. They are used to model complex systems composed of simple units such as living things or parallel processors."
       </p>
+
+      <br>
 
       <p><span class="underline">The model consists of cells that live or die according to the following <span class="bold">Guidelines</span>:</span></p>
 
@@ -77,23 +110,23 @@
 
       <center><p><span class="underline">There are 3 modes to choose for your starting seed pattern:</span></p></center>
 
-      <p><span class="bold">Random Mode</span> - Creates a default 5x5 grid with a random seed pattern and runs at 100ms. Enter your desired Height, Width, or Speed. Press Start to begin your simulation.</p>
+      <p><span class="bold">Random Mode</span> - Creates a default 5x5 grid with a random seed pattern to run at 100ms per generation. Enter your desired Height, Width, or Speed. Press Start to begin your simulation.</p>
 
-      <p><span class="bold">Manual Mode</span> - Challenge yourself to create meaningful or chaotic simulations with seed patterns of your choosing.  Creates a default 5x5 grid to be run at 100ms.  Enter your desired Height, Width, or Speed.  Click on each cell to toggle the cell's state.  Press Set-Seed to accept your seed pattern.  Then press Start to begin the simulation.</p>
+      <p><span class="bold">Manual Mode</span> - Challenge yourself to create meaningful or chaotic simulations with seed patterns of your choosing.  Creates a default 5x5 grid to be run at 100ms per generation.  Enter your desired Height, Width, or Speed.  Click on cells to toggle them to a live state.  Press Set-Seed to accept your seed pattern.  Then press Start to begin the simulation.</p>
 
       <p><span class="bold">Catalog Mode</span> - Select sample seed patterns by categories.  Then press Start to begin the simulation.</p>
 
       <p>Tip: Enter greater Speeds (smaller values) for larger grid sizes for observing, and lower Speeds (larger values in the thousands) for closer examination.</p>
 
-      <p>Press Pause and Run (Resume) as you wish, to examine generation state or stats, etc.</p>
+      <p>Press Pause and Run (Resume) as you wish, to examine the progression of your simulation.</p>
 
-      <p>Please press Done to end non-terminating simulations and to reload the page after each simulation.</p>
+      <p>Press Done to end non-terminating simulations and to reload the page after each simulation.</p>
 
       <p>Observe the interesting (and sometimes, not so eventful), chaotic, or pleasing patterns that may emerge from generation to generation, based on your initial seed pattern.</p>
 
       <center><p><span class="underline">A simulation can end in one of 3 ways:</span></p></center>
 
-      <p>1) <span class="bold">Still-Lifes</span> are non-terminating stable patterns for which you should press the Done button to stop calculations.</p>
+      <p>1) <span class="bold">Still-Lifes</span> are non-terminating stable patterns for which you should press the Done button to stop the calculations.</p>
 
       <p>2) <span class="bold">Oscillators</span> are non-terminating patterns which will repeat indefinitely.  Enjoy the show, and press Done when desired.</p>
 
