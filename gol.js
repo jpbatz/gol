@@ -44,6 +44,9 @@ $(document).ready(function() {
       $('#selection-list').css({"visibility": "visible"});
       $('#sample-create-button').css({"visibility": "hidden"});
       $('#select-create-button').css({"visibility": "visible"});
+      $('#set-seed-button').css({"visibility": "hidden"});
+      $('#start-run-pause-button').css({"visibility": "hidden"});
+      $('#done-button').css({"visibility": "hidden"});
     }
     
     if($(this).html() === "Manual") {
@@ -52,6 +55,8 @@ $(document).ready(function() {
       $('#selection-list').css({"visibility": "visible"});
       $('#sample-create-button').css({"visibility": "hidden"});
       $('#select-create-button').css({"visibility": "visible"});
+      $('#start-run-pause-button').css({"visibility": "hidden"});
+      $('#done-button').css({"visibility": "hidden"});
     }
 
     if($(this).html() === "Catalog") {
@@ -61,7 +66,10 @@ $(document).ready(function() {
       $('#selection-list').css({"visibility": "hidden"});
       $('#select-sample-list').css({"visibility": "visible"});
       $('#select-create-button').css({"visibility": "hidden"});
+      $('#set-seed-button').css({"visibility": "hidden"});
       $('#sample-create-button').css({"visibility": "visible"});
+      $('#start-run-pause-button').css({"visibility": "hidden"});
+      $('#done-button').css({"visibility": "hidden"});
       $('select[name="seed-sample"]').change(seed_logger);
     }
 
@@ -113,7 +121,9 @@ function simulate() {
     createGrid(height, width);
     displayGrid();
 
-    $('#start-run-pause-done-div').css({"visibility": "hidden"});
+    // $('#start-run-pause-done-div').css({"visibility": "hidden"});
+    // $('#start-run-pause-button').css({"visibility": "hidden"});
+    // $('#done-button').css({"visibility": "hidden"});
     $('#set-seed-button').css({"visibility": "visible"});
 
     // manually click cells to enter seed values
@@ -128,7 +138,7 @@ function simulate() {
 
     $('#set-seed-button').on('click', function() {
       setManualSeed();
-      $('#start-run-pause-done-div').css({"visibility": "visible"});
+      // $('#start-run-pause-done-div').css({"visibility": "visible"});
       updateNextGen();
     });
   
@@ -253,8 +263,8 @@ function createGrid(gridHeight, gridWidth) {
 
   console.log("***** CREATED " + Number(cellNum-1) + " CELLS *****");
 
-  $('#start-run-pause-button').css({"visibility": "visible"});
-  $('#done-button').css({"visibility": "visible"});
+  // $('#start-run-pause-button').css({"visibility": "visible"});
+  // $('#done-button').css({"visibility": "visible"});
 
 }
 
@@ -274,6 +284,8 @@ function generateRandomSeed() {
       console.log("[generateRandomSeed()] CELL NUMBER = " + grid_data[row1][col1].cell_num + " for (" + col1 + "," + row1 + ") alive = " + grid_data[row1][col1].alive);
     }
   }
+  $('#start-run-pause-button').css({"visibility": "visible"});
+  $('#done-button').css({"visibility": "visible"});
 }
 
 /**
@@ -288,6 +300,8 @@ function setManualSeed() {
       }
     }
   }
+  $('#start-run-pause-button').css({"visibility": "visible"});
+  $('#done-button').css({"visibility": "visible"});
 }
 
 /**
@@ -307,6 +321,8 @@ function loadFileSeed() {
       console.log("[load file seed()] CELL NUMBER = " + grid_data[row3][col3].cell_num + " for (" + row3 + "," + col3 + ") alive = " + grid_data[row3][col3].alive);
     }
   }
+  $('#start-run-pause-button').css({"visibility": "visible"});
+  $('#done-button').css({"visibility": "visible"});
 }
 
 /**
@@ -464,7 +480,12 @@ function updateNextGen() {
   // console.log("***** [updateNextGen()] Live Population = " + getPopulation(grid_data) + " *****");
   console.log("[updateNextGen()]");
 
+  $('.create-button').on('click', function() {
+    console.log("dfgsdfbfkbjndf;lbnslfbnlsdkgp85hywo4iht8b[0wejt40wjhrg");
+  });
+
   // add step feature
+
   $("#start-run-pause-button").on('click', function() {
     // count++;
     // if(count % 2 !== 0) {
@@ -491,6 +512,7 @@ function updateNextGen() {
     }
   });
 
+  // should stop non-terminating simulation (but, it reloads, instead)
   $("#done-button").on('click', function() {
       clearInterval(setIntervalID);
       console.log("***** DONE *****");
@@ -501,6 +523,10 @@ function updateNextGen() {
       // clearGridData();
       reloadGame();
   });
+
+  // Reload button - fresh start
+
+  // Replay button - re-run simulation
 
 }
 
