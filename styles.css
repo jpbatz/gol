@@ -11,12 +11,31 @@ body {
   font-family: sans-serif;
 }
 
+.bold {
+  font-weight: bold;
+}
+
+.underline {
+  text-decoration: underline
+}
+
 header {
   /*border: 1px solid black;*/
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 h1 {
-  /*margin-left: 100px;*/
+  margin: 0px;
+}
+
+h4 {
+  margin: 0px;
+  font-style: italic;
+}
+
+button {
+  visibility: hidden;
 }
 
 .run-mode-selection {
@@ -31,12 +50,41 @@ h1 {
   padding: 5px;
 }
 
-#selection li {
+#selection-div {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.selected {
+  background-color: orange;
+}
+
+#selection-list {
+  visibility: hidden;
+}
+
+#select-sample-list {
+  visibility: hidden;
+}
+
+.select-sample-item {
+  margin-right: 15px;
+}
+
+.selection-item {
   margin-right: 10px;
   font-size: 14px;
   display: inline-block;
   text-decoration: none;
   margin-top: 5px;  
+}
+
+.select-sample-item {
+  margin-right: 10px;
+  display: inline-block;
+  text-decoration: none;
 }
 
 .seed-selection {
@@ -45,10 +93,19 @@ h1 {
   margin-right: 20px;
   padding-left: 5px;
   padding-right: 5px;
+  font-size: 14px;
+  display: inline-block;
+  text-decoration: none;
+}
+
+#speed-selection {
+  margin-right: 10px;
 }
 
 #stats-div {
+  visibility: hidden;
   background-color: white;
+/*  margin-bottom: 20px;*/
 }
 
 .stats-item {
@@ -71,6 +128,7 @@ h1 {
   /*border: 1px solid black;*/
   /*background-color: white;*/
   display: inline-block;
+  margin-top: 20px;
   margin-bottom: 10px;
 }
 
@@ -89,7 +147,7 @@ h1 {
 .grid_col_cell {
   display: table-cell;
   color: gray;
-  /*border: 1px solid gray;*/
+  border: 1px solid gray;
   border-radius: 10px;
   /*background-color: white;*/
   height: inherit;
@@ -108,3 +166,46 @@ h1 {
   display: inline-block;
   margin-left: 100px;
 }*/
+
+/*#create-button {
+
+}*/
+
+#set-seed-button {
+  margin-bottom: 5px;
+}
+
+#start-run-pause-button {
+  margin-right: 5px;
+}
+
+#done-button {
+  margin-left: 5px;
+}
+
+#intro {
+  background-color: white;
+  margin: auto;
+  margin-top: 20px;
+  max-width: 60%;
+  text-align: left;
+  padding: 10px;
+}
+
+#instructions {
+  background-color: white;
+  margin: auto;
+  margin-top: 20px;
+  max-width: 60%;
+  text-align: left;
+  padding: 10px;
+}
+
+#references{
+  margin: 10px;
+}
+
+footer {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}

@@ -1,16 +1,18 @@
-var height = 5;       // height = rows = y
-var width = 5;        // width = cols = x
-var speed = 250;      // simulation speed
-var runMode = "random";    // default run mode is random
-var grid_view;        // view: to be assigned once after document ready
-var grid_data = [];   // data: contains rows []
-var generation = 1;
+var height = 5;             // height = rows = y
+var width = 5;              // width = cols = x
+var speed = 100;            // simulation speed
+var runMode = "random";     // default run mode is random
+var grid_view;              // view: to be assigned once after document ready
+var grid_data = [];         // data: contains rows []
+var generation = 1;         // generation count
 var seed_file = seed_glider;
 var selected_seed_file = seed_file;
-var setIntervalID;
-var count = 2;
-var colorOfLife = "purple";
-var colorOfDeath = "#FFEFD5"; // papayawhip
+var setIntervalID;          // for setInterval termination
+var count = 2;              // determines Run or Pause
+var liveCellColor = "purple";
+var deadCellColor = "white";
+// var deadCellColor = "#FFEFD5"; // papayawhip does not work
+var run = false;
 
 $(document).ready(function() {
 
@@ -27,59 +29,57 @@ $(document).ready(function() {
   console.log("mode = " + runMode);
   // console.log("seed file = " + seed_file);
 
-  // random mode selected
-  $('#random').on('click', function() {
-    runMode = "random";
-    $('#random').css({
-      "background-color": "orange"
-    });
-    $('#manual').css({
-      "background-color": "yellow"
-    });
-    $('#catalog').css({
-      "background-color": "yellow"
-    });
-    $('#create-button').on('click', simulate);
+  // $('#set-seed-button').css({"visibility": "hidden"});
+  // $('#start-run-pause-button').css({"visibility": "hidden"});
+  // $('#done-button').css({"visibility": "hidden"});
+
+  $('#mode-div a').on('click', function() {
+    $("a.selected").removeClass("selected");
+    $(this).addClass("selected");
+
+    console.log(this);
+    if($(this).html() === "Random") {
+      runMode = "random";
+      $('#select-sample-list').css({"visibility": "hidden"});
+      $('#selection-list').css({"visibility": "visible"});
+      $('#sample-create-button').css({"visibility": "hidden"});
+      $('#select-create-button').css({"visibility": "visible"});
+      $('#set-seed-button').css({"visibility": "hidden"});
+      $('#start-run-pause-button').css({"visibility": "hidden"});
+      $('#done-button').css({"visibility": "hidden"});
+    }
+    
+    if($(this).html() === "Manual") {
+      runMode = "manual";
+      $('#select-sample-list').css({"visibility": "hidden"});
+      $('#selection-list').css({"visibility": "visible"});
+      $('#sample-create-button').css({"visibility": "hidden"});
+      $('#select-create-button').css({"visibility": "visible"});
+      $('#start-run-pause-button').css({"visibility": "hidden"});
+      $('#done-button').css({"visibility": "hidden"});
+    }
+
+    if($(this).html() === "Catalog") {
+      runMode = "catalog";
+
+      // $('#selection-list').remove();
+      $('#selection-list').css({"visibility": "hidden"});
+      $('#select-sample-list').css({"visibility": "visible"});
+      $('#select-create-button').css({"visibility": "hidden"});
+      $('#set-seed-button').css({"visibility": "hidden"});
+      $('#sample-create-button').css({"visibility": "visible"});
+      $('#start-run-pause-button').css({"visibility": "hidden"});
+      $('#done-button').css({"visibility": "hidden"});
+      $('select[name="seed-sample"]').change(seed_logger);
+    }
+
   });
 
-  // manual mode selected 
-  $('#manual').on('click', function() {
-    runMode = "manual";
-    $('#random').css({
-      "background-color": "yellow"
-    });
-    $('#manual').css({
-      "background-color": "orange"
-    });
-    $('#catalog').css({
-      "background-color": "yellow"
-    });
-    $('#create-button').on('click', simulate);
-  });
+  $('.create-button').on('click', simulate);
 
-  // catalog mode selected
-  $('#catalog').on('click', function() {
-    runMode = "catalog";
-    $('#random').css({
-      "background-color": "yellow"
-    });
-    $('#manual').css({
-      "background-color": "yellow"
-    });
-    $('#catalog').css({
-      "background-color": "orange"
-    });
-    $('#selection').remove();
-    $('#selection-div').append('<ul id="selection">');
-    $('#selection').append('<li class="seed-selection"><input type="radio" name="seed-selection" value="figure8"  />Figure 8</li>');
-    $('#selection').append('<li class="seed-selection"><input type="radio" name="seed-selection" value="octagon" />Octagon</li>');
-    $('#selection').append('<li class="seed-selection"><input type="radio" name="seed-selection" value="pulsar" />Pulsar</li>');
-    $('#selection').append('<li class="seed-selection"><input type="radio" name="seed-selection" value="spinner" />Spinner</li>');
-    $('#selection').append('<br><li id="speed-selection">Speed: <input type="text" placeholder="250ms" size="4" maxlength="3"></li>');
-    $('#selection').append('<li class="seed-selection"><button id="create-button">Create</button></li>');
-    $('input[name="seed-selection"]').change(seed_logger);
-    // console.log("MAIN " + selected_seed_file);
-    $('#create-button').on('click', simulate);
+  $("#start-run-pause-button").on('click', function() {
+    run = !run;
+    updateNextGen();
   });
 
   // needs to be called out here so not to have multiple grids appended
@@ -88,21 +88,18 @@ $(document).ready(function() {
 
 // ========================== MAIN FUNCTION ==========================
 
-
 /**
  * simulate()
  * @return {[type]} [description]
  */
 function simulate() {
 
-  console.log("click");
+  console.log("[simulate()]");
   console.log("*** Run Mode = " + runMode);
-  
+
   height = $('#height-selection').val() || height;
   width = $('#width-selection').val() || width;
-  speed = $('#speed-selection').val() || speed;
-  // runMode = $('#run-mode-selection').val() || runMode;
-
+  // speed = $('.speed-selection').val() || speed;
 
   console.log("*** SUBMITTED VALUES ***");
   console.log("** height = " + height);
@@ -110,56 +107,52 @@ function simulate() {
   console.log("** speed = " + speed);
   console.log("** mode = " + runMode);
 
+  $('#stats-div').css({"visibility": "visible"});
 
   if(runMode === "random") {
 
+    speed = $('#selection-speed').val() || speed;
+
     console.log("Creating a grid with dimensions = " + height + "x" + width + " (height x width)");
 
-    // createGrid(height, width, grid);
     createGrid(height, width);
-    // create random seed
     generateRandomSeed();
-    // display grid
     displayGrid();
-
-    // process subsequent generations
     updateNextGen();
-  // });
   
   } else if(runMode === "manual") {
 
+    speed = $('#selection-speed').val() || speed;
+
     console.log("Creating a grid with dimensions = " + height + "x" + width + " (height x width)");
 
-    // createGrid(height, width, grid);
     createGrid(height, width);
-
-    // display grid()
     displayGrid();
 
-
-    var controlsDiv = $('#controls-div');
-    var setSeedButton = '<button id="set-seed-button">Set Seed</button>';
-
-    $('#set-seed-div').append(setSeedButton);
+    // $('#start-run-pause-done-div').css({"visibility": "hidden"});
+    // $('#start-run-pause-button').css({"visibility": "hidden"});
+    // $('#done-button').css({"visibility": "hidden"});
+    $('#set-seed-button').css({"visibility": "visible"});
 
     // manually click cells to enter seed values
     $('.cell').on('click', function() {
       console.log("click in cell " + this.innerHTML + " detected");
-      if(this.style.backgroundColor === colorOfDeath) {
-        this.style.backgroundColor = colorOfLife;
-      } else if(this.style.backgroundColor === colorOfLife) {
-        this.style.backgroundColor = colorOfDeath;
+      if(this.style.backgroundColor === deadCellColor) {
+        this.style.backgroundColor = liveCellColor;
+      } else if(this.style.backgroundColor === liveCellColor) {
+        this.style.backgroundColor = deadCellColor;
       }
     });
 
     $('#set-seed-button').on('click', function() {
       setManualSeed();
-
-      // process subsequent generations
+      // $('#start-run-pause-done-div').css({"visibility": "visible"});
       updateNextGen();
     });
   
   } else if(runMode === "catalog") {
+
+    speed = $('#sample-speed').val() || speed;
 
     console.log("[simulate()] selected_seed_file: " + selected_seed_file);
     
@@ -180,6 +173,10 @@ function simulate() {
         seed_file = seed_spinner;
         break;
       }
+      case "diehard": {
+        seed_file = seed_diehard;
+        break;
+      }
       default: {
         seed_file = seed_glider;
       }
@@ -192,16 +189,9 @@ function simulate() {
 
     console.log("Creating a grid with dimensions = " + height + "x" + width + " (height x width)");
 
-    // createGrid(height, width, grid);
     createGrid(height, width);
-
-    // load seed from catalog (files)
     loadFileSeed();
-
-    // display grid
     displayGrid();
-
-    // process subsequent generations
     updateNextGen();
 
   } else {
@@ -211,7 +201,6 @@ function simulate() {
 } // end simulate()
 
 // ========================== HELPER FUNCTIONS ==========================
-
 
 /**
  * seed_logger()
@@ -233,6 +222,12 @@ function seed_logger(e) {
 // function createGrid(gridHeight, gridWidth, gridData) {
 function createGrid(gridHeight, gridWidth) {
 
+  if(grid_view) {
+    grid_view.html("");
+    grid_data = [];
+  }
+
+  console.log("[createGrid()]");
   var cellNum = 1;
 
   for(var i=0; i<gridHeight; i++) {
@@ -276,11 +271,10 @@ function createGrid(gridHeight, gridWidth) {
 
   console.log("***** CREATED " + Number(cellNum-1) + " CELLS *****");
 
-  $('#start-run-pause-done-div').append('<button id="start-run-pause-button">Start</button>');
-  $('#start-run-pause-done-div').append('<button id="done-button">Done</button>');
+  // $('#start-run-pause-button').css({"visibility": "visible"});
+  // $('#done-button').css({"visibility": "visible"});
 
 }
-
 
 /**
  * generateRandomSeed()
@@ -298,30 +292,32 @@ function generateRandomSeed() {
       console.log("[generateRandomSeed()] CELL NUMBER = " + grid_data[row1][col1].cell_num + " for (" + col1 + "," + row1 + ") alive = " + grid_data[row1][col1].alive);
     }
   }
+  $('#start-run-pause-button').css({"visibility": "visible"});
+  $('#done-button').css({"visibility": "visible"});
 }
-
 
 /**
  * setManualSeed()
  */
 function setManualSeed() {
-  console.log("[setManualSeed]");
+  console.log("[setManualSeed()]");
   for(var row2=0; row2<height; row2++) {
     for(var col2=0; col2<width; col2++) {
-      if(grid_data[row2][col2].domDiv.style.backgroundColor === colorOfLife) {
+      if(grid_data[row2][col2].domDiv.style.backgroundColor === liveCellColor) {
         grid_data[row2][col2].alive = true;
       }
     }
   }
+  $('#start-run-pause-button').css({"visibility": "visible"});
+  $('#done-button').css({"visibility": "visible"});
 }
-
 
 /**
  * loadFileSeed() - load seed from catalog (files)
  * @return {[type]} [description]
  */
 function loadFileSeed() {
-  console.log("[loadFileSeed]");
+  console.log("[loadFileSeed()]");
   for(var row3=0; row3<height; row3++) {
     for(var col3=0; col3<width; col3++) {
       var fileCellValue = seed_file[row3][col3];
@@ -330,25 +326,26 @@ function loadFileSeed() {
       } else if(fileCellValue === 1){
         grid_data[row3][col3].alive = true;
       }
-      console.log("[load file seed] CELL NUMBER = " + grid_data[row3][col3].cell_num + " for (" + row3 + "," + col3 + ") alive = " + grid_data[row3][col3].alive);
+      console.log("[load file seed()] CELL NUMBER = " + grid_data[row3][col3].cell_num + " for (" + row3 + "," + col3 + ") alive = " + grid_data[row3][col3].alive);
     }
   }
+  $('#start-run-pause-button').css({"visibility": "visible"});
+  $('#done-button').css({"visibility": "visible"});
 }
-
 
 /**
  * displayGrid()
  * @return {[type]} [description]
  */
 function displayGrid() {
-
+  console.log("[displayGrid()]");
   for(var row4=0; row4<height; row4++) {
     for(var col4=0; col4<width; col4++) {
-      var cellColor = colorOfDeath;
+      var cellColor = deadCellColor;
       if(grid_data[row4][col4].alive === false) {
-        cellColor = colorOfDeath;
+        cellColor = deadCellColor;
       } else if(grid_data[row4][col4].alive === true){
-        cellColor = colorOfLife;
+        cellColor = liveCellColor;
       }
       grid_data[row4][col4].domDiv.style.backgroundColor = cellColor;
       // grid_data[row4][col4].domDiv.innerHTML = grid_data[row4][col4].cell_num;
@@ -373,7 +370,6 @@ function getPopulation(grid_array) {
   }
   return popCount;
 }
-
 
 /**
  * calcNextGeneration()
@@ -415,7 +411,6 @@ function calcNextGeneration() {
     }
   }
 }
-
 
 /**
  * countNeighbors()
@@ -472,7 +467,6 @@ function countNeighbors(r,c) {
   return neighbor_count;
 }
 
-
 /**
  * setNextGenLifeStatus()
  */
@@ -485,7 +479,6 @@ function setNextGenLifeStatus() {
   }
 }
 
-
 /**
  * updateNextGen()
  * @return {[type]} [description]
@@ -496,9 +489,12 @@ function updateNextGen() {
   console.log("[updateNextGen()]");
 
   // add step feature
-  $("#start-run-pause-button").on('click', function() {
-    count++;
-    if(count % 2 !== 0) {
+
+  // $("#start-run-pause-button").on('click', function() {
+  //   // count++;
+  //   // if(count % 2 !== 0) {
+  //   run = !run;
+    if(run) {
       console.log("***** PLAY *****");
       $("#start-run-pause-button").html("Pause");
       setIntervalID = setInterval(function(){
@@ -518,16 +514,23 @@ function updateNextGen() {
       $("#start-run-pause-button").html("Run");
       console.log("***** PAUSED *****");
     }
-  });
+  // });
 
+  // should stop non-terminating simulation (but, it reloads, instead)
   $("#done-button").on('click', function() {
       clearInterval(setIntervalID);
       console.log("***** DONE *****");
       $("#start-run-pause-button").hide();
       $("#set-seed-button").hide();
       $("#done-button").hide();
-      clearGridData();
+      $('#reload').html('Please Reload Page to Restart');
+      // clearGridData();
+      reloadGame();
   });
+
+  // Reload button - fresh start
+
+  // Replay button - re-run simulation
 
 }
 
@@ -536,7 +539,6 @@ function updateNextGen() {
  * @return {[type]} [description]
  */
 function clearGridData() {
-  // delete grid
   for(var row7=0; row7<height; row7++) {
     for(var col7=0; col7<width; col7++) {
       grid_data[row7][col7].alive = false;
@@ -549,15 +551,20 @@ function clearGridData() {
  * clearGrid() - removes grid
  * @return {[type]} [description]
  */
-function resetGrid() {
-  height = 5;           // height = rows = y
-  width = 5;            // width = cols = x
-  speed = 250;          // simulation speed
+function reloadGame() {
+
+  console.log("[reloadGame] " + grid_view);
+
+  height = 5;           // revert height
+  width = 5;            // revert width
+  speed = 100;          // simulation speed default
   runMode = "random";   // default run mode is random
-  grid_view.remove();   // view: to be assigned once after document ready
-  grid_data = [];       // data: contains rows []
-  seed_file = seed_glider;
+  grid_view.html("");   // view: clear grid on page
+  grid_data = [];       // data: clear grid data
+  seed_file = seed_glider;  // revert default seed
   selected_seed_file = seed_file;
   setIntervalID = 0;
   count = 2;
+
+  location.reload(true);
 }
