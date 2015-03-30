@@ -36,6 +36,7 @@ h1 {
   font-size: 14px;
   display: inline-block;
   text-decoration: none;
+  margin-top: 5px;  
 }
 
 .seed-selection {

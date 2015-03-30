@@ -27,6 +27,7 @@ $(document).ready(function() {
   console.log("mode = " + runMode);
   // console.log("seed file = " + seed_file);
 
+  // random mode selected
   $('#random').on('click', function() {
     runMode = "random";
     $('#random').css({
@@ -40,7 +41,8 @@ $(document).ready(function() {
     });
     $('#create-button').on('click', simulate);
   });
-  
+
+  // manual mode selected 
   $('#manual').on('click', function() {
     runMode = "manual";
     $('#random').css({
@@ -54,16 +56,15 @@ $(document).ready(function() {
     });
     $('#create-button').on('click', simulate);
   });
-  
+
+  // catalog mode selected
   $('#catalog').on('click', function() {
     runMode = "catalog";
     $('#random').css({
       "background-color": "yellow"
-
     });
     $('#manual').css({
       "background-color": "yellow"
-
     });
     $('#catalog').css({
       "background-color": "orange"
@@ -74,13 +75,15 @@ $(document).ready(function() {
     $('#selection').append('<li class="seed-selection"><input type="radio" name="seed-selection" value="octagon" />Octagon</li>');
     $('#selection').append('<li class="seed-selection"><input type="radio" name="seed-selection" value="pulsar" />Pulsar</li>');
     $('#selection').append('<li class="seed-selection"><input type="radio" name="seed-selection" value="spinner" />Spinner</li>');
-    $('#selection').append('<li id="speed-selection">Speed: <input type="text" placeholder="250ms" size="5" maxlength="4"></li>');
+    $('#selection').append('<br><li id="speed-selection">Speed: <input type="text" placeholder="250ms" size="4" maxlength="3"></li>');
     $('#selection').append('<li class="seed-selection"><button id="create-button">Create</button></li>');
     $('input[name="seed-selection"]').change(seed_logger);
     // console.log("MAIN " + selected_seed_file);
     $('#create-button').on('click', simulate);
   });
 
+  // needs to be called out here so not to have multiple grids appended
+  // $('#create-button').on('click', simulate);
 });
 
 // ========================== MAIN FUNCTION ==========================
