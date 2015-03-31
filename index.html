@@ -3,16 +3,95 @@
 <html>
 
   <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CGoL Universe</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/foundation.min.css" type="text/css" />
     <link rel="stylesheet" href="./styles.css">
   </head>
 
   <body>
 
     <header>
-      <h1>CGoL Universe</h1>
-      <h4>"a zero player game, for lazy gamers"</h4>
+      <div class="row">
+        <div class="large-12 columns">
+          <h1><a href="teolidgrade.com/gol"><span class="bold">YACGoL Universe</span></a></h1>
+          <h4>"a zero player game, for lazy gamers"</h4>
+        </div>
+      </div>
     </header>
+
+    <nav class="top-bar" data-topbar role="navigation">
+      
+      <ul class="title-area">
+        <li class="name">
+          <h1><a href="telodigrade.com/gol">Home</a></h1>
+        </li>
+         <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+      </ul>
+      
+      <section class="top-bar-section">
+        <!-- Left Nav Section -->
+        <ul class="left">
+          <li><a href="#">Welcome</a></li>
+          <li class="has-dropdown not-click">
+            <a href="#">Mode</a>
+            <ul class="dropdown">
+              <li class="has-dropdown not-click">
+                <a href="#">Single Player</a>
+                <ul class="dropdown">
+                  <li class="active"><a href="#">Catalog</a></li>
+                  <li class="active"><a href="#">Random</a></li>
+                  <li class="active"><a href="#">Design</a></li>
+                </ul>
+              </li>
+              <li class="has-dropdown not-click">
+                <a href="#">Interactive</a>
+                <ul class="dropdown">
+                  <li class="active"><a href="#">Challenge</a></li>
+                  <li class="active"><a href="#">Cooperative</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li class="has-dropdown not-click">
+            <a href="#">Settings</a>
+            <ul class="dropdown">
+              <li class="active"><a href="#">Item n</a></li>
+              <li class="active"><a href="#">Item n</a></li>
+              <li class="active"><a href="#">Item n</a></li>
+              <li class="active"><a href="#">Item n</a></li>
+              <li class="active"><a href="#">Item n</a></li>
+              <li class="active"><a href="#">Item n</a></li>
+              <li class="has-dropdown not-click">
+                <a href="#">Sub Item n</a>
+                <ul class="dropdown">
+                  <li class="active"><a href="#">1</a></li>
+                  <li class="active"><a href="#">2</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <!-- Right Nav Section -->
+        <ul class="right">
+          <li><a href="#">Instructions</a></li>
+          <li><a href="#">References</a></li>
+          
+          <li class="has-dropdown not-click">
+            <a href="#">Account</a>
+            <ul class="dropdown">
+              <li class="active"><a href="#">Sign-In</a></li>
+              <li class="active"><a href="#">Sign-Up</a></li>
+              <li class="active"><a href="#">Sign-Out</a></li>
+              <li class="active"><a href="#">Profile</a></li>
+            </ul>
+          </li>
+          <li><a href="#">About</a></li>
+        </ul>
+      </section>
+    </nav>
 
     <div id="setup-div">
       <div id="mode-div">
@@ -20,13 +99,14 @@
           <a href="javascript:console.log('[MANUAL MODE]');" id="manual" class="run-mode-selection">Manual</a>
           <a href="javascript:console.log('[CATALOG MODE]');" id="catalog" class="run-mode-selection">Catalog</a>
       </div> <!-- end #mode-div -->
+      
       <div id="selection-div">
 
         <ul id="selection-list">
           <li class="selection-item">Height: <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="height-selection" placeholder="5" size="4" maxlength="3"></li>
           <li class="selection-item">Width: <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="width-selection" placeholder="5" size="4" maxlength="3"></li>
           <li class="selection-item">Speed: <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="selection-speed" placeholder="250ms" size="5" maxlength="4"></li>
-          <li class="selection-item"><button id="select-create-button" class="create-button">Create</button></li>
+          <li class="selection-item"><button id="select-create-button" class="create-button small radius info">Create</button></li>
         </ul>
 
         <ul id="select-sample-list">
@@ -50,7 +130,7 @@
             </select>
           </li>
           <li class="select-sample-item">Speed: <input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" id="sample-speed" placeholder="100ms" size="5" maxlength="4"></li>
-          <li class="select-sample-item"><button id="sample-create-button" class="create-button">Create</button></li>
+          <li class="select-sample-item"><button id="sample-create-button" class="create-button small radius info">Create</button></li>
         </ul>
 
       </div>  <!-- end #selection-div -->
@@ -70,11 +150,11 @@
 
     <div id="controls-div">
       <div id="set-seed-div">
-        <button id="set-seed-button">Set Seed</button>
+        <button id="set-seed-button" class="small radius info">Set Seed</button>
       </div>
       <div id="start-run-pause-done-div">
-        <button id="start-run-pause-button">Start</button>
-        <button id="done-button">Done</button>
+        <button id="start-run-pause-button" class="small radius info">Start</button>
+        <button id="done-button" class="small radius info">Done</button>
       </div>
       <p id="reload"></p>
     </div>  <!-- end #controls-div -->
@@ -83,7 +163,7 @@
 
       <center>
 
-      <p>Welcome to Yet Another Conway's <a href="http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life"><span class="bold">Conway's Game of Life</span></a> (YAC CGoL) simulation model.</p>
+      <p>Welcome to Yet Another <a href="http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life"><span class="bold">Conway's Game of Life</span></a> (YAC CGoL) simulation model.</p>
 
       <p>CGol is a <a href="http://en.wikipedia.org/wiki/Cellular_automaton"><span class="bold">cellular automaton</span></a> - "one of a set of units in a mathematical model that have simple rules governing their replication and destruction. They are used to model complex systems composed of simple units such as living things or parallel processors."
       </p>
@@ -150,6 +230,7 @@
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.12/angular.min.js"></script> -->
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js"></script>
     <script src="./seeds.js"></script>
     <script src="./gol.js"></script>
 

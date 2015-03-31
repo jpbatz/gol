@@ -1,9 +1,10 @@
 html {
-  background-color: papayaWhip;
+  background-color: #FFEFD5;
 }
 
 body {
   /*border: 1px solid black;*/
+  background-color: #FFEFD5;
   width: 90%;
   margin: auto;
   text-align: center;
@@ -36,6 +37,53 @@ h4 {
 
 button {
   visibility: hidden;
+}
+
+.top-bar { /*nav*/
+  border-radius: 1em;
+}
+
+.toggle-topbar { /*mobile - right hamburger Menu*/
+  border-top-right-radius: 1em;
+  border-bottom-right-radius: 1em;
+}
+
+.top-bar-section { /*same as section*/
+  border-radius: 1em;
+}
+
+.left {
+  border-top-left-radius: 1em;
+  border-bottom-left-radius: 1em;
+}
+
+.left>li:first-child {
+  border-top-left-radius: 1em;
+  border-bottom-left-radius: 1em;
+}
+
+.left>li:first-child a {
+  border-top-left-radius: 1em;
+  border-bottom-left-radius: 1em;
+}
+
+.right {
+  border-top-right-radius: 1em;
+  border-bottom-right-radius: 1em;
+}
+
+.right>li:last-child {
+  border-top-right-radius: 1em;
+  border-bottom-right-radius: 1em;
+}
+
+.right>li:last-child a {
+  border-top-right-radius: 1em;
+  border-bottom-right-radius: 1em;
+}
+
+#setup-div {
+  margin-top: 30px;  
 }
 
 .run-mode-selection {
@@ -78,6 +126,7 @@ button {
   font-size: 14px;
   display: inline-block;
   text-decoration: none;
+  margin-top: 5px;  
 }
 
 .select-sample-item {
@@ -135,7 +184,6 @@ button {
   background-color: pink;
 }*/
 
-
 .grid_row {
   display: table-row;
   height: 20px;
@@ -164,10 +212,6 @@ button {
   background-color: white;
   display: inline-block;
   margin-left: 100px;
-}*/
-
-/*#create-button {
-
 }*/
 
 #set-seed-button {
