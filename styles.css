@@ -230,6 +230,7 @@ button {
   background-color: white;
   margin: auto;
   margin-top: 20px;
+  border-radius: 1em;
   max-width: 80%;
   text-align: left;
   padding: 60px;
@@ -239,6 +240,7 @@ button {
   background-color: white;
   margin: auto;
   margin-top: 20px;
+  border-radius: 1em;
   max-width: 80%;
   text-align: left;
   padding: 60px;
