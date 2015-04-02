@@ -29,10 +29,6 @@ $(document).ready(function() {
   console.log("mode = " + runMode);
   // console.log("seed file = " + seed_file);
 
-  // $('#set-seed-button').css({"visibility": "hidden"});
-  // $('#start-run-pause-button').css({"visibility": "hidden"});
-  // $('#done-button').css({"visibility": "hidden"});
-
   $('#mode-div a').on('click', function() {
     $("a.selected").removeClass("selected");
     $(this).addClass("selected");
@@ -112,6 +108,7 @@ function simulate() {
     speed = $('#selection-speed').val() || speed;
 
     console.log("Creating a grid with dimensions = " + height + "x" + width + " (height x width)");
+    $('#message').html("Dimensions (height x width): " + height + " x " + width + " grid, running at " + speed + "ms/generation");
 
     createGrid(height, width);
     generateRandomSeed();
@@ -127,9 +124,6 @@ function simulate() {
     createGrid(height, width);
     displayGrid();
 
-    // $('#start-run-pause-done-div').css({"visibility": "hidden"});
-    // $('#start-run-pause-button').css({"visibility": "hidden"});
-    // $('#done-button').css({"visibility": "hidden"});
     $('#set-seed-button').css({"visibility": "visible"});
 
     // manually click cells to enter seed values
@@ -144,7 +138,6 @@ function simulate() {
 
     $('#set-seed-button').on('click', function() {
       setManualSeed();
-      // $('#start-run-pause-done-div').css({"visibility": "visible"});
       updateNextGen();
     });
   
@@ -488,31 +481,26 @@ function updateNextGen() {
 
   // add step feature
 
-  // $("#start-run-pause-button").on('click', function() {
-  //   // count++;
-  //   // if(count % 2 !== 0) {
-  //   run = !run;
-    if(run) {
-      console.log("***** PLAY *****");
-      $("#start-run-pause-button").html("Pause");
-      setIntervalID = setInterval(function(){
-        var livePopulation = getPopulation(grid_data);
-        $('#live-cells-stats').html(livePopulation);    // too late
-        if(livePopulation > 0) {
-          $('#generation-stats').html(generation);
-          calcNextGeneration();
-          setNextGenLifeStatus();
-          displayGrid();
-          generation++;
-        }
-      }, speed);
-      // console.log("setIntervalID " + setIntervalID);
-    } else {
-      clearInterval(setIntervalID);
-      $("#start-run-pause-button").html("Run");
-      console.log("***** PAUSED *****");
-    }
-  // });
+  if(run) {
+    console.log("***** PLAY *****");
+    $("#start-run-pause-button").html("Pause");
+    setIntervalID = setInterval(function(){
+      var livePopulation = getPopulation(grid_data);
+      $('#live-cells-stats').html(livePopulation);    // too late
+      if(livePopulation > 0) {
+        $('#generation-stats').html(generation);
+        calcNextGeneration();
+        setNextGenLifeStatus();
+        displayGrid();
+        generation++;
+      }
+    }, speed);
+    // console.log("setIntervalID " + setIntervalID);
+  } else {
+    clearInterval(setIntervalID);
+    $("#start-run-pause-button").html("Run");
+    console.log("***** PAUSED *****");
+  }
 
   // should stop non-terminating simulation (but, it reloads, instead)
   $("#done-button").on('click', function() {

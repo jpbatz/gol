@@ -10,7 +10,7 @@
   <body>
 
     <header>
-      <h1>CGoL Universe</h1>
+      <h2>CGoL Universe</h2>
       <h4>"a zero player game, for lazy gamers"</h4>
     </header>
 
@@ -25,7 +25,7 @@
         <ul id="selection-list">
           <li class="selection-item">Height: <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="height-selection" placeholder="5" size="4" maxlength="3"></li>
           <li class="selection-item">Width: <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="width-selection" placeholder="5" size="4" maxlength="3"></li>
-          <li class="selection-item">Speed: <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="selection-speed" placeholder="250ms" size="5" maxlength="4"></li>
+          <li class="selection-item">Speed: <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="selection-speed" placeholder="100ms" size="5" maxlength="4"></li>
           <li class="selection-item"><button id="select-create-button" class="create-button">Create</button></li>
         </ul>
 
@@ -56,6 +56,10 @@
       </div>  <!-- end #selection-div -->
     </div> <!-- end #setup-div -->
 
+    <div>
+      <p id="message"></p>
+    </div>
+
     <div id="stats-div">
       <ul id="stats">
         <li class="stats-item">Generation: <p id="generation-stats"></p></li>
@@ -76,7 +80,7 @@
         <button id="start-run-pause-button">Start</button>
         <button id="done-button">Done</button>
       </div>
-      <p id="reload"></p>
+      
     </div>  <!-- end #controls-div -->
 
     <article id="intro">
