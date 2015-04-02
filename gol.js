@@ -43,6 +43,7 @@ $(document).ready(function() {
       $('#set-seed-button').css({"visibility": "hidden"});
       $('#start-run-pause-button').css({"visibility": "hidden"});
       $('#done-button').css({"visibility": "hidden"});
+      $('#select-sample-list').css({"display": "none"});
     }
     
     if($(this).html() === "Manual") {
@@ -53,11 +54,13 @@ $(document).ready(function() {
       $('#select-create-button').css({"visibility": "visible"});
       $('#start-run-pause-button').css({"visibility": "hidden"});
       $('#done-button').css({"visibility": "hidden"});
+      $('#select-sample-list').css({"display": "none"});
     }
 
     if($(this).html() === "Catalog") {
       runMode = "catalog";
 
+      $('#selection-list').css({"display": "none"});
       // $('#selection-list').remove();
       $('#selection-list').css({"visibility": "hidden"});
       $('#select-sample-list').css({"visibility": "visible"});
@@ -78,6 +81,8 @@ $(document).ready(function() {
     updateNextGen();
   });
 
+  // needs to be called out here so not to have multiple grids appended
+  // $('#create-button').on('click', simulate);
 });
 
 // ========================== MAIN FUNCTION ==========================
