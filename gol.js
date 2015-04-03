@@ -262,6 +262,9 @@ function seed_logger(e) {
 // function createGrid(gridHeight, gridWidth, gridData) {
 function createGrid(gridHeight, gridWidth) {
 
+  generation = 1;
+  livePopulation = 0;
+
   if(grid_view) {
     grid_view.html("");
     grid_data = [];
@@ -311,6 +314,8 @@ function createGrid(gridHeight, gridWidth) {
 
   console.log("***** CREATED " + Number(cellNum-1) + " CELLS *****");
 
+  $('#generation-stats').html(generation);
+  $('#live-cells-stats').html(livePopulation);
   // $('#start-run-pause-button').css({"visibility": "visible"});
   // $('#done-button').css({"visibility": "visible"});
 
@@ -341,13 +346,18 @@ function generateRandomSeed() {
  */
 function setManualSeed() {
   console.log("[setManualSeed()]");
+  generation = 1;
+  livePopulation = 0;
   for(var row2=0; row2<height; row2++) {
     for(var col2=0; col2<width; col2++) {
       if(grid_data[row2][col2].domDiv.style.backgroundColor === liveCellColor) {
         grid_data[row2][col2].alive = true;
+        livePopulation++;
       }
     }
   }
+  $('#generation-stats').html(generation);
+  $('#live-cells-stats').html(livePopulation);
   $('#start-run-pause-button').css({"visibility": "visible"});
   $('#done-button').css({"visibility": "visible"});
 }
@@ -393,7 +403,7 @@ function displayGrid() {
       // grid_data[row4][col4].domDiv.innerHTML = grid_data[row4][col4].cell_num;
       console.log("[display grid] CELL NUMBER = " + grid_data[row4][col4].cell_num + " for (" + row4 + "," + col4 + ") alive = " + grid_data[row4][col4].alive);
       $('#generation-stats').html(generation);
-      $('#live-cells-stats').html(livePopulation);    // too late
+      $('#live-cells-stats').html(livePopulation);
     }
   }
 }
@@ -403,17 +413,17 @@ function displayGrid() {
  * @param  {[Array]} grid_array [populated array]
  * @return {[type]}             [description]
  */
-function getPopulation(grid_array) {
-  var popCount = 0;
-  for(var i=0; i<grid_array.length; i++) {
-    for(var j=0; j<width; j++) {
-      if(grid_array[i][j].alive === true) {
-        popCount++;
-      }
-    }
-  }
-  return popCount;
-}
+// function getPopulation(grid_array) {
+//   var popCount = 0;
+//   for(var i=0; i<grid_array.length; i++) {
+//     for(var j=0; j<width; j++) {
+//       if(grid_array[i][j].alive === true) {
+//         popCount++;
+//       }
+//     }
+//   }
+//   return popCount;
+// }
 
 /**
  * calcNextGeneration()
@@ -591,18 +601,18 @@ function reloadGame() {
 
   console.log("[reloadGame] " + grid_view);
 
-  height = 5;           // revert height
-  width = 5;            // revert width
-  speed = 100;          // simulation speed default
-  runMode = "random";   // default run mode is random
-  grid_view.html("");   // view: clear grid on page
-  grid_data = [];       // data: clear grid data
-  generation = 1;         // generation count
-  livePopulation = 0;
-  seed_file = seed_glider;  // revert default seed
-  selected_seed_file = seed_file;
-  setIntervalID = 0;
-  run = false;
+  // height = 5;           // revert height
+  // width = 5;            // revert width
+  // speed = 100;          // simulation speed default
+  // runMode = "random";   // default run mode is random
+  // grid_view.html("");   // view: clear grid on page
+  // grid_data = [];       // data: clear grid data
+  // generation = 1;         // generation count
+  // livePopulation = 0;
+  // seed_file = seed_glider;  // revert default seed
+  // selected_seed_file = seed_file;
+  // setIntervalID = 0;
+  // run = false;
 
   location.reload(true);
 }
