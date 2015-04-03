@@ -34,7 +34,7 @@
       <section class="top-bar-section">
         <!-- Left Nav Section -->
         <ul class="left">
-          <li><a href="javascript:console.log('[Menu: Welcome]');">Welcome</a></li>
+          <li><a href="javascript:console.log('[Menu: Welcome]');" id="welcome-menu">Welcome</a></li>
           <li class="has-dropdown not-click">
             <a href="javascript:console.log('[Menu: Mode]');">Mode</a>
             <ul class="dropdown">
@@ -76,9 +76,9 @@
         </ul>
         <!-- Right Nav Section -->
         <ul class="right">
-          <li><a href="javascript:console.log('[Menu: Instructions]');">Instructions</a></li>
-          <li><a href="javascript:console.log('[Menu: References]');">References</a></li>
-          
+          <li><a href="javascript:console.log('[Menu: Instructions]');" id="instructions-menu">Instructions</a></li>
+          <li><a href="javascript:console.log('[Menu: References]');" id="references-menu">References</a></li>
+          <li><a href="javascript:console.log('[Menu: About]');" id="about-menu">About</a></li>
           <li class="has-dropdown not-click">
             <a href="javascript:console.log('[Menu: Account]');">Account</a>
             <ul class="dropdown">
@@ -88,7 +88,6 @@
               <li class="active"><a href="javascript:console.log('[Menu: Account - Profile]');">Profile</a></li>
             </ul>
           </li>
-          <li><a href="javascript:console.log('[Menu: About]');">About</a></li>
         </ul>
       </section>
     </nav>  <!-- end nav -->
@@ -140,7 +139,7 @@
 
         <p>Observe the interesting (and sometimes, not so eventful), chaotic, or pleasing patterns that may emerge from generation to generation, based on your initial seed pattern.</p>
 
-        <center><p><span class="underline">A simulation can end in one of 3 ways:</span></p></center>
+        <br><center><p><span class="underline">A simulation can end in one of 3 ways:</span></p></center>
 
         <p>1) <span class="bold">Still-Lifes</span> are non-terminating stable patterns for which you should press the Done button to stop the calculations.</p>
 
@@ -155,9 +154,16 @@
       </article>
 
       <article id="references">
-        <a href="http://en.wikipedia.org/wiki/Cellular_automaton">What is a cellular automaton?</a>
-        &nbsp;&nbsp;&nbsp;
-        <a href="http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Conway's Game of Life</a>
+        <h4>References</h4>
+        <ul id="references-list">
+          <li id="references-item"><a href="http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Conway's Game of Life</a></li>
+          <li id="references-item"><a href="http://en.wikipedia.org/wiki/Cellular_automaton">What is a cellular automaton?</a></li>
+        </ul>
+      </article>
+
+      <article id="about">
+        <h4>About</h4>
+        <p>The inspiration for this web application came about as an assignment to work on a final project for Dev League Cohort 3...</p>
       </article>
 
     </div>  <!-- end articles -->

@@ -82,6 +82,34 @@ $(document).ready(function() {
     updateNextGen();
   });
 
+  $('#welcome-menu').on('click', function() {
+    $('#instructions').css({"display": "none"})
+    $('#references').css({"display": "none"})
+    $('#about').css({"display": "none"})
+    $('#intro').css({"display": "block"})
+  });
+
+  $('#instructions-menu').on('click', function() {
+    $('#intro').css({"display": "none"})
+    $('#references').css({"display": "none"})
+    $('#about').css({"display": "none"})
+    $('#instructions').css({"display": "block"})
+  });  
+
+  $('#references-menu').on('click', function() {
+    $('#intro').css({"display": "none"})
+    $('#instructions').css({"display": "none"})
+    $('#about').css({"display": "none"})
+    $('#references').css({"display": "block"})
+  });
+
+  $('#about-menu').on('click', function() {
+    $('#intro').css({"display": "none"})
+    $('#instructions').css({"display": "none"})
+    $('#references').css({"display": "none"})
+    $('#about').css({"display": "block"})
+  });
+
 });
 
 // ========================== MAIN FUNCTION ==========================

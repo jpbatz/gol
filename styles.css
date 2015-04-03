@@ -81,14 +81,24 @@ button {
   border-bottom-right-radius: 1em;
 }
 
+#intro, #instructions, #references, #about {
+  display: none;
+}
+
+#intro, #instructions, #references, #about {
+  background-color: white;
+  margin: auto;
+  margin-top: 20px;
+  border-radius: 1em;
+  max-width: 80%;
+  text-align: left;
+  padding: 60px;
+}
+
 #setup-div {
   /*visibility: hidden;*/
   visibility: visible;
   margin-top: 30px;  
-}
-
-#articles {
-  display: none;
 }
 
 .run-mode-selection {
@@ -229,30 +239,6 @@ button {
 
 #done-button {
   margin-left: 5px;
-}
-
-#intro {
-  background-color: white;
-  margin: auto;
-  margin-top: 20px;
-  border-radius: 1em;
-  max-width: 80%;
-  text-align: left;
-  padding: 60px;
-}
-
-#instructions {
-  background-color: white;
-  margin: auto;
-  margin-top: 20px;
-  border-radius: 1em;
-  max-width: 80%;
-  text-align: left;
-  padding: 60px;
-}
-
-#references{
-  margin: 10px;
 }
 
 footer {
