@@ -162,6 +162,10 @@ button {
   margin-right: 10px;
 }
 
+#message {
+  /**/
+}
+
 #stats-div {
   visibility: hidden;
   background-color: white;
@@ -192,10 +196,6 @@ button {
   margin-bottom: 10px;
 }
 
-/*.cell {
-  background-color: pink;
-}*/
-
 .grid_row {
   display: table-row;
   height: 20px;
@@ -217,14 +217,6 @@ button {
   /*border: 1px solid black;*/
   text-align: center;
 }
-
-/*
-#controls {
-  border: 1px solid black;
-  background-color: white;
-  display: inline-block;
-  margin-left: 100px;
-}*/
 
 #set-seed-button {
   margin-bottom: 5px;
