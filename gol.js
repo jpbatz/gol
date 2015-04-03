@@ -88,6 +88,9 @@ $(document).ready(function() {
     $('#references').css({"display": "none"})
     $('#about').css({"display": "none"})
     $('#intro').css({"display": "block"})
+    $('#stats-div').css({"display": "none"})
+    $('#grid-div').css({"display": "none"})
+    $('#controls-div').css({"display": "none"})
   });
 
   $('#instructions-menu').on('click', function() {
@@ -96,6 +99,9 @@ $(document).ready(function() {
     $('#references').css({"display": "none"})
     $('#about').css({"display": "none"})
     $('#instructions').css({"display": "block"})
+    $('#stats-div').css({"display": "none"})
+    $('#grid-div').css({"display": "none"})
+    $('#controls-div').css({"display": "none"})
   });  
 
   $('#references-menu').on('click', function() {
@@ -104,6 +110,9 @@ $(document).ready(function() {
     $('#instructions').css({"display": "none"})
     $('#about').css({"display": "none"})
     $('#references').css({"display": "block"})
+    $('#stats-div').css({"display": "none"})
+    $('#grid-div').css({"display": "none"})
+    $('#controls-div').css({"display": "none"})
   });
 
   $('#about-menu').on('click', function() {
@@ -112,6 +121,9 @@ $(document).ready(function() {
     $('#instructions').css({"display": "none"})
     $('#references').css({"display": "none"})
     $('#about').css({"display": "block"})
+    $('#stats-div').css({"display": "none"})
+    $('#grid-div').css({"display": "none"})
+    $('#controls-div').css({"display": "none"})
   });
 
 });
