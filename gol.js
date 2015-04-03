@@ -168,6 +168,7 @@ function simulate() {
     speed = $('#selection-speed').val() || speed;
 
     console.log("Creating a grid with dimensions = " + height + "x" + width + " (height x width)");
+    $('#message').html("Dimensions (height x width): " + height + " x " + width + " grid, running at " + speed + "ms/generation");
 
     createGrid(height, width);
     displayGrid();
@@ -227,6 +228,7 @@ function simulate() {
     width = seed_file[0].length;
 
     console.log("Creating a grid with dimensions = " + height + "x" + width + " (height x width)");
+    $('#message').html("Dimensions (height x width): " + height + " x " + width + " grid, running at " + speed + "ms/generation");
 
     createGrid(height, width);
     loadFileSeed();
