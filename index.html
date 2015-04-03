@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CGoL Universe</title>
+    <title>YACGoL Universe</title>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/foundation.min.css" type="text/css" />
     <link rel="stylesheet" href="./styles.css">
   </head>
@@ -15,7 +15,7 @@
     <header>
       <div class="row">
         <div class="large-12 columns">
-          <h2><a href="teolidgrade.com/gol"><span class="bold">YACGoL Universe</span></a></h2>
+          <h2><a href="http://telodigrade.com/gol"><span class="bold">YACGoL Universe</span></a></h2>
           <h5>"a zero player game, for lazy gamers"</h5>
         </div>
       </div>
@@ -25,7 +25,7 @@
       
       <ul class="title-area">
         <li class="name">
-          <h1><a href="telodigrade.com/gol">Home</a></h1>
+          <h1><a href="http://telodigrade.com/gol">Home</a></h1>
         </li>
          <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
         <li class="toggle-topbar menu-icon"><a href="javascript:console.log('[Menu: Mobile Menu]');"><span>Menu</span></a></li>
@@ -91,7 +91,76 @@
           <li><a href="javascript:console.log('[Menu: About]');">About</a></li>
         </ul>
       </section>
-    </nav>
+    </nav>  <!-- end nav -->
+
+    <div id="articles">
+
+      <article id="intro">
+
+        <center>
+
+        <p>Welcome to Yet Another <a href="http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life"><span class="bold">Conway's Game of Life</span></a> (YAC CGoL) simulation model.</p>
+
+        <p>CGol is a <a href="http://en.wikipedia.org/wiki/Cellular_automaton"><span class="bold">cellular automaton</span></a> - "one of a set of units in a mathematical model that have simple rules governing their replication and destruction. They are used to model complex systems composed of simple units such as living things or parallel processors."
+        </p>
+
+        <br>
+
+        <p><span class="underline">The model consists of cells that live or die according to the following <span class="bold">Guidelines</span>:</span></p>
+
+        </center>
+
+        <p>1. CELL IN BALANCE ~ A live cell which has 2 or 3 live neighbors continues on to the next generation.</p>
+
+        <p>2. CELL OUT OF BALANCE ~ A live cell which has 0 or 1 live neighbor, dies of isolation.</p>
+
+        <p>3. CELL IN CHAOS ~ A live cell which has 4 or more live neighbors dies of overcrowding.</p>
+
+        <p>4. THRIVING CELL ~ A dead cell with exactly 3 live neighbors comes to life in the next generation.</p>
+
+        <p>Each cell's immediate neighbors are examined, and that cell's fate in the next generation is automagically determined by the application, according to the guidelines above.  All you have to do is provide a seed pattern and the application does all the work.</p>
+
+      </article>
+
+      <article id="instructions">
+
+        <center><p><span class="underline">There are 3 modes to choose for your starting seed pattern:</span></p></center>
+
+        <p><span class="bold">Random Mode</span> - Creates a default 5x5 grid with a random seed pattern to run at 100ms per generation. Enter your desired Height, Width, or Speed. Press Start to begin your simulation.</p>
+
+        <p><span class="bold">Manual Mode</span> - Challenge yourself to create meaningful or chaotic simulations with seed patterns of your choosing.  Creates a default 5x5 grid to be run at 100ms per generation.  Enter your desired Height, Width, or Speed.  Click on cells to toggle them to a live state.  Press Set-Seed to accept your seed pattern.  Then press Start to begin the simulation.</p>
+
+        <p><span class="bold">Catalog Mode</span> - Select sample seed patterns by categories.  Then press Start to begin the simulation.</p>
+
+        <p>Tip: Enter greater Speeds (smaller values) for larger grid sizes for observing, and lower Speeds (larger values in the thousands) for closer examination.</p>
+
+        <p>Press Pause and Run (Resume) as you wish, to examine the progression of your simulation.</p>
+
+        <p>Press Done to end non-terminating simulations and to reload the page after each simulation.</p>
+
+        <p>Observe the interesting (and sometimes, not so eventful), chaotic, or pleasing patterns that may emerge from generation to generation, based on your initial seed pattern.</p>
+
+        <center><p><span class="underline">A simulation can end in one of 3 ways:</span></p></center>
+
+        <p>1) <span class="bold">Still-Lifes</span> are non-terminating stable patterns for which you should press the Done button to stop the calculations.</p>
+
+        <p>2) <span class="bold">Oscillators</span> are non-terminating patterns which will repeat indefinitely.  Enjoy the show, and press Done when desired.</p>
+
+        <p>3) <span class="bold">Terminating</span> pattern - all cells die off, and the grid goes blank.  No further action is required.</p>
+
+        <p>The challenge is to come up with a seed pattern to create a simulation of your liking in the Manual mode.  You may find some good ideas by observing simulations in the Random and Catalog modes.</p>
+
+        <p>Connect Feature...TBD</p>
+
+      </article>
+
+      <article id="references">
+        <a href="http://en.wikipedia.org/wiki/Cellular_automaton">What is a cellular automaton?</a>
+        &nbsp;&nbsp;&nbsp;
+        <a href="http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Conway's Game of Life</a>
+      </article>
+
+    </div>  <!-- end articles -->
 
     <div id="setup-div">
       <div id="mode-div">
@@ -105,7 +174,7 @@
         <ul id="selection-list">
           <li class="selection-item">Height: <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="height-selection" placeholder="5" size="4" maxlength="3"></li>
           <li class="selection-item">Width: <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="width-selection" placeholder="5" size="4" maxlength="3"></li>
-          <li class="selection-item">Speed: <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="selection-speed" placeholder="100ms" size="5" maxlength="4"></li>
+          <li class="selection-item">Speed: <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="selection-speed" placeholder="100ms" size="6" maxlength="4"></li>
           <li class="selection-item"><button id="select-create-button" class="create-button small radius info">Create</button></li>
         </ul>
 
@@ -129,14 +198,14 @@
               </optgroup>
             </select>
           </li>
-          <li class="select-sample-item">Speed: <input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" id="sample-speed" placeholder="100ms" size="5" maxlength="4"></li>
+          <li class="select-sample-item">Speed: <input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" id="sample-speed" placeholder="100ms" size="6" maxlength="4"></li>
           <li class="select-sample-item"><button id="sample-create-button" class="create-button small radius info">Create</button></li>
         </ul>
 
       </div>  <!-- end #selection-div -->
     </div> <!-- end #setup-div -->
 
-    <div>
+    <div id="message-div">
       <p id="message"></p>
     </div>
 
@@ -162,71 +231,6 @@
       </div>
       
     </div>  <!-- end #controls-div -->
-
-    <article id="intro">
-
-      <center>
-
-      <p>Welcome to Yet Another <a href="http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life"><span class="bold">Conway's Game of Life</span></a> (YAC CGoL) simulation model.</p>
-
-      <p>CGol is a <a href="http://en.wikipedia.org/wiki/Cellular_automaton"><span class="bold">cellular automaton</span></a> - "one of a set of units in a mathematical model that have simple rules governing their replication and destruction. They are used to model complex systems composed of simple units such as living things or parallel processors."
-      </p>
-
-      <br>
-
-      <p><span class="underline">The model consists of cells that live or die according to the following <span class="bold">Guidelines</span>:</span></p>
-
-      </center>
-
-      <p>1. CELL IN BALANCE ~ A live cell which has 2 or 3 live neighbors continues on to the next generation.</p>
-
-      <p>2. CELL OUT OF BALANCE ~ A live cell which has 0 or 1 live neighbor, dies of isolation.</p>
-
-      <p>3. CELL IN CHAOS ~ A live cell which has 4 or more live neighbors dies of overcrowding.</p>
-
-      <p>4. THRIVING CELL ~ A dead cell with exactly 3 live neighbors comes to life in the next generation.</p>
-
-      <p>Each cell's immediate neighbors are examined, and that cell's fate in the next generation is automagically determined by the application, according to the guidelines above.  All you have to do is provide a seed pattern and the application does all the work.</p>
-
-    </article>
-
-    <article id="instructions">
-
-      <center><p><span class="underline">There are 3 modes to choose for your starting seed pattern:</span></p></center>
-
-      <p><span class="bold">Random Mode</span> - Creates a default 5x5 grid with a random seed pattern to run at 100ms per generation. Enter your desired Height, Width, or Speed. Press Start to begin your simulation.</p>
-
-      <p><span class="bold">Manual Mode</span> - Challenge yourself to create meaningful or chaotic simulations with seed patterns of your choosing.  Creates a default 5x5 grid to be run at 100ms per generation.  Enter your desired Height, Width, or Speed.  Click on cells to toggle them to a live state.  Press Set-Seed to accept your seed pattern.  Then press Start to begin the simulation.</p>
-
-      <p><span class="bold">Catalog Mode</span> - Select sample seed patterns by categories.  Then press Start to begin the simulation.</p>
-
-      <p>Tip: Enter greater Speeds (smaller values) for larger grid sizes for observing, and lower Speeds (larger values in the thousands) for closer examination.</p>
-
-      <p>Press Pause and Run (Resume) as you wish, to examine the progression of your simulation.</p>
-
-      <p>Press Done to end non-terminating simulations and to reload the page after each simulation.</p>
-
-      <p>Observe the interesting (and sometimes, not so eventful), chaotic, or pleasing patterns that may emerge from generation to generation, based on your initial seed pattern.</p>
-
-      <center><p><span class="underline">A simulation can end in one of 3 ways:</span></p></center>
-
-      <p>1) <span class="bold">Still-Lifes</span> are non-terminating stable patterns for which you should press the Done button to stop the calculations.</p>
-
-      <p>2) <span class="bold">Oscillators</span> are non-terminating patterns which will repeat indefinitely.  Enjoy the show, and press Done when desired.</p>
-
-      <p>3) <span class="bold">Terminating</span> pattern - all cells die off, and the grid goes blank.  No further action is required.</p>
-
-      <p>The challenge is to come up with a seed pattern to create a simulation of your liking in the Manual mode.  You may find some good ideas by observing simulations in the Random and Catalog modes.</p>
-
-      <p>Connect Feature...TBD</p>
-
-    </article>
-
-    <article id="references">
-      <a href="http://en.wikipedia.org/wiki/Cellular_automaton">What is a cellular automaton?</a>
-      &nbsp;&nbsp;&nbsp;
-      <a href="http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Conway's Game of Life</a>
-    </article>
 
     <footer>
       &copy; 2015 No rights reserved by Open Zen Gamers Collective

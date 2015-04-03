@@ -74,6 +74,7 @@ $(document).ready(function() {
 
   });
 
+  // needs to be called out here so not to have multiple grids appended
   $('.create-button').on('click', simulate);
 
   $("#start-run-pause-button").on('click', function() {
@@ -81,8 +82,6 @@ $(document).ready(function() {
     updateNextGen();
   });
 
-  // needs to be called out here so not to have multiple grids appended
-  // $('#create-button').on('click', simulate);
 });
 
 // ========================== MAIN FUNCTION ==========================
