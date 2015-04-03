@@ -17,7 +17,7 @@ var run = false;
 $(document).ready(function() {
 
   // bind 'grid_view' as a property
-  grid_view = $('#grid_div');
+  grid_view = $('#grid-div');
   
   // bind 'controls' as a property
   // this.controls = $('<div id="controls_div">');
