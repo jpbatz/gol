@@ -5,14 +5,14 @@ var runMode = "random";     // default run mode is random
 var grid_view;              // view: to be assigned once after document ready
 var grid_data = [];         // data: contains rows []
 var generation = 1;         // generation count
+var livePopulation = 0;
 var seed_file = seed_glider;
 var selected_seed_file = seed_file;
 var setIntervalID;          // for setInterval termination
-var count = 2;              // determines Run or Pause
+var run = false;
 var liveCellColor = "purple";
 var deadCellColor = "white";
 // var deadCellColor = "#FFEFD5"; // papayawhip does not work
-var run = false;
 
 $(document).ready(function() {
 
@@ -61,7 +61,6 @@ $(document).ready(function() {
       runMode = "catalog";
 
       $('#selection-list').css({"display": "none"});
-      // $('#selection-list').remove();
       $('#selection-list').css({"visibility": "hidden"});
       $('#select-sample-list').css({"visibility": "visible"});
       $('#select-create-button').css({"visibility": "hidden"});
@@ -380,6 +379,7 @@ function loadFileSeed() {
  */
 function displayGrid() {
   console.log("[displayGrid()]");
+  livePopulation = 0;
   for(var row4=0; row4<height; row4++) {
     for(var col4=0; col4<width; col4++) {
       var cellColor = deadCellColor;
@@ -387,10 +387,13 @@ function displayGrid() {
         cellColor = deadCellColor;
       } else if(grid_data[row4][col4].alive === true){
         cellColor = liveCellColor;
+        livePopulation++;
       }
       grid_data[row4][col4].domDiv.style.backgroundColor = cellColor;
       // grid_data[row4][col4].domDiv.innerHTML = grid_data[row4][col4].cell_num;
       console.log("[display grid] CELL NUMBER = " + grid_data[row4][col4].cell_num + " for (" + row4 + "," + col4 + ") alive = " + grid_data[row4][col4].alive);
+      $('#generation-stats').html(generation);
+      $('#live-cells-stats').html(livePopulation);    // too late
     }
   }
 }
@@ -535,10 +538,7 @@ function updateNextGen() {
     console.log("***** PLAY *****");
     $("#start-run-pause-button").html("Pause");
     setIntervalID = setInterval(function(){
-      var livePopulation = getPopulation(grid_data);
-      $('#live-cells-stats').html(livePopulation);    // too late
       if(livePopulation > 0) {
-        $('#generation-stats').html(generation);
         calcNextGeneration();
         setNextGenLifeStatus();
         displayGrid();
@@ -597,10 +597,12 @@ function reloadGame() {
   runMode = "random";   // default run mode is random
   grid_view.html("");   // view: clear grid on page
   grid_data = [];       // data: clear grid data
+  generation = 1;         // generation count
+  livePopulation = 0;
   seed_file = seed_glider;  // revert default seed
   selected_seed_file = seed_file;
   setIntervalID = 0;
-  count = 2;
+  run = false;
 
   location.reload(true);
 }
