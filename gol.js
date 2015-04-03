@@ -196,6 +196,10 @@ function simulate() {
     console.log("[simulate()] selected_seed_file: " + selected_seed_file);
     
     switch(selected_seed_file) {
+      case "tumbler": {
+        seed_file = seed_tumbler;
+        break;
+      }
       case "fig8": {
         seed_file = seed_fig8;
         break;
@@ -600,19 +604,5 @@ function clearGridData() {
 function reloadGame() {
 
   console.log("[reloadGame] " + grid_view);
-
-  // height = 5;           // revert height
-  // width = 5;            // revert width
-  // speed = 100;          // simulation speed default
-  // runMode = "random";   // default run mode is random
-  // grid_view.html("");   // view: clear grid on page
-  // grid_data = [];       // data: clear grid data
-  // generation = 1;         // generation count
-  // livePopulation = 0;
-  // seed_file = seed_glider;  // revert default seed
-  // selected_seed_file = seed_file;
-  // setIntervalID = 0;
-  // run = false;
-
   location.reload(true);
 }
