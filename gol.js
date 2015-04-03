@@ -83,6 +83,7 @@ $(document).ready(function() {
   });
 
   $('#welcome-menu').on('click', function() {
+    $('#setup-div').css({"display": "none"})
     $('#instructions').css({"display": "none"})
     $('#references').css({"display": "none"})
     $('#about').css({"display": "none"})
@@ -90,6 +91,7 @@ $(document).ready(function() {
   });
 
   $('#instructions-menu').on('click', function() {
+    $('#setup-div').css({"display": "none"})
     $('#intro').css({"display": "none"})
     $('#references').css({"display": "none"})
     $('#about').css({"display": "none"})
@@ -97,6 +99,7 @@ $(document).ready(function() {
   });  
 
   $('#references-menu').on('click', function() {
+    $('#setup-div').css({"display": "none"})
     $('#intro').css({"display": "none"})
     $('#instructions').css({"display": "none"})
     $('#about').css({"display": "none"})
@@ -104,6 +107,7 @@ $(document).ready(function() {
   });
 
   $('#about-menu').on('click', function() {
+    $('#setup-div').css({"display": "none"})
     $('#intro').css({"display": "none"})
     $('#instructions').css({"display": "none"})
     $('#references').css({"display": "none"})
