@@ -156,7 +156,7 @@ function simulate() {
     speed = $('#selection-speed').val() || speed;
 
     console.log("Creating a grid with dimensions = " + height + "x" + width + " (height x width)");
-    $('#message').html("[" + runMode.toUpperCase() +"] Dimensions (height x width): " + height + " x " + width + " grid, running at " + speed + "ms/generation");
+    $('#message').html(runMode.toUpperCase() +" Mode ~ Grid Dimensions (height x width) = " + height + " x " + width + " ~ Run Speed = " + speed + "ms/generation");
 
     createGrid(height, width);
     generateRandomSeed();
@@ -168,7 +168,7 @@ function simulate() {
     speed = $('#selection-speed').val() || speed;
 
     console.log("Creating a grid with dimensions = " + height + "x" + width + " (height x width)");
-    $('#message').html("[" + runMode.toUpperCase() +"] Dimensions (height x width): " + height + " x " + width + " grid, running at " + speed + "ms/generation");
+    $('#message').html(runMode.toUpperCase() +" Mode ~ Grid Dimensions (height x width) = " + height + " x " + width + " ~ Run Speed = " + speed + "ms/generation");
 
     createGrid(height, width);
     displayGrid();
@@ -228,7 +228,7 @@ function simulate() {
     width = seed_file[0].length;
 
     console.log("Creating a grid with dimensions = " + height + "x" + width + " (height x width)");
-    $('#message').html("[" + runMode.toUpperCase() +"] Dimensions (height x width): " + height + " x " + width + " grid, running at " + speed + "ms/generation");
+    $('#message').html(runMode.toUpperCase() +" Mode ~ Grid Dimensions (height x width) = " + height + " x " + width + " ~ Run Speed = " + speed + "ms/generation");
 
     createGrid(height, width);
     loadFileSeed();
