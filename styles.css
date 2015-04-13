@@ -81,6 +81,18 @@ button {
   border-bottom-right-radius: 1em;
 }
 
+#account-list {
+  border-radius: 1em;
+}
+
+.account-item {
+  border-radius: 1em;
+}
+
+.account-item-a {
+  border-radius: 1em;
+}
+
 #intro, #instructions, #references, #about {
   display: none;
   background-color: white;
