@@ -1,5 +1,5 @@
-var height = 5;             // height = rows = y
-var width = 5;              // width = cols = x
+var height = 21;             // height = rows = y
+var width = 21;              // width = cols = x
 var speed = 100;            // simulation speed
 var runMode = "random";     // default run mode is random
 var grid_view;              // view: to be assigned once after document ready
@@ -594,25 +594,29 @@ function clearGridData() {
 }
 
 /**
- * clearGrid() - removes grid
+ * resetData()
+ * @return {[type]} [description]
+ */
+function resetData() {
+  height = 21;           // revert height
+  width = 21;            // revert width
+  speed = 100;          // simulation speed default
+  runMode = "random";   // default run mode is random
+  grid_view.html("");   // view: clear grid on page
+  grid_data = [];       // data: clear grid data
+  generation = 1;         // generation count
+  livePopulation = 0;
+  seed_file = seed_glider;  // revert default seed
+  selected_seed_file = seed_file;
+  setIntervalID = 0;
+  run = false;
+}
+
+/**
+ * reloadGame() - removes grid
  * @return {[type]} [description]
  */
 function reloadGame() {
-
   console.log("[reloadGame] " + grid_view);
-
-  // height = 5;           // revert height
-  // width = 5;            // revert width
-  // speed = 100;          // simulation speed default
-  // runMode = "random";   // default run mode is random
-  // grid_view.html("");   // view: clear grid on page
-  // grid_data = [];       // data: clear grid data
-  // generation = 1;         // generation count
-  // livePopulation = 0;
-  // seed_file = seed_glider;  // revert default seed
-  // selected_seed_file = seed_file;
-  // setIntervalID = 0;
-  // run = false;
-
   location.reload(true);
 }
